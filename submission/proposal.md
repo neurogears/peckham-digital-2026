@@ -5,6 +5,8 @@
 
 ## Description of the Workshop, Talk, Demo or Performance (200 words)
 
+<!-- TODO: Cut about 50 words -->
+
 Bonsai (https://bonsai-rx.org/) is an open-source visual reactive programming language that lets users compose streams of data — from cameras, microphones, and sensors — into real-time interactive systems. Though it was born in the neuroscience lab, its dataflow model is ideally suited to creative computing: every input is a stream of events, and every transformation is a composable, real-time operator. Bonsai has a rapidly growing ecosystem of packages for interacting with hardware, creating computer vision workflows, and running live machine learning models. The language is also highly extensible and users can easily create their own packages and plugins.
 
 This session introduces Bonsai through the lens of an interactive installation. Starting from a blank canvas, we will build a live demo that reads from a camera and microphone, processes those signals in real time, and routes the results to visual output and audio effects — showing how a handful of connected nodes can produce expressive, reactive behaviour.
@@ -18,6 +20,8 @@ Participants will leave with a working Bonsai workflow, an understanding of its 
 ---
 
 ## Facilitator Statement (250 words)
+
+<!-- TODO: Cut about 50 words -->
 
 The facilitators for this demo will be members of NeuroGEARS (https://neurogears.org/), an independent research group and software company committed to the open-source software ethos. The team develops the Bonsai programming language and their work sits at the intersection of software engineering, systems neuroscience, and creative technology - building tools that let scientists and, increasingly, artists work with realtime data streams in an intuitive, visual way. 
 
