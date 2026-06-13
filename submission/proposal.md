@@ -62,7 +62,7 @@ That feedback will directly shape how we develop and communicate the platform go
 - Set of cameras, sensors, microphones etc. to be used in the demo and distributed to participants for hands-on portion
 
 **For attendees (guided activity):**
-- Attendees wishing to participate in the hands-on portion should bring a Windows laptop. Although Bonsai can run on Linux, it is primarily developed for Windows and issues with some of the editor features and visualizations may arise on Linuc.
+- Attendees wishing to participate in the hands-on portion should bring a Windows laptop. Although Bonsai can run on Linux, it is primarily developed for Windows and issues with some of the editor features and visualizations may arise on Linux.
 - Bonsai should be installed in advance — it is free and open source
   - Download and installation guide: https://bonsai-rx.org/
 - Attendees without a Windows machine are still very welcome; they can follow along and pair with others during the hands-on section
