@@ -55,18 +55,15 @@ That feedback will directly shape how we develop and communicate the platform go
 
 **Provided by venue:**
 - Projector and large screen (the live coding demo requires node graphs to be legible from the back of the room)
-- Sound system with stereo speakers and a line-in or audio input (the demo includes live audio processing)
-- A table or desk with a power socket for the presenter's laptop
+- A table or desk for the presenter's laptop, several power sockets/banks for powered sensors
 
-**Brought by presenter:**
-- Laptop running Windows (Bonsai is a Windows application) with Bonsai pre-installed
-- Webcam and/or microphone for the interactive installation demo
+**Brought by presenters:**
+- Laptop for presentation
+- Set of cameras, sensors, microphones etc. to be used in the demo and distributed to participants for hands-on portion
 
 **For attendees (guided activity):**
-- Attendees wishing to participate in the hands-on portion should bring a Windows laptop
+- Attendees wishing to participate in the hands-on portion should bring a Windows laptop. Although Bonsai can run on Linux, it is primarily developed for Windows and issues with some of the editor features and visualizations may arise on Linuc.
 - Bonsai should be installed in advance — it is free and open source
   - Download and installation guide: https://bonsai-rx.org/
-  - Installation typically takes 10–15 minutes; attendees should do this before the session
 - Attendees without a Windows machine are still very welcome; they can follow along and pair with others during the hands-on section
 
-> **Note:** Bonsai currently runs on Windows only. This is worth flagging clearly in any pre-event communications so attendees can plan accordingly.
