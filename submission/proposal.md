@@ -45,9 +45,8 @@ That feedback will directly shape how we develop and communicate the platform go
 
 ## Media Attachment (Videos & Images)
 
-<!-- TODO: Add an unlisted YouTube link or image gallery link once available. Must remain accessible until 20th July 2026. -->
-
-*To be added — a short video demonstrating a Bonsai audiovisual patch in action.*
+[Exploring neural data in VR](https://www.youtube.com/watch?v=mJDV07ptQFk&t=39s)
+[Interactive digital performance](https://www.youtube.com/watch?v=jKB0d9vsfgA)
 
 ---
 
