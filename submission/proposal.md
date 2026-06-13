@@ -35,13 +35,11 @@ Individual facilitators:
 
 ## How will this help your professional development? (200 words)
 
-<!-- TODO: Horrible, rewrite -->
+Bonsai was built for science, but the ideas behind it — composable data streams, real-time interaction, hardware abstraction — are not scientific ideas. They are general-purpose tools for working with the real-time world, and NeuroGEARS has long believed that their natural audience extends well beyond the research lab.
 
-Presenting at Peckham Digital represents a meaningful step toward building a bridge between the scientific computing community and the creative technology world. Bonsai has a large and growing base of scientific users, but practitioners working in art, music, and interactive design represent an entirely different set of needs, aesthetics, and ways of working.
+We hope that presenting at Peckham Digital will be a concrete step in reaching that audience. The creative technology community represents a set of users, workflows, and aesthetic ambitions that are distinct from those of the neuroscience labs where Bonsai grew up. Engaging with that community directly will help us understand what a creative practitioner actually needs from a tool like Bonsai: what the barriers to entry are, where the documentation falls short, and what kinds of expressive power matter most outside a scientific context.
 
-Engaging directly with that audience will sharpen my ability to communicate technical ideas without lab-specific jargon, and expose me to creative use cases that will feed back into the tool's ongoing design and development. The festival's commitment to accessibility and community aligns closely with NeuroGears' open-source ethos, and presenting here is an opportunity to build relationships with practitioners who may become collaborators, contributors, or advocates for Bonsai in new contexts.
-
-More broadly, preparing and delivering a demo to a general public audience — rather than a specialist scientific one — will strengthen my skills as a communicator and educator. Receiving feedback from creative practitioners will give me a clearer picture of what this community needs from a tool like Bonsai, and help shape how we document and teach it going forward. I also hope to leave with a network of contacts in the London creative technology scene who share an interest in reactive, sensor-driven work.
+That feedback will directly shape how we develop and communicate the platform going forward — informing new packages, tutorials, and examples aimed at artists, musicians, and interaction designers rather than researchers. More broadly, this is an opportunity for NeuroGEARS to build relationships with the London creative technology scene and to establish Bonsai as a serious option for live, sensor-driven creative work.
 
 ---
 
