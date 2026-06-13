@@ -28,7 +28,7 @@ This demo is part of a broader effort to introduce Bonsai to the creative commun
 Individual facilitators:
 
 - Andrew Erskine (https://www.andrewerskine.uk/) has over a decade of experience working in neuroscience labs writing software to control closed-loop, interactive experiments. He has been an engineer at NeuroGEARS for the past 4 years, during which he has helped develop the Bonsai ecosystem and build the community through school outreach, conferences and workshops. 
-- Nicholas Guilbeault <!-- TODO: Nic add your section -->
+- Nicholas Guilbeault (https://ncguilbeault.com) is a research software engineer and a trained neuroscientist. His PhD research centred on developing real-time, closed-loop fish VR experiments combining computer vision, behavioral tracking, and visual stimulation. He then moved to UCL's Gatsby Computational Neuroscience Unit to develop Bonsai.ML which brings machine learning into the Bonsai ecosystem. He has contributed numerous packages and applications to the open-source Bonsai ecosystem.
  
 
 ---
