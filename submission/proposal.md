@@ -47,6 +47,7 @@ That feedback will directly shape how we develop and communicate the platform go
 
 [Exploring neural data in VR](https://www.youtube.com/watch?v=mJDV07ptQFk&t=39s)
 [Interactive digital performance](https://www.youtube.com/watch?v=jKB0d9vsfgA)
+[General introduction to Bonsai](https://www.youtube.com/watch?v=wPUCuSMCB-U)
 
 ---
 
