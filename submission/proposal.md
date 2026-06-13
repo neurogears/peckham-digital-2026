@@ -19,7 +19,7 @@ After the demonstration, attendees will have the chance to fork the demo and exp
 
 This demo will be facilitated by NeuroGEARS (https://neurogears.org/), an independent research group and company developing the open-source Bonsai programming language. Bonsai began as a laboratory instrument, developed by Goncalo Lopes (now director of NeuroGEARS) during his PhD as a way for neuroscientists to integrate and synchronise diverse data streams from cameras, peripheral sensors, and electrophysiology equipment without writing low-level code. Over the past decade it has grown into a mature, community-driven platform used in research worldwide and, increasingly, artists for creating interactive art. The language's reactive model has a natural home beyond the lab; it provides a software framework for live performance art, audiovisual installations, and anything demanding routing and transforming sensor data in real time.
 
-This demo is part of a broader effort to introduce Bonsai to the creative computing community and to learn from artists and makers who may push the tool in directions the scientific community never imagined. 
+This demo is part of a broader effort to introduce Bonsai to the creative computing community and to learn from artists and makers who may push the tool in directions the scientific community never imagined.
 
 Individual facilitators:
 - Andrew Erskine (https://www.andrewerskine.uk/) has over a decade of experience working in neuroscience labs as a researcher and software engineer. He then moved to NeuroGEARS where he has helped develop the Bonsai ecosystem and build the community through school outreach, conferences and workshops. 
@@ -30,11 +30,11 @@ Individual facilitators:
 
 ## How will this help your professional development? (200 words)
 
-Bonsai was built for science, but the ideas behind it — composable data streams, real-time interaction, hardware abstraction — are not scientific ideas. They are general-purpose tools for working with the real-time world, and NeuroGEARS has long believed that their natural audience extends well beyond the research lab.
+Bonsai was built for science, but the ideas behind it — composable data streams, real-time interaction, hardware abstraction — are not restricted to scientific domains. Bonsai is a general programming language for interacting with the real-time world, and NeuroGEARS has long believed that their natural audience extends well beyond the research lab.
 
-We hope that presenting at Peckham Digital will be a concrete step in reaching that audience. The creative technology community represents a set of users, workflows, and aesthetic ambitions that are distinct from those of the neuroscience labs where Bonsai grew up. Engaging with that community directly will help us understand what a creative practitioner actually needs from a tool like Bonsai: what the barriers to entry are, where the documentation falls short, and what kinds of expressive power matter most outside a scientific context.
+We hope that presenting at Peckham Digital will be a concrete step in reaching that audience. The creative technology community represents a set of users, applications, and aesthetic ambitions that are distinct from those of the neuroscience labs where Bonsai has its roots. Engaging with that community directly will help us understand what a creative practitioner actually needs from a tool like Bonsai, and where it currently falls short.
 
-That feedback will directly shape how we develop and communicate the platform going forward — informing new packages, tutorials, and examples aimed at artists, musicians, and interaction designers rather than researchers. More broadly, this is an opportunity for NeuroGEARS to build relationships with the London creative technology scene and to establish Bonsai as a serious option for live, sensor-driven creative work.
+That feedback will directly shape how we develop and communicate the platform going forward, informing new packages, tutorials, and examples aimed at artists, musicians, and interaction designers rather than researchers. More broadly, this is an opportunity for NeuroGEARS to build relationships with the London creative technology scene and to establish Bonsai as a serious option for live, sensor-driven creative work.
 
 ---
 
