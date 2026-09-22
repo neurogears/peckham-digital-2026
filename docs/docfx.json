@@ -1,0 +1,60 @@
+{
+  "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
+  "build": {
+    "content": [
+      {
+        "files": [
+          "*.md",
+          "toc.yml",
+          "{articles,tutorials,examples,slides,worksheets}/**/*.md",
+          "{articles,tutorials,examples,slides,worksheets}/**/toc.yml"
+        ],
+        "exclude": "README.md"
+      },
+      {
+        "src": "../artifacts/docs/api/",
+        "dest": "api",
+        "files": "**/*.yml"
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "images/**",
+          "workflows/**/*.{bonsai,svg}",
+          "{articles,tutorials,examples,worksheets,slides}/**/*.{bonsai,svg}"
+        ]
+      }
+    ],
+    "overwrite": [
+      "apidoc/**/*.md"
+    ],
+    "output": "../artifacts/docs/site/",
+    "template": [
+      "default",
+      "modern",
+      "bonsai-docfx/template",
+      "template"
+    ],
+    "sitemap": {
+      "baseUrl": "https://neurogears.org/peckham-digital-2026"
+    },
+    "globalMetadata": {
+      "_appName": "NeuroGEARS",
+      "_appTitle": "NeuroGEARS",
+      "_appFooter": "&copy; Developed by <a href=\"https://neurogears.org\">NeuroGEARS Ltd</a> for the Peckham Digital, Festival of Creative Computing 2026",
+      "_enableNewTab": true,
+      "_enableSearch": true,
+      "_gitContribute": {
+        "apiSpecFolder": "docs/apidoc"
+      },
+      "_disableContribution": true
+    },
+    "markdownEngineProperties": {
+      "markdigExtensions": [
+        "attributes",
+        "customcontainers"
+      ]
+    }
+  }
+}
