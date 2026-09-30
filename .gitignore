@@ -3,3 +3,11 @@
 **/.bonsai/Packages/
 **/.bonsai/Settings/
 /artifacts/
+
+# Data recorded while testing workflows
+*.avi
+*.wav
+*.csv
+
+# Editor layout for the root playground workflow
+/playground.bonsai.layout
