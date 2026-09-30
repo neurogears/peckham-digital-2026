@@ -14,14 +14,14 @@ This is a tentative schedule for the workshop. Details will be confirmed closer 
 
 | Part | Duration | Materials |
 | --- | --- | --- |
-| Introduction to Bonsai | 15 min | [Slides](slides/slides.md) |
-| Live demos: machine vision, audio, shaders and interfacing with devices | 55 min | [Worksheets](worksheets/worksheets.md) |
+| Introduction to Bonsai | 15 min | [Slides](slides/index.md) |
+| Live demos: machine vision, audio, shaders and interfacing with devices | 55 min | [Worksheets](worksheets/index.md) |
 | Final show and tell, questions | 20 min | |
 
 ## Before you arrive
 
 1. Bring a laptop running Windows 10 or later. Bonsai can run on Linux, but it is developed primarily for Windows.
-2. Install Bonsai in advance by following the [Getting Started](worksheets/worksheets.md) worksheet. It is free and open source, and installing ahead of time will save time during the workshop.
+2. Install Bonsai in advance by following the [Getting Started](worksheets/01-getting-started.md) worksheet. It is free and open source, and installing ahead of time will save time during the workshop.
 
 ## During the session
 
@@ -30,8 +30,8 @@ This is a tentative schedule for the workshop. Details will be confirmed closer 
 
 ## Sections
 
-- **[Slides](slides/slides.md)** — the introductory talk.
-- **[Worksheets](worksheets/worksheets.md)** — step-by-step exercises for the hands-on session, with downloadable workflows.
+- **[Slides](slides/index.md)** — the introductory talk.
+- **[Worksheets](worksheets/index.md)** — step-by-step exercises for the hands-on session, with downloadable workflows.
 
 ## Further reading
 
