@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WorkflowBuilder Version="2.9.1"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:gl="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders"
+                 xmlns:res="clr-namespace:Bonsai.Resources;assembly=Bonsai.System"
+                 xmlns:cv="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision"
+                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
+                 xmlns="https://bonsai-rx.org/2018/workflow">
+  <Workflow>
+    <Nodes>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:CreateWindow">
+          <gl:Width>1280</gl:Width>
+          <gl:Height>720</gl:Height>
+          <gl:Title>Peckham Digital</gl:Title>
+          <gl:ClearColor>Black</gl:ClearColor>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:ShaderResources">
+          <gl:Shaders>
+            <gl:ShaderConfiguration xsi:type="gl:Material">
+              <gl:Name>Camera</gl:Name>
+              <gl:RenderState />
+              <gl:ShaderUniforms />
+              <gl:BufferBindings />
+              <gl:FramebufferAttachments />
+              <gl:VertexShader>shaders\quad.vert</gl:VertexShader>
+              <gl:FragmentShader>shaders\camera.frag</gl:FragmentShader>
+            </gl:ShaderConfiguration>
+          </gl:Shaders>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:TextureResources">
+          <gl:Textures>
+            <gl:TextureConfiguration xsi:type="gl:Texture2D">
+              <gl:Name>CameraTexture</gl:Name>
+            </gl:TextureConfiguration>
+          </gl:Textures>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:MeshResources">
+          <gl:Meshes>
+            <gl:MeshConfiguration xsi:type="gl:TexturedQuad">
+              <gl:Name>Quad</gl:Name>
+              <gl:QuadEffects>None</gl:QuadEffects>
+            </gl:MeshConfiguration>
+          </gl:Meshes>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="res:LoadResources" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:RenderFrame" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:BindTexture">
+          <gl:TextureSlot>Texture0</gl:TextureSlot>
+          <gl:ShaderName>Camera</gl:ShaderName>
+          <gl:TextureName>CameraTexture</gl:TextureName>
+          <gl:TextureTarget>Texture2D</gl:TextureTarget>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:DrawMesh">
+          <gl:ShaderName>Camera</gl:ShaderName>
+          <gl:MeshName>Quad</gl:MeshName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="cv:CameraCapture">
+          <cv:Index>0</cv:Index>
+          <cv:CaptureProperties />
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="rx:PublishSubject">
+        <Name>Image</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Image</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="cv:Flip">
+          <cv:Mode>Vertical</cv:Mode>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:UpdateTexture">
+          <gl:TextureName>CameraTexture</gl:TextureName>
+          <gl:TextureTarget>Texture2D</gl:TextureTarget>
+          <gl:InternalFormat>Rgba</gl:InternalFormat>
+        </Combinator>
+      </Expression>
+    </Nodes>
+    <Edges>
+      <Edge From="0" To="1" Label="Source1" />
+      <Edge From="1" To="2" Label="Source1" />
+      <Edge From="2" To="3" Label="Source1" />
+      <Edge From="3" To="4" Label="Source1" />
+      <Edge From="5" To="6" Label="Source1" />
+      <Edge From="6" To="7" Label="Source1" />
+      <Edge From="8" To="9" Label="Source1" />
+      <Edge From="10" To="11" Label="Source1" />
+      <Edge From="11" To="12" Label="Source1" />
+    </Edges>
+  </Workflow>
+</WorkflowBuilder>
