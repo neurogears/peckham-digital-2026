@@ -36,6 +36,7 @@ puts the workflow XML on the clipboard. So nothing but the `.bonsai` files needs
 | `02-live-demo-07.bonsai` | | 7 Spectrum | renders |
 | `02-live-demo-08.bonsai` | | 8 Winamp-style visualizers | Nick, placeholder |
 | `02-live-demo-09.bonsai` | | 9 Sound sets the threshold | renders |
+| `02-live-demo-10.bonsai` | | 10 Sound draws the lines | renders |
 | `02-live-demo-11.bonsai` | | 11 Camera on the GPU | renders |
 | `02-live-demo-12.bonsai` | | 12 Warp | renders |
 | `02-live-demo-13.bonsai` | | 13 Keyboard | renders |
