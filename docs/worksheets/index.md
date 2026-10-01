@@ -18,7 +18,6 @@ demo and make it yours.
 - `CameraCapture`: a name in code font is an operator to add to a workflow. Type it into
   the toolbox search box and press Enter, or drag it onto the canvas.
 - **Exercise** headings mark something for you to build.
-- Exercises marked *(Optional)* can be skipped if you are short on time.
 - Every workflow figure has a copy button in its top right corner. Click it, then click on
   the empty canvas in Bonsai and paste. The nodes appear wired up and configured.
 

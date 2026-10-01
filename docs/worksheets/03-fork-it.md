@@ -27,7 +27,7 @@ If you have a device Bonsai can't speak to, get in touch!
 * **Before the GPU.** Put `Canny`, `Threshold`, `Smooth` or `ConvertColor` between `Image` and `UpdateTexture`. The shader warps whatever it is given.
 * **Inside the GPU.** Open `shaders/camera.frag` from the workshop folder in a text editor. Try...
   - swapping `uv.x` and `uv.y` 
-  - multiplying the colour by `vec4(1.0, 0.3, 0.3, 1.0)`
+  - multiplying the colour by `vec3(1.0, 0.3, 0.3)`
   - replacing the `sin` with `abs(sin(...))`; 
   - adding a second ripple at a different frequency. 
 

@@ -71,7 +71,7 @@ We want one number that says "how much is moving right now".
 > If the number sits at zero, check that the visualizer on `BackgroundSubtraction` shows
 > anything at all. Very low light gives the camera nothing to subtract.
 
-### **Exercise 4 (Optional):** Track a coloured object
+### **Exercise 4:** Track a coloured object
 
 :::workflow
 ![Track a coloured object](../workflows/02-live-demo-04.bonsai)
@@ -110,8 +110,12 @@ buffer as a small matrix, so the same maths operators that work on images work o
 
 We want one number for "how loud is it right now", the audio twin of `Motion`.
 
-* After `AudioCapture`, add `Pow` (from **Dsp**) and set `Power` to 2. Negative and
-  positive swings now both count.
+* After `AudioCapture`, add `ConvertScale` and set `Depth` to `F32`. The microphone delivers
+  whole numbers; this turns them into decimals so the next step has room to work.
+* Add `Pow` (from **Dsp**) and set `Power` to 2. Negative and positive swings now both count.
+* Add `RunningAverage` with `Alpha` 0.2. This blends each buffer with the ones before it, so
+  the number moves smoothly instead of jittering. A smaller `Alpha` is smoother but slower
+  to react.
 * Add `Average`. One number per buffer: the mean power.
 * Right-click `Average` and select `Scalar` > `Val0`.
 * Add another `Pow` and set `Power` to 0.5. This is the square root, so the number is back
@@ -121,16 +125,30 @@ We want one number for "how loud is it right now", the audio twin of `Motion`.
 
 > [!NOTE]
 > The raw value depends on your microphone and its gain. Note the range you see when quiet
-> and when loud, you will map it in the next part.
+> and when loud, you will map it in the next part. With a laptop microphone, a quiet room
+> sits around 30 to 50, talking around 100 to 300, and shouting reaches 1000 or more. The
+> checkpoints treat 600 as "loud".
 
-### **Exercise 7 (Optional):** Spectrum
+> [!TIP]
+> Why convert to decimals first? Squaring a loud sample gives a number too big for the
+> microphone's whole-number format, so it gets cut off at the top. Without `ConvertScale`
+> the loudness can never climb past about 180, however loud the room gets.
+
+### **Exercise 7:** Spectrum
 
 :::workflow
 ![Spectrum](../workflows/02-live-demo-07.bonsai)
 :::
 
+A Fourier transform splits each buffer of sound into its frequencies, from low to high.
+
 * In a new branch from `AudioCapture`, add `DiscreteFourierTransform`, then `Magnitude`.
-* Run and open the visualizer on `Magnitude`. Whistle and watch the peak move.
+* Run and open the visualizer on `Magnitude`. Notice the peaks sit at both edges. The
+  transform outputs every frequency twice, mirrored, with the low notes at each end.
+* Add a `Submatrix` after `Magnitude` and set `EndCol` to 60. Each column is 100 Hz wide, so
+  this keeps 0 to 6000 Hz, which covers voices and whistles, with low notes on the left.
+* Open the visualizer on `Submatrix`. Whistle and watch the peak slide as the pitch changes.
+* **Question:** hum low, then high. Which end of the plot lights up each time?
 
 ### **Exercise 8:** Winamp-style visualizers
 
@@ -169,11 +187,24 @@ Two numbers, `Motion` and `Loudness`, and a picture. Now the sound changes the p
 * Run. Silence: mostly black. Talk: the picture floods in.
 * **Question:** swap `RangeMin` and `RangeMax`. What does sound do now?
 
-### **Exercise 10 (Optional):** Motion sets the blur
+### **Exercise 10:** Sound draws the lines
 
-* Replace `Threshold` with `Smooth`, externalize `Size`, and drive it from `Motion` through
-  `Rescale` and a `Convert` to `Int32`. Hold still for a sharp picture, move for a blur.
-  <!-- TODO(verify): Smooth.Size requires an odd integer; may need an ExpressionTransform such as (int)it * 2 + 1 -->
+:::workflow
+![Sound draws the lines](../workflows/02-live-demo-10.bonsai)
+:::
+
+`Canny` from Exercise 2 finds edges using two thresholds. High thresholds keep only the
+strongest edges; low ones let every faint line through. Hand those thresholds to the room.
+
+* Replace `Threshold` with `Canny`, after `Grayscale`.
+* Add a `SubscribeSubject` to `Loudness`, then `Rescale` with `Min` and `Max` from your notes,
+  `RangeMin` 200, `RangeMax` 10 and `RescaleType` `Clamp`. Add a `PropertyMapping` after it
+  for `Threshold1`, and connect it into `Canny`.
+* From the same `SubscribeSubject`, add a second `Rescale` with `RangeMin` 400 and
+  `RangeMax` 30, then a `PropertyMapping` for `Threshold2`, also into `Canny`.
+* Run and open the visualizer on `Canny`. Quiet: a few bold outlines. Loud: the picture
+  fills with lines.
+* **Question:** what happens if you drive the thresholds from `Motion` instead?
 
 ## Part 4: Shaders
 
@@ -216,19 +247,24 @@ places a full-screen rectangle and `camera.frag` colours it from a texture.
 ![Warp](../workflows/02-live-demo-12.bonsai)
 :::
 
-`camera.frag` has two `uniform` inputs, `time` and `amount`, and bends the picture with a
-ripple whose strength is `amount`. A uniform is a value the workflow can set from outside
-the shader.
+`camera.frag` has two `uniform` inputs, `time` and `amount`. It is four short steps: ripple
+the picture, read the camera colour, turn brightness into a rainbow, then blend the rainbow
+in. `amount` controls both the ripple and the blend, so a whisper barely moves the picture
+and a shout bends it into bands of colour. A uniform is a value the workflow can set from
+outside the shader.
 
 * From `RenderFrame`, create a branch and select `TimeStep` > `ElapsedTime`. Add
   `Accumulate`, then `ExpressionTransform` with `Expression` set to `Convert.ToSingle(it)`,
   then `UpdateUniform` with `ShaderName` `Camera` and `UniformName` `time`.
-* Add a `SubscribeSubject` to `Loudness`, then `Rescale` (`Min` and `Max` from your
-  notes, `RangeMin` 0, `RangeMax` 0.1), then `ExpressionTransform` with
-  `Convert.ToSingle(it)`, then `UpdateUniform` with `UniformName` `amount`.
-* Run. Speak and the picture ripples.
-* **Optional:** open `camera.frag` in a text editor, change the `20.0` in the `sin` call
-  to `5.0`, save, and restart the workflow. Shaders reload on start.
+* Add a `SubscribeSubject` to `Loudness`, then `Rescale` (`Min` 60, `Max` 600, `RangeMin` 0,
+  `RangeMax` 0.3, `RescaleType` `Clamp`), then `ExpressionTransform` with
+  `Convert.ToSingle(it)`, then `UpdateUniform` with `UniformName` `amount`. Setting `Min`
+  to 60 instead of 0 means background chatter leaves the picture still; only real noise
+  moves it.
+* Run. Speak and the picture ripples. Shout and the colours bleed into rainbow.
+* **Optional:** open `camera.frag` in a text editor, change the `20.0` in the `sin` line
+  to `5.0`, save, and restart the workflow. Shaders reload on start, so restart after every
+  edit.
 
 ## Part 5: Control
 
@@ -246,8 +282,8 @@ Any stream can drive a uniform, so anything Bonsai can read becomes a control.
 :::
 
 * Add a `KeyDown` source from **Shaders** (it listens to the shader window) and set `Key` to
-  `Up`. After it add a `Float` and set `Value` to 0.01.
-* Add a second `KeyDown` with `Key` `Down`, and a `Float` with `Value` -0.01.
+  `Up`. After it add a `Float` and set `Value` to 0.03.
+* Add a second `KeyDown` with `Key` `Down`, and a `Float` with `Value` -0.03.
 * Join the two with `Merge`, add `Accumulate`, then `UpdateUniform` for `amount`.
 * Run, click the shader window, and press the arrow keys. Each press nudges the warp.
 
@@ -260,11 +296,11 @@ Any stream can drive a uniform, so anything Bonsai can read becomes a control.
 * Add a `MouseMove` source from **Shaders**, then `NormalizedDeviceCoordinates` and select
   `X`.
 * Add `ExpressionTransform` with `Convert.ToDouble(it)`, so `Rescale` can take the number.
-* Add `Rescale` (`Min` -1, `Max` 1, `RangeMin` 0, `RangeMax` 0.1, `RescaleType` `Clamp`),
+* Add `Rescale` (`Min` -1, `Max` 1, `RangeMin` 0, `RangeMax` 0.3, `RescaleType` `Clamp`),
   `ExpressionTransform` with `Convert.ToSingle(it)`, and `UpdateUniform` for `amount`.
 * Run and slide the mouse across the shader window.
 
-### **Exercise 15 (Optional):** Out to the world
+### **Exercise 15:** Out to the world
 
 :::workflow
 ![Send Motion and Loudness over OSC](../workflows/02-live-demo-15.bonsai)
