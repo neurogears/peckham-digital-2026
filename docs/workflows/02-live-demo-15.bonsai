@@ -40,7 +40,7 @@
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="dsp:Rescale">
           <dsp:Min>0</dsp:Min>
-          <dsp:Max>2000</dsp:Max>
+          <dsp:Max>600</dsp:Max>
           <dsp:RangeMin>0</dsp:RangeMin>
           <dsp:RangeMax>1</dsp:RangeMax>
           <dsp:RescaleType>Clamp</dsp:RescaleType>

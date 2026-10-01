@@ -25,7 +25,7 @@
           <dsp:Min>-1</dsp:Min>
           <dsp:Max>1</dsp:Max>
           <dsp:RangeMin>0</dsp:RangeMin>
-          <dsp:RangeMax>0.1</dsp:RangeMax>
+          <dsp:RangeMax>0.3</dsp:RangeMax>
           <dsp:RescaleType>Clamp</dsp:RescaleType>
         </Combinator>
       </Expression>

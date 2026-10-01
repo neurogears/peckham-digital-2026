@@ -14,7 +14,7 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="FloatProperty">
-          <Value>0.01</Value>
+          <Value>0.03</Value>
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">
@@ -24,7 +24,7 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="FloatProperty">
-          <Value>-0.01</Value>
+          <Value>-0.03</Value>
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">
