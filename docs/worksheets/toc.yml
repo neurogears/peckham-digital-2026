@@ -1,2 +1,8 @@
 - name: Worksheets
-  href: worksheets.md
+  href: index.md
+- name: "1: Getting Started"
+  href: 01-getting-started.md
+- name: "2: The Live Demo"
+  href: 02-live-demo.md
+- name: "3: Fork It"
+  href: 03-fork-it.md
