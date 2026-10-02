@@ -1,0 +1,5 @@
+.vs/
+**/.bonsai/Bonsai.exe*
+**/.bonsai/Packages/
+**/.bonsai/Settings/
+/artifacts/
