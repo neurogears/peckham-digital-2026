@@ -309,7 +309,9 @@ Any stream can drive a uniform, so anything Bonsai can read becomes a control.
 Bonsai does not have to draw the picture itself. It is just as happy being the sensing
 layer for another tool: it reads the cameras, microphones and hardware, turns them into a
 few clean numbers, and hands them to TouchDesigner, Max, Processing, a DAW, or a second
-laptop. On stage we send the two numbers from this demo to a TouchDesigner patch.
+laptop. On stage we send the two numbers from this demo to a TouchDesigner patch called
+Ember Pulse, and you can take it home: it is `touchdesigner/ember-pulse.toe` in the workshop
+folder, and it opens in the free version of [TouchDesigner](https://derivative.ca/download).
 
 * Add `CreateUdpClient` (from **Osc**). Set `Name` to `Out`, `RemoteHostName` to
   `127.0.0.1` and `RemotePort` to 8000. Use another machine's IP address to send across the
@@ -318,10 +320,14 @@ laptop. On stage we send the two numbers from this demo to a TouchDesigner patch
   movement" value from your visualizer, `RangeMin` 0, `RangeMax` 1 and `RescaleType`
   `Clamp`. The number now always sits between 0 and 1.
 * Add `ExpressionTransform` with `Convert.ToSingle(it)`, then `SendMessage` with
-  `Connection` `Out` and `Address` `/br/motion`.
-* Repeat for `Loudness`, sending to `/br/state/activation`.
-* Run. Anything listening on port 8000 now receives two named channels. In TouchDesigner,
-  an **OSC In** CHOP on port 8000 shows `br/motion` and `br/state/activation` straight away.
+  `Connection` `Out` and `Address` `/motion`.
+* Repeat for `Loudness`: `Rescale` with `Min` 0, `Max` 600, `RangeMin` 0, `RangeMax` 1 and
+  `RescaleType` `Clamp`, then send it to `/loudness`.
+* Run. Anything listening on port 8000 now receives two named channels.
+* Open `touchdesigner/ember-pulse.toe` in TouchDesigner. Move and the heartbeat quickens
+  and the embers thicken. Make noise and the trails lengthen, the ring grows and the colour
+  drifts. In any other TouchDesigner project, an **OSC In** CHOP on port 8000 shows `motion`
+  and `loudness` straight away.
 * **Question:** the addresses are just names. What would you call the channels if you were
   building a piece of your own?
 
