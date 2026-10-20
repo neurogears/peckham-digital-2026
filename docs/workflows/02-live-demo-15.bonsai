@@ -32,7 +32,7 @@
       </Expression>
       <Expression xsi:type="osc:SendMessage">
         <osc:Connection>Out</osc:Connection>
-        <osc:Address>/motion</osc:Address>
+        <osc:Address>/pulse</osc:Address>
       </Expression>
       <Expression xsi:type="SubscribeSubject">
         <Name>Loudness</Name>
@@ -51,7 +51,7 @@
       </Expression>
       <Expression xsi:type="osc:SendMessage">
         <osc:Connection>Out</osc:Connection>
-        <osc:Address>/loudness</osc:Address>
+        <osc:Address>/hue</osc:Address>
       </Expression>
     </Nodes>
     <Edges>

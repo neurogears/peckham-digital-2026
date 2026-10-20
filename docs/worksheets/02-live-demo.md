@@ -306,33 +306,19 @@ Any stream can drive a uniform, so anything Bonsai can read becomes a control.
 ![Send Motion and Loudness over OSC](../workflows/02-live-demo-15.bonsai)
 :::
 
-Bonsai does not have to draw the picture itself. It is just as happy being the sensing
-layer for another tool: it reads the cameras, microphones and hardware, turns them into a
-few clean numbers, and hands them to TouchDesigner, Max, Processing, a DAW, or a second
-laptop. On stage we send the two numbers from this demo to a TouchDesigner patch called
-Ember Pulse, and you can take it home: it is `touchdesigner/ember-pulse.toe` in the workshop
-folder, and it opens in the free version of [TouchDesigner](https://derivative.ca/download).
+Bonsai does not have to draw the picture itself. It is just as happy being the sensing layer for another tool: it reads the cameras, microphones and hardware, turns them into a few clean numbers, and hands them to TouchDesigner, Max, Processing, a DAW, or a second laptop. On stage we send the two numbers from this demo to a TouchDesigner patch called Ember Pulse, and you can take it home: it is `touchdesigner/ember-pulse.toe` in the workshop folder, and it opens in the free version of [TouchDesigner](https://derivative.ca/download).
 
-* Add `CreateUdpClient` (from **Osc**). Set `Name` to `Out`, `RemoteHostName` to
-  `127.0.0.1` and `RemotePort` to 8000. Use another machine's IP address to send across the
-  network instead.
-* Add a `SubscribeSubject` to `Motion`, then `Rescale` with `Max` set to a "lots of
-  movement" value from your visualizer, `RangeMin` 0, `RangeMax` 1 and `RescaleType`
-  `Clamp`. The number now always sits between 0 and 1.
-* Add `ExpressionTransform` with `Convert.ToSingle(it)`, then `SendMessage` with
-  `Connection` `Out` and `Address` `/motion`.
-* Repeat for `Loudness`: `Rescale` with `Min` 0, `Max` 600, `RangeMin` 0, `RangeMax` 1 and
-  `RescaleType` `Clamp`, then send it to `/loudness`.
+Ember Pulse has five knobs, each a number from 0 to 1 with a name: `/pulse` for the heartbeat, `/spin` for the rotation, `/zoom`, `/hue` for the colour and `/trail` for how long the trails last. A knob nobody sends stays at rest. We will turn two of them.
+
+* Add `CreateUdpClient` (from **Osc**). Set `Name` to `Out`, `RemoteHostName` to `127.0.0.1` and `RemotePort` to 8000. Use another machine's IP address to send across the network instead.
+* Add a `SubscribeSubject` to `Motion`, then `Rescale` with `Max` set to a "lots of movement" value from your visualizer, `RangeMin` 0, `RangeMax` 1 and `RescaleType` `Clamp`. The number now always sits between 0 and 1.
+* Add `ExpressionTransform` with `Convert.ToSingle(it)`, then `SendMessage` with `Connection` `Out` and `Address` `/pulse`.
+* Repeat for `Loudness`: `Rescale` with `Min` 0, `Max` 600, `RangeMin` 0, `RangeMax` 1 and `RescaleType` `Clamp`, then send it to `/hue`.
 * Run. Anything listening on port 8000 now receives two named channels.
-* Open `touchdesigner/ember-pulse.toe` in TouchDesigner. Move and the heartbeat quickens
-  and the embers thicken. Make noise and the trails lengthen, the ring grows and the colour
-  drifts. In any other TouchDesigner project, an **OSC In** CHOP on port 8000 shows `motion`
-  and `loudness` straight away.
-* **Question:** the addresses are just names. What would you call the channels if you were
-  building a piece of your own?
+* Open `touchdesigner/ember-pulse.toe` in TouchDesigner. Move and the heartbeat quickens and the embers thicken. Make noise and the colour drifts toward violet. In any other TouchDesigner project, an **OSC In** CHOP on port 8000 shows `pulse` and `hue` straight away.
+* **Question:** the addresses are just names. Swap them: send `Motion` to `/hue` and `Loudness` to `/pulse`. Then try `Loudness` on `/spin`. Which pairing feels right, and why?
 
 > [!TIP]
-> Only one program can listen on a port. If nothing arrives, check that no other app (or a
-> second copy of Bonsai) is already using port 8000.
+> Only one program can listen on a port. If nothing arrives, check that no other app (or a second copy of Bonsai) is already using port 8000.
 
 That is the whole demo. Next: [Fork It](03-fork-it.md).
