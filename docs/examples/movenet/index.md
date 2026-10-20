@@ -34,6 +34,27 @@ The same picture, drawn by one operator we wrote ourselves. `DrawSkeleton` is no
 * Right click the `DrawSkeleton` operator and hit "Go to Definition" or F12. This will open `Extensions/DrawSkeleton.cs` in a text editor. The list of links at the top is the whole stick figure; the three colours sit just below it. Make changes, save and close, then back in Bonsai click "Reload Extensions" to compile and see your changes in action.
 * **Question:** which version would you rather hand to a friend, and why?
 
+## PoseToTouchDesigner
+
+:::workflow
+![PoseToTouchDesigner](PoseToTouchDesigner.bonsai)
+:::
+
+The body as a controller. This is `PoseSkeleton` with one more group, `TouchDesigner`, which turns five body measurements into numbers between 0 and 1 and sends each to one knob of the Ember Pulse patch from Exercise 15 of [The Live Demo](../../worksheets/02-live-demo.md), the one in `touchdesigner/ember-pulse.toe`. You still see the stick figure, so you can watch what the network sees while the picture responds.
+
+| Knob | Measurement |
+| --- | --- |
+| `/pulse` | how high your higher wrist is |
+| `/trail` | how high your lower wrist is |
+| `/hue` | how far apart your wrists are |
+| `/zoom` | how far apart your feet are |
+| `/spin` | where your nose is from left to right |
+
+* Open `touchdesigner/ember-pulse.toe` in TouchDesigner, then run this workflow and open the visualizer on `DrawCanvas`. Raise one hand and the heartbeat quickens. Raise both and the trails lengthen. Spread your arms for colour, your feet for zoom, and lean to spin.
+* Double-click `TouchDesigner` to see how. Each measurement is one `ExpressionTransform`: `Higher wrist` is `Math.Min` of the two wrist rows, `Wrist spread` is Pythagoras on the two wrists divided by Pythagoras on the two shoulders, and so on. Dividing by the shoulder width makes a distance about your body rather than about the camera, so stepping closer does not count as spreading your arms.
+* After each expression an `ExpressionCondition` drops frames where a part was not found, which the predictor marks as "not a number", then `Rescale` squeezes the range you care about into 0 to 1 and `SendMessage` names the knob.
+* **Question:** swap two of the `Address` values. Then invent a sixth measurement, the angle of your head, say, and give it a knob that is already taken. Which one did you steal, and why?
+
 ## MoveVj
 
 :::workflow
