@@ -12,3 +12,7 @@
 
 # Editor layout for the root playground workflow
 /playground.bonsai.layout
+
+# Build output from the workflow extension projects
+**/bin/
+**/obj/
