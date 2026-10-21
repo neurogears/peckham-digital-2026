@@ -35,7 +35,10 @@ try {
     }
 
     if (Test-Path -Path 'examples/') {
-        foreach ($environment in (Get-ChildItem -Path 'examples/' -Filter '.bonsai' -Recurse -FollowSymlink -Directory)) {
+        # print message
+        Write-Host "Processing examples in the 'examples/' directory..."
+        foreach ($environment in (Get-ChildItem -Path 'examples/' -Filter '.bonsai' -Recurse -FollowSymlink -Directory -Force)) {
+            Write-Host "Processing environment: $($environment.FullName)"
             Process-Workflow-Collection $UseGalleryForExamplesDirectory ($environment.Parent.FullName) ($environment.FullName)
         }
     }
