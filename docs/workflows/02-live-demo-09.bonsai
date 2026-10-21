@@ -62,21 +62,35 @@
         <Combinator xsi:type="dsp:Rescale">
           <dsp:Min>0</dsp:Min>
           <dsp:Max>600</dsp:Max>
-          <dsp:RangeMin>255</dsp:RangeMin>
-          <dsp:RangeMax>0</dsp:RangeMax>
+          <dsp:RangeMin>200</dsp:RangeMin>
+          <dsp:RangeMax>10</dsp:RangeMax>
           <dsp:RescaleType>Clamp</dsp:RescaleType>
         </Combinator>
       </Expression>
       <Expression xsi:type="PropertyMapping">
         <PropertyMappings>
-          <Property Name="ThresholdValue" />
+          <Property Name="Threshold1" />
         </PropertyMappings>
       </Expression>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="cv:Threshold">
-          <cv:ThresholdValue>128</cv:ThresholdValue>
-          <cv:MaxValue>255</cv:MaxValue>
-          <cv:ThresholdType>Binary</cv:ThresholdType>
+        <Combinator xsi:type="dsp:Rescale">
+          <dsp:Min>0</dsp:Min>
+          <dsp:Max>600</dsp:Max>
+          <dsp:RangeMin>400</dsp:RangeMin>
+          <dsp:RangeMax>30</dsp:RangeMax>
+          <dsp:RescaleType>Clamp</dsp:RescaleType>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="PropertyMapping">
+        <PropertyMappings>
+          <Property Name="Threshold2" />
+        </PropertyMappings>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="cv:Canny">
+          <cv:Threshold1>200</cv:Threshold1>
+          <cv:Threshold2>400</cv:Threshold2>
+          <cv:ApertureSize>3</cv:ApertureSize>
         </Combinator>
       </Expression>
     </Nodes>
@@ -89,10 +103,13 @@
       <Edge From="5" To="6" Label="Source1" />
       <Edge From="6" To="7" Label="Source1" />
       <Edge From="8" To="9" Label="Source1" />
-      <Edge From="9" To="13" Label="Source1" />
+      <Edge From="9" To="15" Label="Source1" />
       <Edge From="10" To="11" Label="Source1" />
+      <Edge From="10" To="13" Label="Source1" />
       <Edge From="11" To="12" Label="Source1" />
-      <Edge From="12" To="13" Label="Source2" />
+      <Edge From="12" To="15" Label="Source2" />
+      <Edge From="13" To="14" Label="Source1" />
+      <Edge From="14" To="15" Label="Source3" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>

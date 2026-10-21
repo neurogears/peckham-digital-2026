@@ -150,30 +150,14 @@ A Fourier transform splits each buffer of sound into its frequencies, from low t
 * Open the visualizer on `Submatrix`. Whistle and watch the peak slide as the pitch changes.
 * **Question:** hum low, then high. Which end of the plot lights up each time?
 
-### **Exercise 8:** Winamp-style visualizers
-
-<!-- TODO(nick): placeholder. Nick's visualizers: Winamp-style visuals with their presets,
-driven by audio channels after microphone capture and audio decomposition in Bonsai.
-Fill in: the package or files to add to .bonsai/Bonsai.config, the decomposition step
-(which bands or features, built from Exercises 5 to 7), how the channels wire into the
-visualizer, how to switch presets, and a checkpoint saved as
-docs/workflows/02-live-demo-08.bonsai. Then add the :::workflow container above this
-comment. -->
-
-The microphone is now a handful of numbers: loudness, and the spectrum split into bands.
-That is exactly what a music visualizer eats. Here we wire those channels into a
-Winamp-style visualizer and flick through its presets while the room makes noise.
-
-* *Steps to come.*
-
 ## Part 3: Combine
 
 Two numbers, `Motion` and `Loudness`, and a picture. Now the sound changes the picture.
 
-### **Exercise 9:** Sound sets the threshold
+### **Exercise 8:** Sound sets the threshold
 
 :::workflow
-![Sound sets the threshold](../workflows/02-live-demo-09.bonsai)
+![Sound sets the threshold](../workflows/02-live-demo-08.bonsai)
 :::
 
 * In the camera branch, add a `Threshold` transform after `Grayscale`. Set
@@ -187,10 +171,10 @@ Two numbers, `Motion` and `Loudness`, and a picture. Now the sound changes the p
 * Run. Silence: mostly black. Talk: the picture floods in.
 * **Question:** swap `RangeMin` and `RangeMax`. What does sound do now?
 
-### **Exercise 10:** Sound draws the lines
+### **Exercise 9:** Sound draws the lines
 
 :::workflow
-![Sound draws the lines](../workflows/02-live-demo-10.bonsai)
+![Sound draws the lines](../workflows/02-live-demo-09.bonsai)
 :::
 
 `Canny` from Exercise 2 finds edges using two thresholds. High thresholds keep only the
@@ -212,10 +196,10 @@ So far the CPU has done all the work. A **shader** is a tiny program that runs o
 once for every pixel on the screen, thousands at a time. We hand it the camera image as a
 *texture* and let it paint the window.
 
-### **Exercise 11:** Camera on the GPU
+### **Exercise 10:** Camera on the GPU
 
 :::workflow
-![Camera on the GPU](../workflows/02-live-demo-11.bonsai)
+![Camera on the GPU](../workflows/02-live-demo-10.bonsai)
 :::
 
 The shader files are in the `shaders` folder at the top of the workshop folder: `quad.vert`
@@ -241,10 +225,10 @@ places a full-screen rectangle and `camera.frag` colours it from a texture.
 > **File > Open**, open `playground.bonsai` from the workshop folder, and paste again. Or
 > save your own workflow at the top of the workshop folder and reopen it.
 
-### **Exercise 12:** Warp
+### **Exercise 11:** Warp
 
 :::workflow
-![Warp](../workflows/02-live-demo-12.bonsai)
+![Warp](../workflows/02-live-demo-11.bonsai)
 :::
 
 `camera.frag` has two `uniform` inputs, `time` and `amount`. It is four short steps: ripple
@@ -266,13 +250,33 @@ outside the shader.
   to `5.0`, save, and restart the workflow. Shaders reload on start, so restart after every
   edit.
 
+### **Exercise 12:** Winamp Visualizer
+
+:::workflow
+![Winamp Visualizer](../workflows/02-live-demo-12.bonsai)
+:::
+
+[Winamp's MilkDrop](https://en.wikipedia.org/wiki/MilkDrop) visualizer works on one main trick. Every frame, the GPU reads back the picture it drew last frame, zooms and rotates it, dims it a little, and paints fresh colour on top. Sound decides how much zoom, how much spin and how much color. A MilkDrop preset is a list of equations that map bass, mid and treble onto those knobs. In this exercise, we build such a preset by hand to demonstrate how this would work in Bonsai. The shaders in `shaders/warp.frag`, `shaders/copy.frag` and `shaders/screen.frag` are the equations, and the workflow provides the plumbing between audio and visualization.
+
+The workflow has three parts: a feedback loop on the GPU, an audio analysis pipeline that extracts bass, mid, and treble from the microphone, and then uniforms that connect these streams together.
+
+* **The loop.** The `Textures` operator defines `DefaultFeedback` and `DefaultWork` textures to hold the last frame on the GPU (feedback) and the current frame being drawn (work). Each `RenderFrame` runs four `DrawMesh` calls in order. `DefaultWarp` samples `DefaultFeedback`, zooms, rotates and fades it, adds a wandering blob of colour, and draws into `DefaultWork`. `DefaultWaveform` draws the raw audio signal as a line on top, which is fed into the waveform shader directly as vertex buffer data. `DefaultCopy` copies `DefaultWork` back into `DefaultFeedback`, ready for the next frame. `DefaultScreen` draws `DefaultWork` to the window with a mirrored echo, a hue drift and a vignette, none of which feed back. Each shader's target texture is set under `FramebufferAttachments` in `ShaderResources`. With this pipeline, we get one shader that draws to the screen and one shader that remembers and warps what was previously drawn.
+* **Audio in.** `AudioCapture` draws samples at 44100 Hz, is rescaled to -2 to 2, and `Buffer` with `Count` 1024 and `Skip` 100 cuts the stream into overlapping windows of 1024 samples, a new one every 100 samples. One branch sends the buffered audio data straight to `UpdateVertexBuffer` as the line `DefaultWaveform` draws.
+* **Spectrum.** As in Exercise 7, the audio is transformed into the frequency domain with `DiscreteFourierTransform` then `Magnitude`, keeping the first 512 columns as `Power`. With 1024 samples at 44.1 kHz, each column is about 43 Hz wide.
+* **Slow average.** A second branch from `Magnitude` goes through `IirFilter` with coefficients `0,0.01` and `1,-0.99`. Every column now creeps one percent of the way toward its new value each buffer, so it remembers what the room has sounded like for the last few seconds. This is `Attenuated`.
+* **Three bands.** `Submatrix` cuts columns 0 to 6 (bass, below 250 Hz), 6 to 93 (mid, below 4 kHz) and 93 to 465 (treble, below 20 kHz) from both `Power` and `Attenuated`. `Sum`, then `Val0`, then `single(it)` turn each slice into one float, and `UpdateUniform` hands it to the shaders as `bass`, `mid`, `treble` and their `_att` twins.
+* **Louder than baseline.** The shader never uses a band on its own. It divides each one by its slow average: `bass / bass_att` is 1 when the room sounds as it usually does, 3 on a kick drum. That ratio sets the zoom, `mid / mid_att` sets the spin, and `treble / treble_att` sets how bright the blob paints. Because it is a ratio, the picture reacts the same whatever the microphone gain, which is why there is no `Rescale` to tune this time.
+* Run. Silence: a slow spiral fading to black. Music: the picture breathes with the bass and sparkles with the hi-hats.
+* **Optional:** `warp.frag` declares its knobs as uniforms with defaults, such as `prev_scale` for the fade and `zoom_scale` for how hard the bass pushes. How would you modify the Bonsai workflow to allow changing these knobs dynamically? Hint: take a look at how `bass`, `bass_att` are fed in as uniforms with `UpdateUniform`.
+* **Question:** swap the `UniformName` on the mid and bass branches so the drums spin the picture and the voice zooms it. Which feels more musical?
+
 ## Part 5: Control
 
 Any stream can drive a uniform, so anything Bonsai can read becomes a control.
 
 > [!NOTE]
 > The checkpoints in this part are single branches, not whole workflows. Paste one next to
-> your Exercise 12 workflow. First delete the `Loudness` branch that sets `amount`, or the
+> your Exercise 11 workflow. First delete the `Loudness` branch that sets `amount`, or the
 > two will fight over the same uniform.
 
 ### **Exercise 13:** Keyboard
