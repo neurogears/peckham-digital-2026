@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Introduction to Bonsai</title>
+  <link rel="icon" href="../favicon.ico">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css">
+  <style>
+    :root {
+      --ng-green: #048e66;
+      --ng-green-light: #64bb90;
+      --ng-ink: #231f20;
+      --ng-muted: #6b6b6b;
+      --ng-surface: #f4f7f5;
+      /* Node colours used by the Bonsai editor */
+      --op-source: rgb(91, 178, 126);
+      --op-transform: rgb(68, 154, 223);
+      --op-combinator: rgb(232, 145, 58);
+      --op-sink: rgb(155, 91, 179);
+      --r-main-color: var(--ng-ink);
+      --r-heading-color: var(--ng-ink);
+      --r-link-color: var(--ng-green);
+      --r-link-color-hover: var(--ng-green-light);
+      --r-heading-text-transform: none;
+      --r-heading-font-weight: 700;
+      --r-main-font-size: 34px;
+    }
+    body { background: #fff; }
+    .reveal h1, .reveal h2 { letter-spacing: -0.01em; }
+    .reveal h2 { border-bottom: 4px solid var(--ng-green); display: inline-block; padding-bottom: 0.15em; }
+    .reveal .muted { color: var(--ng-muted); }
+    .reveal .small { font-size: 0.7em; }
+    .reveal .kicker { color: var(--ng-green); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.75em; }
+    .reveal ul, .reveal ol { display: block; }
+    .reveal li { margin-bottom: 0.4em; margin-left: 1.2em; }
+
+    .title-slide h1 { font-size: 2.1em; line-height: 1.1; margin-bottom: 0.4em; }
+    .title-slide img.logo { width: 110px; margin: 0 0 0.6em; }
+
+    .grid { display: grid; gap: 0.6em; }
+    .grid.two { grid-template-columns: 1fr 1fr; }
+    .grid.four { grid-template-columns: repeat(4, 1fr); }
+    .card {
+      background: var(--ng-surface); border-radius: 10px; padding: 0.6em 0.7em;
+      text-align: left; font-size: 0.68em; line-height: 1.35;
+    }
+    .card h3 { font-size: 1.25em; margin: 0 0 0.35em; }
+
+    .op { border-top: 8px solid; }
+    .op.source { border-color: var(--op-source); }
+    .op.transform { border-color: var(--op-transform); }
+    .op.combinator { border-color: var(--op-combinator); }
+    .op.sink { border-color: var(--op-sink); }
+    .op .eg { color: var(--ng-muted); margin-top: 0.5em; }
+
+    .big-quote { font-size: 1.3em; line-height: 1.3; max-width: 22em; margin: 0 auto; }
+    .big-quote em { color: var(--ng-green); font-style: normal; font-weight: 700; }
+
+    .reveal svg text { font-family: "Source Sans Pro", Helvetica, sans-serif; }
+    .reveal img.workflow { max-height: 420px; background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 12px; }
+
+    .editor-mock { display: grid; grid-template-columns: 1fr 2.4fr 1.1fr; gap: 0.4em; height: 330px; font-size: 0.6em; }
+    .editor-mock > div { border: 2px solid #ccc; border-radius: 8px; padding: 0.6em; text-align: left; background: var(--ng-surface); }
+    .editor-mock b { display: block; margin-bottom: 0.4em; color: var(--ng-green); }
+  </style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- Title -->
+    <section class="title-slide">
+      <img class="logo" src="bonsai-logo.svg" alt="Bonsai logo">
+      <h1>Bonsai: Wiring the World<br>into Sound and Image</h1>
+      <p class="muted">Peckham Digital, Festival of Creative Computing 2026</p>
+      <p class="small"><a href="https://neurogears.org">NeuroGEARS</a> &middot; <a href="https://bonsai-rx.org">bonsai-rx.org</a></p>
+    </section>
+
+    <!-- What is Bonsai -->
+    <section>
+      <section>
+        <p class="kicker">What is Bonsai?</p>
+        <h2>A language, an ecosystem, an editor</h2>
+        <ul>
+          <li>Open source, free, and runs on your laptop</li>
+          <li class="fragment">Born in <strong>neuroscience research</strong> labs</li>
+          <li class="fragment">Built to solve problems that matter well beyond the lab</li>
+        </ul>
+        <aside class="notes">
+          Bonsai is an open-source programming language, ecosystem and development environment.
+          It was born and initially developed in the world of neuroscience research, where it aimed
+          to solve some problems that are also relevant outside academic research.
+        </aside>
+      </section>
+
+      <section>
+        <p class="kicker">Problem 1</p>
+        <h2>Own your tools</h2>
+        <div class="grid two" style="margin-top:0.8em">
+          <div class="card">
+            <h3>Closed, proprietary software</h3>
+            A black box. You can use it, but you can't take it apart, see how it works, or change it.
+          </div>
+          <div class="card fragment" style="border-left:6px solid var(--ng-green)">
+            <h3>The Bonsai philosophy</h3>
+            Researchers, artists and makers should own their tools: open them up, understand them,
+            and bend them to their own ideas.
+          </div>
+        </div>
+        <aside class="notes">
+          Neuroscience labs often rely on closed-source proprietary software to do their work. The
+          philosophy of Bonsai, and of NeuroGEARS, is that researchers, artists and so on should be
+          able to own their own tools, take them apart and understand them internally.
+        </aside>
+      </section>
+
+      <section>
+        <p class="kicker">Problem 2</p>
+        <h2>Every device speaks a different language</h2>
+        <svg viewBox="0 0 900 360" width="860" role="img" aria-label="Many devices with different protocols and rates feeding into Bonsai, which unifies them into streams">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="#999"/>
+            </marker>
+          </defs>
+          <g font-size="19" fill="#231f20">
+            <g>
+              <rect x="10" y="10" width="250" height="56" rx="8" fill="#f4f7f5" stroke="#ccc"/>
+              <text x="24" y="36" font-weight="700">Camera</text>
+              <text x="24" y="57" font-size="15" fill="#6b6b6b">USB video · 30 fps · BGR frames</text>
+            </g>
+            <g>
+              <rect x="10" y="80" width="250" height="56" rx="8" fill="#f4f7f5" stroke="#ccc"/>
+              <text x="24" y="106" font-weight="700">Microphone</text>
+              <text x="24" y="127" font-size="15" fill="#6b6b6b">44.1 kHz · audio buffers</text>
+            </g>
+            <g>
+              <rect x="10" y="150" width="250" height="56" rx="8" fill="#f4f7f5" stroke="#ccc"/>
+              <text x="24" y="176" font-weight="700">MIDI controller</text>
+              <text x="24" y="197" font-size="15" fill="#6b6b6b">note & CC messages, on demand</text>
+            </g>
+            <g>
+              <rect x="10" y="220" width="250" height="56" rx="8" fill="#f4f7f5" stroke="#ccc"/>
+              <text x="24" y="246" font-weight="700">Projector / shaders</text>
+              <text x="24" y="267" font-size="15" fill="#6b6b6b">GPU · 60 Hz refresh</text>
+            </g>
+            <g>
+              <rect x="10" y="290" width="250" height="56" rx="8" fill="#f4f7f5" stroke="#ccc"/>
+              <text x="24" y="316" font-weight="700">Machine learning</text>
+              <text x="24" y="337" font-size="15" fill="#6b6b6b">tensors · variable latency</text>
+            </g>
+          </g>
+          <g stroke="#999" stroke-width="2" fill="none" marker-end="url(#arrow)">
+            <path d="M262,38 C380,38 380,178 470,178"/>
+            <path d="M262,108 C380,108 380,178 470,178"/>
+            <path d="M262,178 L470,178"/>
+            <path d="M262,248 C380,248 380,178 470,178"/>
+            <path d="M262,318 C380,318 380,178 470,178"/>
+          </g>
+          <g class="fragment">
+            <rect x="476" y="128" width="170" height="100" rx="12" fill="#048e66"/>
+            <text x="561" y="186" text-anchor="middle" font-size="30" font-weight="700" fill="#fff">Bonsai</text>
+            <path d="M650,178 L720,178" stroke="#999" stroke-width="2" marker-end="url(#arrow)"/>
+            <text x="730" y="160" font-size="20" font-weight="700" fill="#231f20">One model:</text>
+            <text x="730" y="186" font-size="20" fill="#231f20">streams of data,</text>
+            <text x="730" y="212" font-size="20" fill="#231f20">all in sync</text>
+          </g>
+        </svg>
+        <aside class="notes">
+          Doing interesting things with hardware in real time is difficult, and it gets much more
+          difficult the more hardware you have. Cameras, audio, projection, MIDI, machine learning:
+          they all talk a different language in terms of transmission protocols, data formats and
+          sampling rates. Bonsai aims to unify all these devices, so when you build an interactive,
+          real-time system you think about the interactions between hardware rather than wrangling
+          data formats and synchronisation.
+        </aside>
+      </section>
+
+      <section>
+        <p class="kicker">The side effect</p>
+        <p class="big-quote">Camera &rarr; track an object &rarr; listen to the room &rarr; drive a visualiser.<br><br><em>Up and running in minutes.</em></p>
+        <p class="muted small" style="margin-top:1.2em">Bonsai is a brilliant tool for rapid prototyping and iteration.</p>
+        <aside class="notes">
+          A feature that falls out of this aim is that Bonsai is brilliant for rapid prototyping.
+          Get a stream of images from a camera, track an object, record some audio and have a
+          visualiser react to those things: you can get that running within minutes. That is
+          exactly what we will do in the live demo.
+        </aside>
+      </section>
+    </section>
+
+    <!-- The Bonsai model -->
+    <section>
+      <section>
+        <p class="kicker">The Bonsai model</p>
+        <h2>Everything is an operator</h2>
+        <div class="grid four" style="margin-top:0.8em">
+          <div class="card op source fragment">
+            <h3>Source</h3>
+            Produces a stream of data.
+            <div class="eg">Camera frames, microphone buffers, key presses</div>
+          </div>
+          <div class="card op transform fragment">
+            <h3>Transform</h3>
+            Changes each item, one in, one out.
+            <div class="eg">Recolour an image, filter an audio buffer</div>
+          </div>
+          <div class="card op combinator fragment">
+            <h3>Combinator</h3>
+            Combines or gates streams, usually two or more.
+            <div class="eg">Sample on a key press, sync two streams</div>
+          </div>
+          <div class="card op sink fragment">
+            <h3>Sink</h3>
+            Does something with the data, passes it on unchanged.
+            <div class="eg">Write to disk, send over the network</div>
+          </div>
+        </div>
+        <aside class="notes">
+          At a high level Bonsai is made of operators, nodes of processing that do one of a few things.
+          Sources produce streams of data. Transforms are one-to-one transformations of a stream.
+          Combinators are combinatorial and conditional operations, usually needing two or more
+          streams: sample one stream whenever an event happens, or combine two for synchronisation.
+          Sinks are side effects that don't modify the stream, for example writing data to disk.
+          The colours match the node colours you will see in the editor.
+        </aside>
+      </section>
+
+      <section>
+        <p class="kicker">Under the hood</p>
+        <h2>Parallel by default</h2>
+        <ul>
+          <li>Built on <strong>Reactive Extensions (Rx)</strong> from Microsoft</li>
+          <li class="fragment">Every stream is asynchronous and runs in parallel</li>
+          <li class="fragment">No threads, locks or callbacks to manage: drop in a camera, a microphone, a keyboard, and it just runs</li>
+        </ul>
+        <aside class="notes">
+          Technical aside: all of this is based on the Reactive Extensions library. Bonsai uses Rx to
+          make these data streams parallel and asynchronous, but hides the set-up. As a user you
+          don't write code to manage multithreading. You drop in camera, microphone, keyboard input,
+          and it all runs in parallel out of the box.
+        </aside>
+      </section>
+
+      <section>
+        <p class="kicker">Thinking in Bonsai</p>
+        <h2>Data flow, not instructions</h2>
+        <img class="workflow" src="../workflows/02-live-demo-09.svg" alt="A Bonsai workflow where camera and microphone streams branch, are transformed, and combine so that loudness sets an image threshold">
+        <p class="muted small">Sound sets the threshold: camera and microphone streams, combined. You'll build this later.</p>
+        <aside class="notes">
+          Because of this parallelism Bonsai lends itself to visual programming, and programs are
+          built as branching observable sequences. If you've done functional programming it might feel
+          familiar, but generally you think of a Bonsai program as asynchronous data flow rather than
+          sequential instructions. This one comes from the live demo: the camera and the microphone
+          each feed their own branch, and the loudness of the room sets the image threshold.
+        </aside>
+      </section>
+    </section>
+
+    <!-- The editor -->
+    <section>
+      <p class="kicker">The Bonsai editor</p>
+      <h2>Let's look at it live</h2>
+      <div class="editor-mock">
+        <div><b>Toolbox</b>Every operator. Type to search.</div>
+        <div><b>Canvas</b>Operators are nodes. Data flows along the connections, left to right.<br><br>Press <strong>Start</strong>, then double-click a node to <strong>visualise</strong> its data.</div>
+        <div><b>Properties</b>Configure the selected node.</div>
+      </div>
+      <aside class="notes">
+        Switch to the editor for a live demo. Show the toolbox search, drop a Timer onto the canvas,
+        set its Period in the properties panel, Start, and double-click to open the visualiser.
+      </aside>
+    </section>
+
+    <!-- Extending Bonsai -->
+    <section>
+      <p class="kicker">Extending Bonsai</p>
+      <h2>Make it yours</h2>
+      <ul>
+        <li><strong>Packages</strong>: vision, audio, shaders, OSC, hardware and more, installed from the package manager</li>
+        <li class="fragment"><strong>Nested workflows</strong>: group operators into your own reusable building blocks</li>
+        <li class="fragment"><strong>Write your own operators</strong> in C# when you need something new</li>
+        <li class="fragment"><strong>Talk to other tools</strong>: TouchDesigner, Max, Processing, Arduino</li>
+      </ul>
+      <aside class="notes">
+        Bonsai is extensible at every level: install packages for new devices and algorithms, wrap
+        workflows into your own operators, write custom operators in C#, and send streams out to
+        other creative tools.
+      </aside>
+    </section>
+
+    <!-- Close -->
+    <section class="title-slide">
+      <h2>Time to build</h2>
+      <p>Open <code>playground.bonsai</code> and follow along with the worksheets.</p>
+      <p class="small"><a href="../worksheets/index.html">Worksheets</a> &middot; <a href="https://bonsai-rx.org/docs">bonsai-rx.org/docs</a></p>
+    </section>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: 'c/t',
+    transition: 'fade',
+    width: 1100,
+    height: 700,
+    plugins: [RevealNotes]
+  });
+</script>
+</body>
+</html>
