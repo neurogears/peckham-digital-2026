@@ -20,13 +20,13 @@ These workflows need `Bonsai.Arduino` and, for `PanTiltML`, the ONNX Runtime, so
 3. Double-click `Bonsai.exe` in that folder, then open either workflow from `docs/examples/pan-tilt`.
 4. Plug in the Arduino and find its port in Device Manager under Ports (COM & LPT). Double-click `ArduinoResources`, select `CreateArduino` and set `PortName` to that port. It is saved as `COM5`.
 
-`PanTiltML` also needs a detection model, which is not stored in the repository. `export_onnx.py` downloads the YOLO weights and writes `models/yolo26n.onnx` beside the workflow:
+`PanTiltML` also needs a detection model, which is not stored in the repository. First, you should install [uv](https://docs.astral.sh/uv/), and then run the `export_onnx.py` to download the YOLO model weights and write them to `models/yolo26n.onnx` beside the workflow:
 
 ```
 uv run export_onnx.py
 ```
 
-`--model` exports a different one, for example `uv run export_onnx.py --model yolo26s`. [uv](https://docs.astral.sh/uv/) reads the dependencies declared at the top of the script, so there is nothing to install first.
+You can use the `--model` argument to export a different model, for example `uv run export_onnx.py --model yolo26s`. [uv](https://docs.astral.sh/uv/) reads the dependencies declared at the top of the script, so there is nothing to install first.
 
 ## PanTilt
 
