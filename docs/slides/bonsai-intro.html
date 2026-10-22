@@ -85,9 +85,9 @@
         <p class="kicker">What is Bonsai?</p>
         <h2>A language, an ecosystem, an editor</h2>
         <ul>
-          <li>Open source, free, and runs on your laptop</li>
-          <li class="fragment">Born in <strong>neuroscience research</strong> labs</li>
-          <li class="fragment">Built to solve problems that matter well beyond the lab</li>
+          <li>Open source, reactive programming language</li>
+          <li class="fragment">Ecosystem of packages for hardware integration, graphics, and more</li>
+          <li class="fragment">Visual editor for designing workflows</li>
         </ul>
         <aside class="notes">
           Bonsai is an open-source programming language, ecosystem and development environment.
@@ -97,29 +97,31 @@
       </section>
 
       <section>
-        <p class="kicker">Problem 1</p>
-        <h2>Own your tools</h2>
+        <p class="kicker">What is Bonsai?</p>
+        <h2>Born in neuroscience research</h2>
         <div class="grid two" style="margin-top:0.8em">
           <div class="card">
-            <h3>Closed, proprietary software</h3>
-            A black box. You can use it, but you can't take it apart, see how it works, or change it.
+              <h3>Problem 1</h3>
+              Reliance on closed-source, proprietary or paid software.
           </div>
-          <div class="card fragment" style="border-left:6px solid var(--ng-green)">
-            <h3>The Bonsai philosophy</h3>
-            Researchers, artists and makers should own their tools: open them up, understand them,
-            and bend them to their own ideas.
+          <div class="card fragment">
+              <h3>Problem 2</h3>
+              Doing interesting things with hardware in real-time is difficult.
           </div>
         </div>
-        <aside class="notes">
-          Neuroscience labs often rely on closed-source proprietary software to do their work. The
-          philosophy of Bonsai, and of NeuroGEARS, is that researchers, artists and so on should be
-          able to own their own tools, take them apart and understand them internally.
-        </aside>
+      </section>
+
+      <section>
+        <p class="kicker">Problem 1</p>
+        <h2>Own your own tools</h2>
+        <ul>
+          <li>Researchers, artists and makers should free to modify, inspect, repair and understand their tools</li>
+        </ul>
       </section>
 
       <section>
         <p class="kicker">Problem 2</p>
-        <h2>Every device speaks a different language</h2>
+        <h2>Unified model for handling async data</h2>
         <svg viewBox="0 0 900 360" width="860" role="img" aria-label="Many devices with different protocols and rates feeding into Bonsai, which unifies them into streams">
           <defs>
             <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -165,8 +167,9 @@
             <text x="561" y="186" text-anchor="middle" font-size="30" font-weight="700" fill="#fff">Bonsai</text>
             <path d="M650,178 L720,178" stroke="#999" stroke-width="2" marker-end="url(#arrow)"/>
             <text x="730" y="160" font-size="20" font-weight="700" fill="#231f20">One model:</text>
-            <text x="730" y="186" font-size="20" fill="#231f20">streams of data,</text>
-            <text x="730" y="212" font-size="20" fill="#231f20">all in sync</text>
+            <text x="730" y="186" font-size="20" fill="#231f20">streams of data +</text>
+            <text x="730" y="212" font-size="20" fill="#231f20">interactions +</text>
+            <text x="730" y="238" font-size="20" fill="#231f20">transformations</text>
           </g>
         </svg>
         <aside class="notes">
@@ -178,25 +181,12 @@
           data formats and synchronisation.
         </aside>
       </section>
-
-      <section>
-        <p class="kicker">The side effect</p>
-        <p class="big-quote">Camera &rarr; track an object &rarr; listen to the room &rarr; drive a visualiser.<br><br><em>Up and running in minutes.</em></p>
-        <p class="muted small" style="margin-top:1.2em">Bonsai is a brilliant tool for rapid prototyping and iteration.</p>
-        <aside class="notes">
-          A feature that falls out of this aim is that Bonsai is brilliant for rapid prototyping.
-          Get a stream of images from a camera, track an object, record some audio and have a
-          visualiser react to those things: you can get that running within minutes. That is
-          exactly what we will do in the live demo.
-        </aside>
-      </section>
     </section>
 
     <!-- The Bonsai model -->
     <section>
       <section>
         <p class="kicker">The Bonsai model</p>
-        <h2>Everything is an operator</h2>
         <div class="grid four" style="margin-top:0.8em">
           <div class="card op source fragment">
             <h3>Source</h3>
@@ -205,7 +195,7 @@
           </div>
           <div class="card op transform fragment">
             <h3>Transform</h3>
-            Changes each item, one in, one out.
+            One-to-one transformations.
             <div class="eg">Recolour an image, filter an audio buffer</div>
           </div>
           <div class="card op combinator fragment">
@@ -247,9 +237,9 @@
 
       <section>
         <p class="kicker">Thinking in Bonsai</p>
-        <h2>Data flow, not instructions</h2>
+        <h2>Parallel data flows and combinations</h2>
         <img class="workflow" src="../workflows/02-live-demo-09.svg" alt="A Bonsai workflow where camera and microphone streams branch, are transformed, and combine so that loudness sets an image threshold">
-        <p class="muted small">Sound sets the threshold: camera and microphone streams, combined. You'll build this later.</p>
+        <p class="muted small">Sound sets the threshold: camera and microphone streams, combined.</p>
         <aside class="notes">
           Because of this parallelism Bonsai lends itself to visual programming, and programs are
           built as branching observable sequences. If you've done functional programming it might feel
@@ -264,41 +254,7 @@
     <section>
       <p class="kicker">The Bonsai editor</p>
       <h2>Let's look at it live</h2>
-      <div class="editor-mock">
-        <div><b>Toolbox</b>Every operator. Type to search.</div>
-        <div><b>Canvas</b>Operators are nodes. Data flows along the connections, left to right.<br><br>Press <strong>Start</strong>, then double-click a node to <strong>visualise</strong> its data.</div>
-        <div><b>Properties</b>Configure the selected node.</div>
-      </div>
-      <aside class="notes">
-        Switch to the editor for a live demo. Show the toolbox search, drop a Timer onto the canvas,
-        set its Period in the properties panel, Start, and double-click to open the visualiser.
-      </aside>
     </section>
-
-    <!-- Extending Bonsai -->
-    <section>
-      <p class="kicker">Extending Bonsai</p>
-      <h2>Make it yours</h2>
-      <ul>
-        <li><strong>Packages</strong>: vision, audio, shaders, OSC, hardware and more, installed from the package manager</li>
-        <li class="fragment"><strong>Nested workflows</strong>: group operators into your own reusable building blocks</li>
-        <li class="fragment"><strong>Write your own operators</strong> in C# when you need something new</li>
-        <li class="fragment"><strong>Talk to other tools</strong>: TouchDesigner, Max, Processing, Arduino</li>
-      </ul>
-      <aside class="notes">
-        Bonsai is extensible at every level: install packages for new devices and algorithms, wrap
-        workflows into your own operators, write custom operators in C#, and send streams out to
-        other creative tools.
-      </aside>
-    </section>
-
-    <!-- Close -->
-    <section class="title-slide">
-      <h2>Time to build</h2>
-      <p>Open <code>playground.bonsai</code> and follow along with the worksheets.</p>
-      <p class="small"><a href="../worksheets/index.html">Worksheets</a> &middot; <a href="https://bonsai-rx.org/docs">bonsai-rx.org/docs</a></p>
-    </section>
-
   </div>
 </div>
 
