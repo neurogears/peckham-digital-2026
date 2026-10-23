@@ -20,11 +20,11 @@ Bonsai sees the world as streams. A camera is a stream of images. Every operator
 ### **Exercise 1:** Acquire
 
 :::workflow
-![Camera capture](../workflows/02-live-demo-01.bonsai)
+![Camera capture in grayscale](../workflows/02-live-demo-01.bonsai)
 :::
 
-* Add a `CameraCapture` source.
-* Press **Start** and double-click the node to open its visualizer.
+* Start from the workflow you built in [Getting Started](01-getting-started.md), a `CameraCapture` source feeding a `Grayscale` transform, or copy this one.
+* Press **Start** and double-click `Grayscale` to open its visualizer.
 * Stop. Right-click the canvas, choose **Add group** and drag `CameraCapture` into it, then set the group's `Name` to `Camera`. Not required, but the workflow is about to grow.
 
 ### **Exercise 2:** Transform
@@ -33,8 +33,7 @@ Bonsai sees the world as streams. A camera is a stream of images. Every operator
 ![Transform the camera image](../workflows/02-live-demo-02.bonsai)
 :::
 
-* Add a `Grayscale` transform after `CameraCapture`.
-* Add a `Canny` transform after that. Set `Threshold1` to 50 and `Threshold2` to 150. Run, and open the visualizer on `Canny`: edges only.
+* Add a `Canny` transform after `Grayscale`. Set `Threshold1` to 50 and `Threshold2` to 150. Run, and open the visualizer on `Canny`: edges only.
 * Swap `Canny` for `Smooth` (set `Size` to 15), then for `Flip` (set `Mode` to `Horizontal`). Same input, three different pictures.
 * **Question:** what happens when you open visualizers on *two* nodes at once? Each one is a window onto the stream at that point in the chain.
 
@@ -117,7 +116,6 @@ A Fourier transform splits each buffer of sound into its frequencies, from low t
 * Run and open the visualizer on `Magnitude`. Notice the peaks sit at both edges. The transform outputs every frequency twice, mirrored, with the low notes at each end.
 * Add a `Submatrix` after `Magnitude` and set `EndCol` to 60. Each column is 100 Hz wide, so this keeps 0 to 6000 Hz, which covers voices and whistles, with low notes on the left.
 * Open the visualizer on `Submatrix`. Whistle and watch the peak slide as the pitch changes.
-* **Question:** hum low, then high. Which end of the plot lights up each time?
 
 ## Part 3: Combine
 
@@ -130,9 +128,8 @@ Two numbers, `Motion` and `Loudness`, and a picture. Now the sound changes the p
 :::
 
 * In the camera branch, add a `Threshold` transform after `Grayscale`. Set `ThresholdValue` to 128 and run: a black and white cut-out.
-* Add a `SubscribeSubject`, set its `Name` to `Loudness`, and add `Rescale` after it. Set `Min` and `Max` to the quiet and loud values you noted, `RangeMin` to 255, `RangeMax` to 0 and `RescaleType` to `Clamp`.
-* Add a `PropertyMapping` after `Rescale`. In its `PropertyMappings`, add `ThresholdValue`.
-* Connect `PropertyMapping` into `Threshold`. Every number that flows in now overwrites the `ThresholdValue` property.
+* Search the toolbox for `Loudness`, the subject you published in Exercise 6, and add it. Add `Rescale` after it. Set `Min` and `Max` to the quiet and loud values you noted, `RangeMin` to 255, `RangeMax` to 0 and `RescaleType` to `Clamp`.
+* Add a `PropertyMapping` after `Rescale` and connect it into `Threshold`. Select it, open `PropertyMappings` in the properties panel and tick `ThresholdValue`. Every number that flows in now overwrites that property.
 * Run. Silence: mostly black. Talk: the picture floods in.
 * **Question:** swap `RangeMin` and `RangeMax`. What does sound do now?
 
@@ -145,10 +142,10 @@ Two numbers, `Motion` and `Loudness`, and a picture. Now the sound changes the p
 `Canny` from Exercise 2 finds edges using two thresholds. High thresholds keep only the strongest edges; low ones let every faint line through. Hand those thresholds to the room.
 
 * Replace `Threshold` with `Canny`, after `Grayscale`.
-* Add a `SubscribeSubject` to `Loudness`, then `Rescale` with `Min` and `Max` from your notes, `RangeMin` 200, `RangeMax` 10 and `RescaleType` `Clamp`. Add a `PropertyMapping` after it for `Threshold1`, and connect it into `Canny`.
-* From the same `SubscribeSubject`, add a second `Rescale` with `RangeMin` 400 and `RangeMax` 30, then a `PropertyMapping` for `Threshold2`, also into `Canny`.
+* Add `Loudness` from the toolbox, then `Rescale` with `Min` and `Max` from your notes, `RangeMin` 200, `RangeMax` 10 and `RescaleType` `Clamp`. Add a `PropertyMapping` after it, connect it into `Canny` and tick `Threshold1`.
+* From the same `Loudness` node, add a second `Rescale` with `RangeMin` 400 and `RangeMax` 30, then a `PropertyMapping` into `Canny` with `Threshold2` ticked.
 * Run and open the visualizer on `Canny`. Quiet: a few bold outlines. Loud: the picture fills with lines.
-* **Question:** what happens if you drive the thresholds from `Motion` instead?
+* **Question:** can you drive the thresholds from the `Motion` number you made in Exercise 3 instead? What does moving do to the picture?
 
 ## Part 4: Shaders
 
@@ -167,11 +164,8 @@ The shader files are in the `shaders` folder at the top of the workshop folder: 
 * Double-click `TextureResources` and add a **Texture2D** named `CameraTexture`.
 * Double-click `MeshResources` and add a **TexturedQuad** named `Quad`.
 * In a new branch, add a `RenderFrame` source, then `BindTexture` with `ShaderName` `Camera` and `TextureName` `CameraTexture`, then `DrawMesh` with `ShaderName` `Camera` and `MeshName` `Quad`.
-* Go back to `CameraCapture` and add a `PublishSubject` named `Image` after it. In a third branch, add a `SubscribeSubject` to `Image`, then `Flip` (`Mode` `Vertical`, textures are upside down) and `UpdateTexture` with `TextureName` `CameraTexture`.
+* Go back to `CameraCapture` and add a `PublishSubject` named `Image` after it. In a third branch, add `Image` from the toolbox, then `Flip` (`Mode` `Vertical`, textures are upside down) and `UpdateTexture` with `TextureName` `CameraTexture`.
 * Run. The camera is now drawn by the GPU, in its own window.
-
-> [!WARNING]
-> If Bonsai says it cannot find `shaders\quad.vert`, your workflow is not open from the workshop folder. Shader paths are relative to the open workflow's folder. Choose **File > Open**, open `playground.bonsai` from the workshop folder, and paste again. Or save your own workflow at the top of the workshop folder and reopen it.
 
 ### **Exercise 11:** Warp
 
@@ -182,7 +176,7 @@ The shader files are in the `shaders` folder at the top of the workshop folder: 
 `camera.frag` has two `uniform` inputs, `time` and `amount`. It is four short steps: ripple the picture, read the camera colour, turn brightness into a rainbow, then blend the rainbow in. `amount` controls both the ripple and the blend, so a whisper barely moves the picture and a shout bends it into bands of colour. A uniform is a value the workflow can set from outside the shader.
 
 * From `RenderFrame`, create a branch and select `TimeStep` > `ElapsedTime`. Add `Accumulate`, then `ExpressionTransform` with `Expression` set to `Convert.ToSingle(it)`, then `UpdateUniform` with `ShaderName` `Camera` and `UniformName` `time`.
-* Add a `SubscribeSubject` to `Loudness`, then `Rescale` (`Min` 60, `Max` 600, `RangeMin` 0, `RangeMax` 0.3, `RescaleType` `Clamp`), then `ExpressionTransform` with `Convert.ToSingle(it)`, then `UpdateUniform` with `UniformName` `amount`. Setting `Min` to 60 instead of 0 means background chatter leaves the picture still; only real noise moves it.
+* Add `Loudness` from the toolbox, then `Rescale` (`Min` 60, `Max` 600, `RangeMin` 0, `RangeMax` 0.3, `RescaleType` `Clamp`), then `ExpressionTransform` with `Convert.ToSingle(it)`, then `UpdateUniform` with `UniformName` `amount`. Setting `Min` to 60 instead of 0 means background chatter leaves the picture still; only real noise moves it.
 * Run. Speak and the picture ripples. Shout and the colours bleed into rainbow.
 * **Optional:** open `camera.frag` in a text editor, change the `20.0` in the `sin` line to `5.0`, save, and restart the workflow. Shaders reload on start, so restart after every edit.
 
@@ -219,7 +213,7 @@ Any stream can drive a uniform, so anything Bonsai can read becomes a control.
 ![Keyboard control](../workflows/02-live-demo-13.bonsai)
 :::
 
-* Add a `KeyDown` source from **Shaders** (it listens to the shader window) and set `Key` to `Up`. After it add a `Float` and set `Value` to 0.03.
+* Add a `KeyDown` source from **Shaders** and set `Key` to `Up`. It only hears keys while the shader window has focus, so click that window before pressing anything. After it add a `Float` and set `Value` to 0.03.
 * Add a second `KeyDown` with `Key` `Down`, and a `Float` with `Value` -0.03.
 * Join the two with `Merge`, add `Accumulate`, then `UpdateUniform` for `amount`.
 * Run, click the shader window, and press the arrow keys. Each press nudges the warp.
@@ -241,17 +235,17 @@ Any stream can drive a uniform, so anything Bonsai can read becomes a control.
 ![A sensor lights an LED](../workflows/02-live-demo-15.bonsai)
 :::
 
-So far the sensors were the ones every laptop has. The kit on the table adds the rest: knobs, light, sound, distance and touch sensors, and LEDs, buzzers and motors to drive. They plug into an Arduino, and an Arduino running the Firmata sketch turns every pin into a stream Bonsai can read or write. This exercise reads one sensor and lights one LED. It stands on its own, so start it on an empty canvas.
+So far the sensors were the ones every laptop has. Bonsai talks to a wide range of other devices, peripherals and sensors too: cameras, microcontrollers, lab hardware, game controllers, anything with a port. One of the most common microcontrollers is the Arduino, and with the Firmata sketch on it every pin becomes a stream Bonsai can read or write. The kit on the table has knobs, light, sound, distance and touch sensors, and LEDs, buzzers and motors to drive. This exercise reads one sensor and lights one LED. It stands on its own, so start it on an empty canvas.
 
-* Plug the Arduino into USB and a Gravity analog module (the rotation knob, the light sensor or the sound sensor) into the `A0` socket on the shield. The LED built into the board is on pin 13, so no LED module is needed.
+* Plug the Arduino into USB and a sensor (the rotation knob, the light sensor or the sound sensor) into the `A0` socket on the shield. The LED built into the board is on pin 13, so no LED module is needed.
 * Add `CreateArduino` (from **Arduino**). Set `Name` to `Board` and `PortName` to the board's port: open the dropdown, or look in Device Manager under **Ports (COM & LPT)**.
-* Click the empty canvas so nothing is selected, then add `AnalogInput`. It is a source of its own, not connected to `CreateArduino`. Set `PortName` to `Board` and `Pin` to 0. Run and open its visualizer: a number from 0 to 1023. Turn the knob, or cover the sensor.
-* Add `GreaterThan` after it and set `Value` to 512. The number becomes true or false.
-* Add `DigitalOutput`. Set `PortName` to `Board` and `Pin` to 13.
-* Run. Past halfway the LED on the board comes on; back below, it goes off.
-* **Into the demo:** paste this beside your Exercise 11 workflow, then from `AnalogInput` add `ExpressionTransform` with `Convert.ToDouble(it)`, `Rescale` (`Min` 0, `Max` 1023, `RangeMin` 0, `RangeMax` 0.3, `RescaleType` `Clamp`), `ExpressionTransform` with `Convert.ToSingle(it)` and `UpdateUniform` for `amount`. The knob bends the picture.
-* **Out of the demo:** add a `SubscribeSubject` to `Loudness`, then `GreaterThan` with `Value` 200, then `DigitalOutput` on pin 13. Clap and the LED blinks. For brightness instead of on and off, put an LED module on a PWM pin (3, 5, 6, 9, 10 or 11) and send `Loudness` through `Rescale` (`Min` 0, `Max` 600, `RangeMin` 0, `RangeMax` 255, `RescaleType` `Clamp`) and `ExpressionTransform` with `Convert.ToInt32(it)` into `AnalogOutput` on that pin.
-* **Question:** swap the module on `A0` for a different analog sensor without touching the workflow. What changes, and what does not?
+* Add `AnalogInput`. It is a source of its own, not connected to `CreateArduino`. Set `PortName` to `Board` and `Pin` to 0. Run and open its visualizer: a number from 0 to 1023. Turn the knob, or cover the sensor, and watch how far the number moves. Note where it sits at rest and where it goes when you act on the sensor.
+* Add `GreaterThan` after it and set `Value` to a number between those two readings, so that acting on the sensor crosses it. The number becomes true or false.
+* Add `DigitalOutput`. Set `PortName` to `Board` and `Pin` to 13, the LED built into the board.
+* Run the workflow, and flash your LED using your sensor.
+* **Into the demo:** in Exercise 11 the microphone's loudness went through `Rescale` and `ExpressionTransform` into `UpdateUniform` for `amount`. Paste this beside that workflow and send `AnalogInput` through the same chain, with `Min` 0 and `Max` 1023 on the `Rescale`. Now your sensor changes your image.
+* **Out of the demo:** add `Loudness` from the toolbox, then `GreaterThan` with `Value` 200, then `DigitalOutput` on pin 13. Clap and the LED blinks. For brightness instead of on and off, put an LED module on a PWM pin (3, 5, 6, 9, 10 or 11) and send `Loudness` through `Rescale` (`Min` 0, `Max` 600, `RangeMin` 0, `RangeMax` 255, `RescaleType` `Clamp`) and `ExpressionTransform` with `Convert.ToInt32(it)` into `AnalogOutput` on that pin.
+* **Question:** swap the sensor on `A0` for a different one without touching the workflow. What changes, and what does not?
 
 > [!WARNING]
 > "Access to the port is denied", or no port in the list: the Arduino IDE's serial monitor still has it, or the board is on a different COM number. Close the IDE, check Device Manager, and set `PortName` again. The boards in the kit already run `StandardFirmata`; your own Arduino needs it uploaded once from **File > Examples > Firmata** in the Arduino IDE.
@@ -267,7 +261,7 @@ Bonsai does not have to draw the picture itself. It is just as happy being the s
 Ember Pulse has five knobs, each a number from 0 to 1 with a name: `/pulse` for the heartbeat, `/spin` for the rotation, `/zoom`, `/hue` for the colour and `/trail` for how long the trails last. A knob nobody sends stays at rest. We will turn two of them.
 
 * Add `CreateUdpClient` (from **Osc**). Set `Name` to `Out`, `RemoteHostName` to `127.0.0.1` and `RemotePort` to 8000. Use another machine's IP address to send across the network instead.
-* Add a `SubscribeSubject` to `Motion`, then `Rescale` with `Max` set to a "lots of movement" value from your visualizer, `RangeMin` 0, `RangeMax` 1 and `RescaleType` `Clamp`. The number now always sits between 0 and 1.
+* Add `Motion` from the toolbox, then `Rescale` with `Max` set to a "lots of movement" value from your visualizer, `RangeMin` 0, `RangeMax` 1 and `RescaleType` `Clamp`. The number now always sits between 0 and 1.
 * Add `ExpressionTransform` with `Convert.ToSingle(it)`, then `SendMessage` with `Connection` `Out` and `Address` `/pulse`.
 * Repeat for `Loudness`: `Rescale` with `Min` 0, `Max` 600, `RangeMin` 0, `RangeMax` 1 and `RescaleType` `Clamp`, then send it to `/hue`.
 * Run. Anything listening on port 8000 now receives two named channels.

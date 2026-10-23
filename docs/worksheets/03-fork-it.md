@@ -6,11 +6,11 @@ Start from the last checkpoint you reached in [The Live Demo](02-live-demo.md). 
 
 ## Swap a sensor
 
-* **Motion instead of sound.** Change the `SubscribeSubject` feeding `amount` from `Loudness` to `Motion`. Now the picture warps when you move.
+* **Motion instead of sound.** Replace the `Loudness` node feeding `amount` with `Motion` from the toolbox. Now the picture warps when you move.
 * **Position instead of the mouse.** If you did Exercise 4, feed `Position` into the uniform instead of `MouseMove`. A coloured object becomes the controller.
 * **Two microphones, two numbers.** Add a second `AudioCapture` with a different `DeviceName` and a second loudness chain. Drive `time` from one and `amount` from the other.
 
-* **The kit on the table.** Exercise 15 reads one Gravity module and lights one LED. Swap the module for a distance, touch or sound sensor, send its number into `amount`, or drive a buzzer or a servo instead of the LED. Ask for a board if you have not got one.
+* **The kit on the table.** Exercise 15 reads one sensor and lights one LED. Swap it for a distance, touch or sound sensor, send its number into `amount`, or drive a buzzer or a servo instead of the LED. Ask for a board if you have not got one.
 
 The webcam and microphone are just the sensors every laptop already has. Bonsai talks to a huge range of others: Arduinos and anything you can wire to one (buttons, knobs, light, distance, pressure, temperature), game controllers, MIDI and OSC devices, depth cameras, high-speed and machine-vision cameras, eye trackers, heart rate, breathing and brain activity sensors, and lab hardware built for timing to the millisecond. Many have a ready-made package in **Tools > Manage Packages**.
 

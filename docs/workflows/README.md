@@ -27,7 +27,9 @@ puts the workflow XML on the clipboard. So nothing but the `.bonsai` files needs
 
 | File | Worksheet | Exercise | Status |
 | --- | --- | --- | --- |
-| `02-live-demo-01.bonsai` | [The Live Demo](../worksheets/02-live-demo.md) | 1 Acquire | renders |
+| `01-getting-started-01.bonsai` | [Getting Started](../worksheets/01-getting-started.md) | 2 Your face, in a box (camera) | renders |
+| `01-getting-started-02.bonsai` | | 2 Your face, in a box (camera and grayscale) | renders |
+| `02-live-demo-01.bonsai` | [The Live Demo](../worksheets/02-live-demo.md) | 1 Acquire (same as Getting Started 2) | renders |
 | `02-live-demo-02.bonsai` | | 2 Transform | renders |
 | `02-live-demo-03.bonsai` | | 3 Motion energy | renders |
 | `02-live-demo-04.bonsai` | | 4 Track a coloured object | renders |

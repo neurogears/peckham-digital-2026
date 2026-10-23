@@ -11,7 +11,12 @@
           <cv:CaptureProperties />
         </Combinator>
       </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="cv:Grayscale" />
+      </Expression>
     </Nodes>
-    <Edges />
+    <Edges>
+      <Edge From="0" To="1" Label="Source1" />
+    </Edges>
   </Workflow>
 </WorkflowBuilder>

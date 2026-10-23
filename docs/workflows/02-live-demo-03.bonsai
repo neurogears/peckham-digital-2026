@@ -17,13 +17,6 @@
         <Combinator xsi:type="cv:Grayscale" />
       </Expression>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="cv:Canny">
-          <cv:Threshold1>50</cv:Threshold1>
-          <cv:Threshold2>150</cv:Threshold2>
-          <cv:ApertureSize>3</cv:ApertureSize>
-        </Combinator>
-      </Expression>
-      <Expression xsi:type="Combinator">
         <Combinator xsi:type="cv:BackgroundSubtraction">
           <cv:BackgroundFrames>1</cv:BackgroundFrames>
           <cv:AdaptationRate>0.1</cv:AdaptationRate>
@@ -45,10 +38,9 @@
     <Edges>
       <Edge From="0" To="1" Label="Source1" />
       <Edge From="1" To="2" Label="Source1" />
-      <Edge From="1" To="3" Label="Source1" />
+      <Edge From="2" To="3" Label="Source1" />
       <Edge From="3" To="4" Label="Source1" />
       <Edge From="4" To="5" Label="Source1" />
-      <Edge From="5" To="6" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>
