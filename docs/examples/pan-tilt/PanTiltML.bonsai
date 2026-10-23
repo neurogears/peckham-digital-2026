@@ -1,57 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <WorkflowBuilder Version="2.9.1"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                 xmlns:p1="clr-namespace:Bonsai.ML.Torch;assembly=Bonsai.ML.Torch"
-                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
-                 xmlns:p2="clr-namespace:Yolo.Torch;assembly=Yolo.Torch"
                  xmlns:vid="clr-namespace:Bonsai.Video;assembly=Bonsai.Video"
                  xmlns:cv="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision"
-                 xmlns:p3="clr-namespace:Bonsai.ML.Torch.NeuralNets;assembly=Bonsai.ML.Torch"
+                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
+                 xmlns:p1="clr-namespace:YoloDetect;assembly=Extensions"
                  xmlns:scr="clr-namespace:Bonsai.Scripting.Expressions;assembly=Bonsai.Scripting.Expressions"
                  xmlns:ard="clr-namespace:Bonsai.Arduino;assembly=Bonsai.Arduino"
                  xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
-                 xmlns:ui="clr-namespace:Bonsai.Design;assembly=Bonsai.Design"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
-      <Expression xsi:type="GroupWorkflow">
-        <Name>Model</Name>
-        <Workflow>
-          <Nodes>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="p1:InitializeTorchDevice">
-                <p1:DeviceType>CUDA</p1:DeviceType>
-                <p1:DeviceIndex>-1</p1:DeviceIndex>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="rx:BehaviorSubject">
-              <Name>Device</Name>
-            </Expression>
-            <Expression xsi:type="SubscribeSubject">
-              <Name>Device</Name>
-            </Expression>
-            <Expression xsi:type="PropertyMapping">
-              <PropertyMappings>
-                <Property Name="Device" />
-              </PropertyMappings>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="p2:LoadScriptModule">
-                <p2:ModelPath>models/yolo26n.torchscript</p2:ModelPath>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="rx:BehaviorSubject">
-              <Name>Model</Name>
-            </Expression>
-          </Nodes>
-          <Edges>
-            <Edge From="0" To="1" Label="Source1" />
-            <Edge From="2" To="3" Label="Source1" />
-            <Edge From="3" To="4" Label="Source1" />
-            <Edge From="4" To="5" Label="Source1" />
-          </Edges>
-        </Workflow>
-      </Expression>
       <Expression xsi:type="GroupWorkflow">
         <Name>ImageProcessing</Name>
         <Workflow>
@@ -70,42 +29,17 @@
             <Expression xsi:type="rx:PublishSubject">
               <Name>Image</Name>
             </Expression>
-            <Expression xsi:type="SubscribeSubject">
-              <Name>Device</Name>
-            </Expression>
-            <Expression xsi:type="PropertyMapping">
-              <PropertyMappings>
-                <Property Name="Device" />
-              </PropertyMappings>
-            </Expression>
             <Expression xsi:type="Combinator">
-              <Combinator xsi:type="p2:Preprocess" />
-            </Expression>
-            <Expression xsi:type="SubscribeSubject">
-              <Name>Model</Name>
-            </Expression>
-            <Expression xsi:type="PropertyMapping">
-              <PropertyMappings>
-                <Property Name="Model" />
-              </PropertyMappings>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="p3:Forward" />
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="p2:DecodeObjectDetectionData">
-                <p2:ConfidenceThreshold>0.5</p2:ConfidenceThreshold>
-                <p2:IouThreshold>0.25</p2:IouThreshold>
+              <Combinator xsi:type="p1:YoloDetect">
+                <p1:ModelPath>models\yolo26n.onnx</p1:ModelPath>
+                <p1:ExecutionProvider>Cpu</p1:ExecutionProvider>
+                <p1:DeviceId>0</p1:DeviceId>
+                <p1:ConfidenceThreshold>0.5</p1:ConfidenceThreshold>
+                <p1:IouThreshold>0.5</p1:IouThreshold>
               </Combinator>
             </Expression>
             <Expression xsi:type="rx:PublishSubject">
               <Name>ObjectDetections</Name>
-            </Expression>
-            <Expression xsi:type="SubscribeSubject">
-              <Name>Model</Name>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="rx:SubscribeWhen" />
             </Expression>
             <Expression xsi:type="SubscribeSubject">
               <Name>ObjectDetections</Name>
@@ -114,7 +48,7 @@
               <Combinator xsi:type="rx:Concat" />
             </Expression>
             <Expression xsi:type="ExternalizedMapping">
-              <Property Name="Class" />
+              <Property Name="Value" />
             </Expression>
             <Expression xsi:type="rx:Condition">
               <Workflow>
@@ -126,11 +60,11 @@
                     <Selector>ObjectClass</Selector>
                   </Expression>
                   <Expression xsi:type="ExternalizedMapping">
-                    <Property Name="Value" DisplayName="Class" />
+                    <Property Name="Value" />
                   </Expression>
                   <Expression xsi:type="Equal">
-                    <Operand xsi:type="WorkflowProperty" TypeArguments="p2:ObjectClass">
-                      <Value>Person</Value>
+                    <Operand xsi:type="WorkflowProperty" TypeArguments="p1:ObjectClass">
+                      <Value>CellPhone</Value>
                     </Operand>
                   </Expression>
                   <Expression xsi:type="WorkflowOutput" />
@@ -156,22 +90,14 @@
           <Edges>
             <Edge From="0" To="1" Label="Source1" />
             <Edge From="1" To="2" Label="Source1" />
-            <Edge From="2" To="5" Label="Source1" />
+            <Edge From="2" To="3" Label="Source1" />
             <Edge From="3" To="4" Label="Source1" />
-            <Edge From="4" To="5" Label="Source2" />
-            <Edge From="5" To="8" Label="Source1" />
-            <Edge From="6" To="7" Label="Source1" />
+            <Edge From="5" To="6" Label="Source1" />
+            <Edge From="6" To="8" Label="Source1" />
             <Edge From="7" To="8" Label="Source2" />
             <Edge From="8" To="9" Label="Source1" />
             <Edge From="9" To="10" Label="Source1" />
-            <Edge From="10" To="12" Label="Source1" />
-            <Edge From="11" To="12" Label="Source2" />
-            <Edge From="13" To="14" Label="Source1" />
-            <Edge From="14" To="16" Label="Source1" />
-            <Edge From="15" To="16" Label="Source2" />
-            <Edge From="16" To="17" Label="Source1" />
-            <Edge From="17" To="18" Label="Source1" />
-            <Edge From="18" To="19" Label="Source1" />
+            <Edge From="10" To="11" Label="Source1" />
           </Edges>
         </Workflow>
       </Expression>
@@ -179,6 +105,9 @@
         <Name>ArduinoResources</Name>
         <Workflow>
           <Nodes>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="PortName" Category="Arduino" />
+            </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="ard:CreateArduino">
                 <ard:Name>PanTilt</ard:Name>
@@ -191,11 +120,11 @@
               <Name>Arduino</Name>
             </Expression>
             <Expression xsi:type="ExternalizedMapping">
-              <Property Name="Value" DisplayName="PanAngle" />
+              <Property Name="Value" DisplayName="PanAngle" Category="ServoControl" />
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="DoubleProperty">
-                <Value>0.2391304347826087</Value>
+                <Value>0.16304347826086957</Value>
               </Combinator>
             </Expression>
             <Expression xsi:type="Multiply">
@@ -207,7 +136,7 @@
               <Name>PanAngle</Name>
             </Expression>
             <Expression xsi:type="ExternalizedMapping">
-              <Property Name="Value" DisplayName="TiltAngle" />
+              <Property Name="Value" DisplayName="TiltAngle" Category="ServoControl" />
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="DoubleProperty">
@@ -255,18 +184,19 @@
           </Nodes>
           <Edges>
             <Edge From="0" To="1" Label="Source1" />
-            <Edge From="2" To="3" Label="Source1" />
+            <Edge From="1" To="2" Label="Source1" />
             <Edge From="3" To="4" Label="Source1" />
             <Edge From="4" To="5" Label="Source1" />
-            <Edge From="6" To="7" Label="Source1" />
+            <Edge From="5" To="6" Label="Source1" />
             <Edge From="7" To="8" Label="Source1" />
             <Edge From="8" To="9" Label="Source1" />
-            <Edge From="10" To="11" Label="Source1" />
-            <Edge From="11" To="13" Label="Source1" />
-            <Edge From="12" To="13" Label="Source2" />
-            <Edge From="14" To="15" Label="Source1" />
-            <Edge From="15" To="17" Label="Source1" />
-            <Edge From="16" To="17" Label="Source2" />
+            <Edge From="9" To="10" Label="Source1" />
+            <Edge From="11" To="12" Label="Source1" />
+            <Edge From="12" To="14" Label="Source1" />
+            <Edge From="13" To="14" Label="Source2" />
+            <Edge From="15" To="16" Label="Source1" />
+            <Edge From="16" To="18" Label="Source1" />
+            <Edge From="17" To="18" Label="Source2" />
           </Edges>
         </Workflow>
       </Expression>
@@ -292,8 +222,8 @@
               <Combinator xsi:type="dsp:Rescale">
                 <dsp:Min>0</dsp:Min>
                 <dsp:Max>640</dsp:Max>
-                <dsp:RangeMin>-1</dsp:RangeMin>
-                <dsp:RangeMax>1</dsp:RangeMax>
+                <dsp:RangeMin>-3</dsp:RangeMin>
+                <dsp:RangeMax>3</dsp:RangeMax>
                 <dsp:RescaleType>Clamp</dsp:RescaleType>
               </Combinator>
             </Expression>
@@ -377,8 +307,8 @@ Item1.OldValue as OldValue,Item2.Item1 as MaxValue,Item2.Item2 as MinValue)</scr
               <Combinator xsi:type="dsp:Rescale">
                 <dsp:Min>0</dsp:Min>
                 <dsp:Max>360</dsp:Max>
-                <dsp:RangeMin>-1</dsp:RangeMin>
-                <dsp:RangeMax>1</dsp:RangeMax>
+                <dsp:RangeMin>-3</dsp:RangeMin>
+                <dsp:RangeMax>3</dsp:RangeMax>
                 <dsp:RescaleType>Clamp</dsp:RescaleType>
               </Combinator>
             </Expression>
@@ -409,7 +339,7 @@ Accumulation as OldValue)</scr:Expression>
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="FloatProperty">
-                      <Value>0</Value>
+                      <Value>120</Value>
                     </Combinator>
                   </Expression>
                   <Expression xsi:type="Combinator">
@@ -463,24 +393,7 @@ Item1.OldValue as OldValue,Item2.Item1 as MaxValue,Item2.Item2 as MinValue)</scr
           </Edges>
         </Workflow>
       </Expression>
-      <Expression xsi:type="SubscribeSubject">
-        <Name>ObjectDetections</Name>
-      </Expression>
-      <Expression xsi:type="VisualizerMapping" />
-      <Expression xsi:type="SubscribeSubject">
-        <Name>Image</Name>
-      </Expression>
-      <Expression xsi:type="ui:VisualizerWindow">
-        <ui:Visible>true</ui:Visible>
-        <ui:Location xsi:nil="true" />
-        <ui:Size xsi:nil="true" />
-        <ui:WindowState xsi:nil="true" />
-      </Expression>
     </Nodes>
-    <Edges>
-      <Edge From="4" To="5" Label="Source1" />
-      <Edge From="5" To="6" Label="Source1" />
-      <Edge From="6" To="7" Label="Source1" />
-    </Edges>
+    <Edges />
   </Workflow>
 </WorkflowBuilder>

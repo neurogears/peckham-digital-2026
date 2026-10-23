@@ -2,7 +2,7 @@
 
 A webcam sits on two small servos, one that turns it left and right (pan) and one that nods it up and down (tilt). Bonsai finds something in the picture, works out how far it is from the centre, and nudges the servos until it is back in the middle. The object moves, the camera follows. The tracking half is the same recipe as Exercise 4 of [The Live Demo](../../worksheets/02-live-demo.md); the new half is the servos, which Bonsai talks to through an Arduino.
 
-There are two workflows. `PanTilt` follows an object found by thresholding the image. `PanTiltML` follows an object in the image that a neural network can identify. The only difference between the 2 workflows is the tracking pipeline - the part of the workflow that transforms a camera image into a point to track.
+There are two workflows. `PanTilt` follows an object found by thresholding the image. `PanTiltML` follows an object in the image that a neural network can identify. What differs between the two is the tracking pipeline, the part of the workflow that transforms a camera image into a point to track; everything that drives the servos from that point is shared.
 
 ## Hardware
 
@@ -13,12 +13,20 @@ There are two workflows. `PanTilt` follows an object found by thresholding the i
 
 ## Setup
 
-These workflows need `Bonsai.Arduino` and, for `PanTiltML`, the Torch runtime, so they have their own environment in this folder.
+These workflows need `Bonsai.Arduino` and, for `PanTiltML`, the ONNX Runtime, so they have their own environment in this folder.
 
 1. In the unzipped workshop folder, open `docs/examples/pan-tilt/.bonsai`.
-2. Double-click `Setup.cmd`. It downloads Bonsai and the packages, about 500 MB in all, and closes when finished.
+2. Double-click `Setup.cmd`. It downloads Bonsai and the packages, and closes when finished.
 3. Double-click `Bonsai.exe` in that folder, then open either workflow from `docs/examples/pan-tilt`.
 4. Plug in the Arduino and find its port in Device Manager under Ports (COM & LPT). Double-click `ArduinoResources`, select `CreateArduino` and set `PortName` to that port. It is saved as `COM5`.
+
+`PanTiltML` also needs a detection model, which is not stored in the repository. First, you should install [uv](https://docs.astral.sh/uv/), and then run the `export_onnx.py` to download the YOLO model weights and write them to `models/yolo26n.onnx` beside the workflow:
+
+```
+uv run export_onnx.py
+```
+
+You can use the `--model` argument to export a different model, for example `uv run export_onnx.py --model yolo26s`. [uv](https://docs.astral.sh/uv/) reads the dependencies declared at the top of the script, so there is nothing to install first.
 
 ## PanTilt
 
@@ -42,14 +50,16 @@ Four groups, left to right: find the object, connect the servos, turn a position
 ![PanTiltML](PanTiltML.bonsai)
 :::
 
-The same rig, but the thing being followed is now a selectable category of objects. [YOLO](https://docs.ultralytics.com) is an object detection network that draws a labelled box around each of eighty different kinds of more commonly found objects, such as `Person`, `Bottle`, `Cell phone`, etc. Bonsai runs it through `Bonsai.ML.Torch`, and the centre of the box takes the place of the centroid that represented the thresholded object in the previous example. Everything downstream of `Position` is unchanged.
+The same rig, but the thing being followed is now a selectable category of objects. [YOLO](https://docs.ultralytics.com) is an object detection network that draws a labelled box around each of eighty different kinds of more commonly found objects, such as `Person`, `Bottle`, `Cell phone`, etc. The model runs in the ONNX Runtime through `YoloDetect`, an operator defined in the `Extensions` folder next to the workflow and compiled by Bonsai when the editor opens. The centre of the box takes the place of the centroid that represented the thresholded object in the previous example. Everything downstream of `Position` is unchanged.
 
-* `Model` sets up the device and loads `models/yolo26n.torchscript`, the smallest YOLO model exported for TorchSharp. `InitializeTorchDevice` is set to `CUDA`. On a laptop without an NVIDIA card change `DeviceType` to `CPU`, which still manages a few frames a second.
-* `ImageProcessing` replaces `CameraTracking`. `Preprocess` resizes the frame and moves it to the device, `Forward` runs the network, and `DecodeObjectDetectionData` turns the raw output into boxes, dropping anything under half confidence and merging boxes that overlap. `Concat` then unpacks the list so each box is its own event.
-* `Condition` keeps only boxes whose class matches `Class`, exposed on the group as a drop-down. `ExpressionTransform` takes the middle of the box, and that is `Position`.
+Three groups this time rather than four. Each detection carries the image it was found in, so the separate display group is no longer needed.
+
+* `ImageProcessing` replaces `CameraTracking`. The camera image is flipped vertically and published as `Image`, and `YoloDetect` runs the model on every frame and emits each object it finds. `ModelPath` is `models/yolo26n.onnx`, the file written by `export_onnx.py`. `ConfidenceThreshold` drops candidates scoring below 0.5 and `IouThreshold` suppresses a box that overlaps a more confident one by more than 0.5, which is what stops one object collecting a stack of boxes. `ExecutionProvider` is `Cpu` and manages a few frames a second; it can be set to `Cuda` or `TensorRT` with the GPU build of the runtime, where `DeviceId` picks the card.
+* `Concat` unpacks the collection so each box arrives as its own event. `Condition` keeps only the boxes whose `ObjectClass` matches `Class`, exposed on the group as a drop-down of the eighty COCO categories. `BoundingBox` and then `ExpressionTransform` take the middle of the box, and that is `Position`.
 * `ArduinoResources` and `PanTiltUpdate` are the same as in `PanTilt`, with the two starting angles exposed as `PanAngle` and `TiltAngle` on the group so you can set them from the properties panel without opening it. The tilt branch uses the full gain here.
-* Run and open the window. Every box the network finds is drawn on the camera image, and the camera turns to follow whichever one matches `Class`. Step out of frame and it stays where it was until someone else walks in.
+* Run, then double-click `ObjectDetections` to open its visualizer. Every box the network finds is drawn on the camera image with its class and confidence, and the camera turns to follow whichever one matches `Class`. Right-click the window to toggle the boxes and the labels. Step out of frame and it stays where it was until someone else walks in.
 * Set `Class` to `Bottle`, `Book`, `Laptop` or `CellPhone` and hold up the real thing. Which does it find most reliably?
+* Raise `ConfidenceThreshold` until the detection flickers, then lower it until things that are not there start appearing. Where you leave it decides whether the camera loses the object or chases a ghost.
 * **Question:** two people in frame produce two boxes, and `Concat` hands both to the controller every frame. What does the camera do? Which box wins, and what would you add before `Position` to pick the one you want, the biggest, say, or the one nearest the centre?
 
 > [!TIP]
