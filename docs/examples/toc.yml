@@ -2,3 +2,5 @@
   href: index.md
 - name: "MoveNet: pose-driven visuals"
   href: movenet/index.md
+- name: "Pan-tilt: a camera that follows"
+  href: pan-tilt/index.md
