@@ -4,11 +4,7 @@
 
 ## Setup
 
-These workflows need a few packages the workshop environment does not have, plus the TensorFlow runtime, so they have their own environment in this folder.
-
-1. In the unzipped workshop folder, open `docs/examples/movenet/.bonsai`.
-2. Double-click `Setup.cmd`. It downloads Bonsai, the packages and the TensorFlow runtime, about 400 MB in all, and closes when finished.
-3. Double-click `Bonsai.exe` in that folder. From here you can open the workflows found in `docs/examples/movenet` directly, or copy and paste them from here.
+Nothing extra. The workshop environment from [Getting Started](../../worksheets/01-getting-started.md) already has the MoveNet package, and its `Setup.cmd` put the TensorFlow runtime in the `lib` folder at the top of the workshop folder. Open any workflow below from the workshop `Bonsai.exe`, straight from `docs/examples/movenet`, or copy and paste it from this page.
 
 ## PoseSkeleton
 
@@ -40,7 +36,7 @@ The same picture, drawn by one operator we wrote ourselves. `DrawSkeleton` is no
 ![PoseToTouchDesigner](PoseToTouchDesigner.bonsai)
 :::
 
-The body as a controller. This is `PoseSkeleton` with one more group, `TouchDesigner`, which turns five body measurements into numbers between 0 and 1 and sends each to one knob of the Ember Pulse patch from Exercise 15 of [The Live Demo](../../worksheets/02-live-demo.md), the one in `touchdesigner/ember-pulse.toe`. You still see the stick figure, so you can watch what the network sees while the picture responds.
+The body as a controller. This is `PoseSkeleton` with one more group, `TouchDesigner`, which turns five body measurements into numbers between 0 and 1 and sends each to one knob of the Ember Pulse patch from Exercise 16 of [The Live Demo](../../worksheets/02-live-demo.md), the one in `touchdesigner/ember-pulse.toe`. You still see the stick figure, so you can watch what the network sees while the picture responds.
 
 | Knob | Measurement |
 | --- | --- |
@@ -77,4 +73,18 @@ A target circle appears somewhere over the camera image. Get your nose onto it b
 
 > [!TIP]
 > If tracking lags, swap `PredictSinglePoseThunder` for `PredictSinglePoseLightning`, a smaller model that trades a little accuracy for speed on a laptop CPU.
+
+## ClosedLoop
+
+:::workflow
+![ClosedLoop](ClosedLoop.bonsai)
+:::
+
+A window into a 3D room that moves as you do. Five shapes sit at different depths and the viewpoint follows your head, so leaning to one side lets you peek round the near cube and stepping closer brings the whole scene nearer. This is the closed-loop demo from the [BonVision examples](https://github.com/bonvision/examples/tree/master/Demos/ClosedLoop), which followed a torch held up to the camera. Here MoveNet follows your nose instead.
+
+* Run the workflow. A grey window opens with the shapes in it. Stand in front of the camera, sway from side to side and watch the shapes slide past each other. Then step forward and back.
+* `HeadTracking` runs the network and picks out the nose and both eyes. The `ExpressionCondition` after it drops any frame where one of the three was not found.
+* `Rescale` turns pixels into scene units. The nose column becomes the `X` of both `Eye` and `Target` in `PerspectiveView`, flipped so that moving to your right moves the viewpoint right. The spacing between your eyes stands in for how close you are, because everyone's eyes are about the same distance apart however tall they are: 40 pixels apart counts as far away and puts the viewpoint at `Z` 3, 160 pixels counts as close and brings it in to 1. On a 640 by 480 webcam that is roughly 2.5 m to 0.6 m, and sitting at a laptop lands in the middle. Open the visualizer on `Eye spacing` to see your own number, then tune `Min` and `Max` on that third `Rescale` for your camera and room.
+* The scene is five `DrawModel` nodes, each with its own mesh, position, scale and colour, all drawn on the `Draw` frame that `PerspectiveView` publishes. The icosphere spins because `RangeAnimation` counts from 0 to 359 every three seconds, `Repeat` starts it again, and `DegreeToRadian` feeds its `RotationY`. The meshes are plain OBJ files in the `Models` folder, loaded once by `MeshResources` at the top. `suzanne`, `sphere` and `cylinder` are loaded but not drawn, so they are yours to add.
+* **Question:** the nose row is rescaled too, but nothing reads it. Map it onto `Y` of `Eye` as well. Which way round does it need to go so that crouching lowers the view?
 

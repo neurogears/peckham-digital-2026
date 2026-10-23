@@ -1,4 +1,6 @@
 Push-Location $PSScriptRoot
+# Windows PowerShell redraws a progress bar for every chunk, which makes big downloads slow.
+$ProgressPreference = 'SilentlyContinue'
 $release = "https://github.com/bonsai-rx/bonsai/releases/latest/download/Bonsai.zip"
 $version = $null
 $configPath = "./Bonsai.config"
@@ -27,10 +29,12 @@ if (!(Test-Path "./Bonsai.exe")) {
     Remove-Item -Path "temp.zip"
     Remove-Item -Path "Bonsai32.exe" -ErrorAction SilentlyContinue
 }
+& .\Bonsai.exe --no-editor
 
-$gpuAvailable = $false
-$torchUrl = $null
-$tensorflowUrl = $null
+# The MoveNet package behind the pose demos needs the native TensorFlow 2.8 runtime, which
+# is not on NuGet. Bonsai.config lists the shared lib folder at the top of the workshop
+# folder as a library folder, so put tensorflow.dll there. A machine with an NVIDIA card
+# gets the GPU build; it falls back to the CPU by itself when CUDA is not installed.
 
 function Extract-Folder-in-Archive {
     param (
@@ -57,35 +61,26 @@ function Extract-Folder-in-Archive {
     $zip.Dispose()
 }
 
-if ($IsWindows) {
-    if (Get-WmiObject -ClassName Win32_VideoController | Where-Object { $_.Name.contains('NVIDIA') }) {
-        $gpuAvailable = $true
-    }
+$gpuAvailable = $false
+if (Get-CimInstance -ClassName Win32_VideoController -ErrorAction SilentlyContinue | Where-Object { $_.Name -like '*NVIDIA*' }) {
+    $gpuAvailable = $true
 }
-else {
-    if (Get-Command "nvidia-smi" -ErrorAction SilentlyContinue) {
-        $gpuAvailable = $true
-    }
+elseif (Get-Command "nvidia-smi" -ErrorAction SilentlyContinue) {
+    $gpuAvailable = $true
 }
-if ($gpuAvailable) {
-    $torchUrl = "https://download.pytorch.org/libtorch/cu121/libtorch-win-shared-with-deps-2.5.1%2Bcu121.zip"
-    $tensorflowUrl = "https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-gpu-windows-x86_64-2.8.0.zip"
-}
-else {
-    $torchUrl = "https://download.pytorch.org/libtorch/cpu/libtorch-win-shared-with-deps-2.5.1%2Bcpu.zip"
-    $tensorflowUrl = "https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-windows-x86_64-2.8.0.zip"
-}
-if (!(Test-Path "../lib/torch.dll")) {
-    Invoke-WebRequest $torchUrl -OutFile "temp_torch.zip"
-    Extract-Folder-in-Archive -archivePath "temp_torch.zip" -folderEntry "libtorch/lib/" -destinationPath "../lib"
-    Remove-Item -Path "temp_torch.zip"
-}
+
 if (!(Test-Path "../lib/tensorflow.dll")) {
+    if ($gpuAvailable) {
+        $tensorflowUrl = "https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-gpu-windows-x86_64-2.8.0.zip"
+        Write-Host "NVIDIA card found. Downloading the TensorFlow 2.8.0 GPU runtime (about 243 MB)."
+    }
+    else {
+        $tensorflowUrl = "https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-windows-x86_64-2.8.0.zip"
+        Write-Host "Downloading the TensorFlow 2.8.0 CPU runtime (about 63 MB)."
+    }
+    New-Item -ItemType Directory -Path "../lib" -Force | Out-Null
     Invoke-WebRequest $tensorflowUrl -OutFile "temp_tensorflow.zip"
     Extract-Folder-in-Archive -archivePath "temp_tensorflow.zip" -folderEntry "lib/" -destinationPath "../lib"
     Remove-Item -Path "temp_tensorflow.zip"
 }
-
-
-# & .\Bonsai.exe --no-editor
 Pop-Location
