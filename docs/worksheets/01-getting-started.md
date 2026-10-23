@@ -9,7 +9,7 @@ things.
 - A laptop running Windows 10 or later. Bonsai runs on Linux too, but the editor and
   visualizers are most reliable on Windows.
 - A webcam and a microphone. The built-in ones are fine.
-- About 500 MB of free disk space.
+- About 1 GB of free disk space.
 
 > [!TIP]
 > No Windows machine? You are still very welcome. Follow along on the big screen and pair
@@ -26,8 +26,8 @@ can delete it afterwards.
    (green **Code** button, then **Download ZIP**) and unzip it somewhere easy to find.
 2. Open the `.bonsai` folder inside it. If you cannot see it, turn on **View > Hidden items**
    in File Explorer.
-3. Double-click `Setup.cmd`. A console window appears, downloads Bonsai and its packages, and
-   closes when finished. This takes a few minutes.
+3. Double-click `Setup.cmd`. A console window appears, downloads Bonsai, its packages and the
+   TensorFlow runtime the pose demos use, and closes when finished. This takes a few minutes.
 4. Double-click `Bonsai.exe` in the same folder to open the editor.
 5. Choose **File > Open** and open `playground.bonsai` from the top of the workshop folder.
    It is an empty workflow. Opening it tells Bonsai to work from the workshop folder, which

@@ -35,11 +35,18 @@ try {
     }
 
     if (Test-Path -Path 'examples/') {
-        # print message
+        # Each example folder renders with its own .bonsai environment when it has one,
+        # and with the workshop environment at the top of the repository otherwise.
         Write-Host "Processing examples in the 'examples/' directory..."
-        foreach ($environment in (Get-ChildItem -Path 'examples/' -Filter '.bonsai' -Recurse -FollowSymlink -Directory -Force)) {
-            Write-Host "Processing environment: $($environment.FullName)"
-            Process-Workflow-Collection $UseGalleryForExamplesDirectory ($environment.Parent.FullName) ($environment.FullName)
+        foreach ($example in (Get-ChildItem -Path 'examples/' -Directory)) {
+            $environment = Join-Path $example.FullName '.bonsai'
+            if (Test-Path -Path $environment) {
+                Write-Host "Processing environment: $environment"
+                Process-Workflow-Collection $UseGalleryForExamplesDirectory $example.FullName $environment
+            } else {
+                Write-Host "Processing $($example.FullName) with the workshop environment"
+                Process-Workflow-Collection $UseGalleryForWorkflowsDirectory $example.FullName '../.bonsai/'
+            }
         }
     }
 } finally {

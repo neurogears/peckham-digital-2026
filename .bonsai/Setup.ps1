@@ -28,4 +28,18 @@ if (!(Test-Path "./Bonsai.exe")) {
     Remove-Item -Path "Bonsai32.exe" -ErrorAction SilentlyContinue
 }
 & .\Bonsai.exe --no-editor
+
+# The MoveNet package behind the pose demos needs the native TensorFlow 2.8 runtime, which
+# is not on NuGet. Bonsai.config lists the shared lib folder at the top of the workshop
+# folder as a library folder, so put tensorflow.dll there.
+if (!(Test-Path "../lib/tensorflow.dll")) {
+    $tensorflow = "https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-windows-x86_64-2.8.0.zip"
+    Write-Host "Downloading the TensorFlow 2.8.0 CPU runtime (about 63 MB)."
+    Invoke-WebRequest $tensorflow -OutFile "tensorflow.zip"
+    Expand-Archive "tensorflow.zip" -DestinationPath "tensorflow-temp" -Force
+    New-Item -ItemType Directory -Path "../lib" -Force | Out-Null
+    Copy-Item "tensorflow-temp/lib/tensorflow.dll" "../lib/tensorflow.dll" -Force
+    Remove-Item -Path "tensorflow-temp" -Recurse -Force
+    Remove-Item -Path "tensorflow.zip"
+}
 Pop-Location
