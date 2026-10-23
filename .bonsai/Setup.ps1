@@ -38,6 +38,9 @@ function Extract-Folder-in-Archive {
         [string]$folderEntry,
         [string]$destinationPath
     )
+    # .NET resolves relative paths against the process directory, not the PowerShell location
+    $archivePath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($archivePath)
+    $destinationPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($destinationPath)
     Add-Type -AssemblyName System.IO.Compression.FileSystem
     $zip = [System.IO.Compression.ZipFile]::OpenRead($archivePath)
     foreach ($entry in $zip.Entries) {
