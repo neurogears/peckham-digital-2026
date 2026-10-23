@@ -34,13 +34,16 @@ puts the workflow XML on the clipboard. So nothing but the `.bonsai` files needs
 | `02-live-demo-05.bonsai` | | 5 Acquire audio | renders |
 | `02-live-demo-06.bonsai` | | 6 Loudness | renders |
 | `02-live-demo-07.bonsai` | | 7 Spectrum | renders |
-| `02-live-demo-08.bonsai` | | 8 Winamp-style visualizers | Nick, placeholder |
-| `02-live-demo-09.bonsai` | | 9 Sound sets the threshold | renders |
-| `02-live-demo-10.bonsai` | | 10 Sound draws the lines | renders |
-| `02-live-demo-11.bonsai` | | 11 Camera on the GPU | renders |
-| `02-live-demo-12.bonsai` | | 12 Warp | renders |
-| `02-live-demo-13.bonsai` | | 13 Keyboard | renders |
-| `02-live-demo-14.bonsai` | | 14 Mouse | renders |
-| `02-live-demo-15.bonsai` | | 15 Out to the world (OSC to TouchDesigner) | renders |
-| `../../shaders/quad.vert` | | 11 | |
-| `../../shaders/camera.frag` | | 11, 12 | |
+| `02-live-demo-08.bonsai` | | 8 Sound sets the threshold | renders |
+| `02-live-demo-09.bonsai` | | 9 Sound draws the lines | renders |
+| `02-live-demo-10.bonsai` | | 10 Camera on the GPU | renders |
+| `02-live-demo-11.bonsai` | | 11 Warp | renders |
+| `02-live-demo-12.bonsai` | | 12 Winamp Visualizer (Nick, a standalone workflow) | renders |
+| `02-live-demo-13.bonsai` | | 13 Keyboard (branch to paste beside 11) | renders |
+| `02-live-demo-14.bonsai` | | 14 Mouse (branch to paste beside 11) | renders |
+| `02-live-demo-15.bonsai` | | 15 A sensor and an LED (Arduino, standalone) | renders |
+| `02-live-demo-16.bonsai` | | 16 Out to the world (OSC to TouchDesigner) | renders |
+| `../../shaders/quad.vert` | | 10, 11 | |
+| `../../shaders/camera.frag` | | 10, 11 | |
+| `../../shaders/warp.frag`, `copy.frag`, `screen.frag` | | 12 | |
+| `../../shaders/waveform.vert`, `waveform.frag` | | 12 | |
