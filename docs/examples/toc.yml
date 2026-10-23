@@ -4,3 +4,5 @@
   href: movenet/index.md
 - name: "Pan-tilt: a camera that follows"
   href: pan-tilt/index.md
+- name: "Winamp visualizers: MilkDrop presets in Bonsai"
+  href: winamp-prism/index.md
