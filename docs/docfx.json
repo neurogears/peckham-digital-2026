@@ -23,7 +23,7 @@
           "images/**",
           "workflows/**/*.{bonsai,svg}",
           "{articles,tutorials,examples,worksheets,slides}/**/*.{bonsai,svg}",
-          "slides/decks/**"
+          "slides/**/*.html"
         ]
       }
     ],
