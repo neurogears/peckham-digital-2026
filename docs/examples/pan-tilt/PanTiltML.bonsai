@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <WorkflowBuilder Version="2.9.1"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                 xmlns:vid="clr-namespace:Bonsai.Video;assembly=Bonsai.Video"
                  xmlns:cv="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision"
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
                  xmlns:p1="clr-namespace:YoloDetect;assembly=Extensions"
                  xmlns:scr="clr-namespace:Bonsai.Scripting.Expressions;assembly=Bonsai.Scripting.Expressions"
                  xmlns:ard="clr-namespace:Bonsai.Arduino;assembly=Bonsai.Arduino"
                  xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
+                 xmlns:ui="clr-namespace:Bonsai.Design;assembly=Bonsai.Design"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
@@ -16,9 +16,9 @@
         <Workflow>
           <Nodes>
             <Expression xsi:type="Combinator">
-              <Combinator xsi:type="vid:VideoCaptureDevice">
-                <vid:Index>0</vid:Index>
-                <vid:CaptureProperties />
+              <Combinator xsi:type="cv:CameraCapture">
+                <cv:Index>2</cv:Index>
+                <cv:CaptureProperties />
               </Combinator>
             </Expression>
             <Expression xsi:type="Combinator">
@@ -124,7 +124,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="DoubleProperty">
-                <Value>0.16304347826086957</Value>
+                <Value>0.15760869565217392</Value>
               </Combinator>
             </Expression>
             <Expression xsi:type="Multiply">
@@ -140,7 +140,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="DoubleProperty">
-                <Value>0.90217391304347827</Value>
+                <Value>1</Value>
               </Combinator>
             </Expression>
             <Expression xsi:type="Multiply">
@@ -393,7 +393,19 @@ Item1.OldValue as OldValue,Item2.Item1 as MaxValue,Item2.Item2 as MinValue)</scr
           </Edges>
         </Workflow>
       </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>ObjectDetections</Name>
+      </Expression>
+      <Expression xsi:type="ui:VisualizerWindow">
+        <ui:Text>ObjectDetections</ui:Text>
+        <ui:Visible>true</ui:Visible>
+        <ui:Location xsi:nil="true" />
+        <ui:Size xsi:nil="true" />
+        <ui:WindowState xsi:nil="true" />
+      </Expression>
     </Nodes>
-    <Edges />
+    <Edges>
+      <Edge From="3" To="4" Label="Source1" />
+    </Edges>
   </Workflow>
 </WorkflowBuilder>

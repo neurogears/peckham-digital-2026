@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <WorkflowBuilder Version="2.9.1"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                 xmlns:vid="clr-namespace:Bonsai.Video;assembly=Bonsai.Video"
                  xmlns:cv="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision"
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
                  xmlns:ard="clr-namespace:Bonsai.Arduino;assembly=Bonsai.Arduino"
@@ -16,9 +15,9 @@
         <Workflow>
           <Nodes>
             <Expression xsi:type="Combinator">
-              <Combinator xsi:type="vid:VideoCaptureDevice">
-                <vid:Index>0</vid:Index>
-                <vid:CaptureProperties />
+              <Combinator xsi:type="cv:CameraCapture">
+                <cv:Index>2</cv:Index>
+                <cv:CaptureProperties />
               </Combinator>
             </Expression>
             <Expression xsi:type="Combinator">
