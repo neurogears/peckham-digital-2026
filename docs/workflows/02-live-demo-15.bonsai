@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<WorkflowBuilder Version="2.9.0"
+<WorkflowBuilder Version="2.9.1"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:osc="clr-namespace:Bonsai.Osc;assembly=Bonsai.Osc"
                  xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
@@ -32,7 +32,7 @@
       </Expression>
       <Expression xsi:type="osc:SendMessage">
         <osc:Connection>Out</osc:Connection>
-        <osc:Address>/br/motion</osc:Address>
+        <osc:Address>/pulse</osc:Address>
       </Expression>
       <Expression xsi:type="SubscribeSubject">
         <Name>Loudness</Name>
@@ -51,7 +51,7 @@
       </Expression>
       <Expression xsi:type="osc:SendMessage">
         <osc:Connection>Out</osc:Connection>
-        <osc:Address>/br/state/activation</osc:Address>
+        <osc:Address>/hue</osc:Address>
       </Expression>
     </Nodes>
     <Edges>
