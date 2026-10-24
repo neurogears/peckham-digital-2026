@@ -1,6 +1,6 @@
 # Getting Started
 
-Do this **before** the workshop if you can. Downloads over venue wifi are slow, and the sooner Bonsai is running on your laptop the more of the session you get to spend making things.
+Do this **before** the workshop if you can.
 
 ## What you need
 
@@ -43,7 +43,7 @@ Read the [editor guide](https://bonsai-rx.org/docs/articles/editor.html). The sh
 * Press **Start**, then double-click the `Timer` node.
 * **Question:** what is coming out, and how often?
 
-### **Exercise 2:** Your face, in a box
+### **Exercise 2:** Acquire the camera
 
 :::workflow
 ![Camera capture](../workflows/01-getting-started-01.bonsai)
