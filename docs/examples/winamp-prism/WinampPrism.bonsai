@@ -1,0 +1,1538 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WorkflowBuilder Version="2.9.1"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
+                 xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                 xmlns:p1="clr-namespace:Bonsai.Mixer;assembly=Bonsai.Mixer"
+                 xmlns:midi="clr-namespace:Bonsai.Midi;assembly=Bonsai.Midi"
+                 xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
+                 xmlns:scr="clr-namespace:Bonsai.Scripting.Expressions;assembly=Bonsai.Scripting.Expressions"
+                 xmlns:gl="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders"
+                 xmlns:num="clr-namespace:Bonsai.Numerics;assembly=Bonsai.Numerics"
+                 xmlns="https://bonsai-rx.org/2018/workflow">
+  <Workflow>
+    <Nodes>
+      <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism:ShaderEngine.bonsai">
+        <Width>600</Width>
+        <Height>500</Height>
+        <WindowBorder>Resizable</WindowBorder>
+        <WindowState>Normal</WindowState>
+        <Period>60</Period>
+        <MeshX>32</MeshX>
+        <MeshY>48</MeshY>
+      </Expression>
+      <Expression xsi:type="GroupWorkflow">
+        <Name>Presets</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="WorkflowInput">
+              <Name>Source1</Name>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:NeWAdamMasterMashupFX2Geiss.ReactionDiffusion34SwellingSpiralLiquidFireGeissAn46.ReactionDiffusion34SwellingSpiralLiquidFireGeissAn46.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Royal.Mashup177.Mashup177.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.DiscoMix6.DiscoMix6.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Orb.FireAndFumes2.FireAndFumes2.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Zylot.TrueVisionaryFinalMix.TrueVisionaryFinalMix.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:PieturP.TriptrapGettingConcreteVisionsThroughADiafragmaVersion.TriptrapGettingConcreteVisionsThroughADiafragmaVersion.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Waltra.SquareOrgy.SquareOrgy.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.FataMorgana.FataMorgana.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Suksma.BariumTitanate.BariumTitanate.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.MucusCervix.MucusCervix.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Shifter.Fuzzball3dGlassesFalseAuralary2UndreTheeBottomQoaguluste.Fuzzball3dGlassesFalseAuralary2UndreTheeBottomQoaguluste.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Yin.Preset315OceanOfLightYoImPeakinYoEoSPhat.Preset315OceanOfLightYoImPeakinYoEoSPhat.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Royal.Mashup417.Mashup417.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Suksma.WaterCooledRedUraniumVsDotesFreeenergynowNet.WaterCooledRedUraniumVsDotesFreeenergynowNet.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Misc.SawtoothGrinRoam.SawtoothGrinRoam.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.TunnelRace.TunnelRace.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Krash.PhotographicSentinel.PhotographicSentinel.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:HighAltitudeBasketUnraveling.SinghGroovesNitrogenArgonNz.SinghGroovesNitrogenArgonNz.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.CrystalAlley.CrystalAlley.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.SparkyCaleidoscope.SparkyCaleidoscope.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Misc.Mig049.Mig049.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Suksma.PusOnMyCatJ4Cubby.PusOnMyCatJ4Cubby.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Misc.PhatZylotEoSSquareFacesV2AltColours.PhatZylotEoSSquareFacesV2AltColours.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Shifter.LiquidCircuitryConjugoth.LiquidCircuitryConjugoth.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Stahlregen.DotsLayeredSuksmaWorldHumanvirusReplicationKillphreqsMix.DotsLayeredSuksmaWorldHumanvirusReplicationKillphreqsMix.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:TheNG.UltramixAderrasiFlexiPredatorPreySpiralsFlexiJellyfishJam.UltramixAderrasiFlexiPredatorPreySpiralsFlexiJellyfishJam.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Krash.WarMachineShiftingComplexityMix.WarMachineShiftingComplexityMix.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.AcidWiring.AcidWiring.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Royal.Mashup326.Mashup326.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.CherryBrainWallMod.CherryBrainWallMod.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.BabyOneMoreTime.BabyOneMoreTime.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Misc.Preset286.Preset286.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.IntoTheFireworks.IntoTheFireworks.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.DarkGalaxy.DarkGalaxy.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Yin.Preset253ArtificialPolesOfTheContinuumRemix3.Preset253ArtificialPolesOfTheContinuumRemix3.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Royal.Mashup337.Mashup337.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Orb.BlueEmotion.BlueEmotion.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Orb.MagmaPool.MagmaPool.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Misc.Xtramartin849.Xtramartin849.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Stahlregen.DotsPixelsBlockyJellyV2.DotsPixelsBlockyJellyV2.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Misc.Preset444.Preset444.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Hexcollie.CellDivision.CellDivision.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Misc.NeverSuggestThingsRoamGlanceAtSunForGalacticUpgrade.NeverSuggestThingsRoamGlanceAtSunForGalacticUpgrade.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Zylot.AgeOfScienceSeekingTruthMix.AgeOfScienceSeekingTruthMix.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:RceOrdinary.FarAwayDistanceCustomBeatDetectionBipolarColourGhostMix.FarAwayDistanceCustomBeatDetectionBipolarColourGhostMix.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Stahlregen.PsychedelicMetalFlower.PsychedelicMetalFlower.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Rovastar.AMillionMilesFromEarthWormholeMix.AMillionMilesFromEarthWormholeMix.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.RogueWavePs2.RogueWavePs2.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.GlassballDance.GlassballDance.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Royal.Mashup273.Mashup273.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:TonyMilkdrop.LeonardoDaVinciSBalloonFlexiMerryGoRoundTechstyle.LeonardoDaVinciSBalloonFlexiMerryGoRoundTechstyle.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Misc.EthicalRotterdamasm.EthicalRotterdamasm.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Unchained.FuzzySciences.FuzzySciences.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.MartinInDaMash12.MartinInDaMash12.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Misc.MigCOLORFUL9.MigCOLORFUL9.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Misc.Preset158.Preset158.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Suksma.GaeomaentaecLogSmell2SteamingWienies2.GaeomaentaecLogSmell2SteamingWienies2.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Orb.Waaa.Waaa.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Suksma.RovastarSunflowerPassionEnlightmentMixPhatEditFlexiUndMartinShadersCircumflexInCharacterClassesInRegularExpression.RovastarSunflowerPassionEnlightmentMixPhatEditFlexiUndMartinShadersCircumflexInCharacterClassesInRegularExpression.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Misc.Mig014Version2.Mig014Version2.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Yin.Preset250ArtificialPolesOfTheContinuumPhatSOrbitMix.Preset250ArtificialPolesOfTheContinuumPhatSOrbitMix.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Royal.Mashup160.Mashup160.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Misc.Package.Package.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.FrostyCaves2.FrostyCaves2.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.DiscoMix3Fast.DiscoMix3Fast.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.MandelboxExplorerV1EoSOptimizeBipolarWitchcraftMix.MandelboxExplorerV1EoSOptimizeBipolarWitchcraftMix.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Shifter.FeathersAngelWings.FeathersAngelWings.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Suksma.EdGeiningHateopsSqueakers.EdGeiningHateopsSqueakers.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.MartinInDaMash16.MartinInDaMash16.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Misc.DemonLDToxicWaterDiffusionThrexAngelaVsDebiBrownNice.DemonLDToxicWaterDiffusionThrexAngelaVsDebiBrownNice.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Suksma.GraineryClockMortis.GraineryClockMortis.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:MilkArtistAtOurBest.FEDSlowFastFtAdamFXNMartinHDCosmoFX.FEDSlowFastFtAdamFXNMartinHDCosmoFX.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Royal.Mashup197.Mashup197.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Misc.ItIsTheNightOfTheDemonWeedBowel.ItIsTheNightOfTheDemonWeedBowel.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Unchained.UnifiedDrag2.UnifiedDrag2.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Rovastar.BalkAcid.BalkAcid.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Yin.Preset393ArtificialInspirationMusicDrivenOutward.Preset393ArtificialInspirationMusicDrivenOutward.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Idiot.MarphetsSurrealDreamHypnoticSpiralMix.MarphetsSurrealDreamHypnoticSpiralMix.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:OneSidedInfiniteDimensionalShape.Helenisch.Helenisch.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Suksma.NipTuck.NipTuck.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Misc.ShutDownAllSurvivalParadigms.ShutDownAllSurvivalParadigms.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.VioletFlash.VioletFlash.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Rovastar.FractalDropTripleMix.FractalDropTripleMix.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.UnholyAmulet2.UnholyAmulet2.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Orb.SolarRadiation.SolarRadiation.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:LuxXx.PlayV3TheWarWithinAllOfUs.PlayV3TheWarWithinAllOfUs.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:LitClawExplorersGrid.IDonTHaveEitherABelfryOrBatsBitch.IDonTHaveEitherABelfryOrBatsBitch.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Rovastar.ToneMappedFractalDrop7c.ToneMappedFractalDrop7c.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.AnotherKindOfGroove.AnotherKindOfGroove.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:PieturP.TriptrapUltimateTripMix.TriptrapUltimateTripMix.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Royal.Mashup157.Mashup157.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:RepressedAmericans.MassiveCheeseLardNzRedkneckTreads.MassiveCheeseLardNzRedkneckTreads.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Rovastar.ExplosiveMinds.ExplosiveMinds.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.MartinInDaMash3.MartinInDaMash3.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Zylot.HeavenBloomNz.HeavenBloomNz.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.ResonantTwisterSteelSpring.ResonantTwisterSteelSpring.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Misc.Mig085.Mig085.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.DiamondCutterPrismaticvortexComCamilleIWishIWishIWishIWasConstrained.DiamondCutterPrismaticvortexComCamilleIWishIWishIWishIWasConstrained.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.TheBeastMandalaChaserFXH.TheBeastMandalaChaserFXH.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Shifter.FractalGrinder.FractalGrinder.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Suksma.UninitializedVariabowlHydroponicChronic.UninitializedVariabowlHydroponicChronic.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Suksma.FeignShoulderConcernWhenIShouldBeExecutedEverythingIsEternallyShrinking.FeignShoulderConcernWhenIShouldBeExecutedEverythingIsEternallyShrinking.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Royal.Mashup307.Mashup307.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Rozzor.DeeperAesthetics.DeeperAesthetics.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.WitchcraftReloaded.WitchcraftReloaded.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.CarpetWeaver.CarpetWeaver.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Royal.Mashup253.Mashup253.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Shifter.AmericanOblivionPie.AmericanOblivionPie.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:ShadowHarlequin.LovelyShinySquaresLiquidStarburstRmxUnchainedRovasterLucklessMartinStarfieldSector.LovelyShinySquaresLiquidStarburstRmxUnchainedRovasterLucklessMartinStarfieldSector.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Rovastar.FractalDropSparkMachineV20.FractalDropSparkMachineV20.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Zylot.CrossingOverPaintSpatterMix.CrossingOverPaintSpatterMix.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Shifter.EscapeTheWormEoSPhatBeforeItEatsYourBrainMixV2.EscapeTheWormEoSPhatBeforeItEatsYourBrainMixV2.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Misc.MilkDrop2077R012.MilkDrop2077R012.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Misc.IsoscelesMashup07.IsoscelesMashup07.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.MartinInDaMash12a.MartinInDaMash12a.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Royal.Mashup431.Mashup431.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Rovastar.HarlequinSFractalEncounterCancerOfSaints.HarlequinSFractalEncounterCancerOfSaints.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:TonyMilkdrop.MagellanSNebulaFlexiYouEnterFirstMultiverse.MagellanSNebulaFlexiYouEnterFirstMultiverse.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Vovan.BassWithFloverFeedbackMix2.BassWithFloverFeedbackMix2.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:VariousArtists.Preset1200774354134Mash0000WhatTheWriterSGuildIsDoingWithTheExtraMoney.Preset1200774354134Mash0000WhatTheWriterSGuildIsDoingWithTheExtraMoney.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Yin.Preset352ChromatronWarped.Preset352ChromatronWarped.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.Diabolo.Diabolo.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Martin.AmandioCADifferentViewOfTheGreenMachine.AmandioCADifferentViewOfTheGreenMachine.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Raron.AGrayishBlobMash0000PungentGastricAutomataCloudFumes.AGrayishBlobMash0000PungentGastricAutomataCloudFumes.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Suksma.DiploautomaticAutoimmunityVsPassivematicAggpressiveTroll.DiploautomaticAutoimmunityVsPassivematicAggpressiveTroll.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Phat.BassResponceRedMovementsDisorientingNebula3.BassResponceRedMovementsDisorientingNebula3.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:IMuS.TheShroomeryPsilobellum.TheShroomeryPsilobellum.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Waltra.CosmicWind.CosmicWind.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Royal.Mashup441.Mashup441.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Suksma.EdGeiningHateopsFlxIWantYouIMSickWithYou.EdGeiningHateopsFlxIWantYouIMSickWithYou.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:LuxXx.GrindFace225MgDose.GrindFace225MgDose.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Misc.PhatFiShbRaiNEoSMandalaChasersRemix.PhatFiShbRaiNEoSMandalaChasersRemix.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:FiShbRaiN.AQuietDeath.AQuietDeath.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:EoS.SparkCPhatJesterMixV2.SparkCPhatJesterMixV2.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Flexi.Piercing05Kopie2Kopie.Piercing05Kopie2Kopie.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Geiss.ThumbDrum.ThumbDrum.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:EoS.SkylightStainedGlassMajestyMix.SkylightStainedGlassMajestyMix.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Halfbreak.LightOfBreakers.LightOfBreakers.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Flexi.PainterlyRogueWaveStrike.PainterlyRogueWaveStrike.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Fed.TokamakRepellorTechTwistMixStabilized.TokamakRepellorTechTwistMixStabilized.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Flexi.Piercing.Piercing.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Geiss.ColorPoxAcidImpressionMixColorSaturationRemix.ColorPoxAcidImpressionMixColorSaturationRemix.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Aderrasi.ContortionWideTwistMix.ContortionWideTwistMix.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:AdamFx.ReflectionsOnBlackTileRaronNFlexi.ReflectionsOnBlackTileRaronNFlexi.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:Aderrasi.StormOfTheEyeThunderMash0000QuasiPseudoMetaConcentrics.StormOfTheEyeThunderMash0000QuasiPseudoMetaConcentrics.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:AdamFx.AdamFXInThaMashEffectzE.AdamFXInThaMashEffectzE.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:AdamFx.AgeOfScienceFierceness16Mash0000GerberFullHeavingBaby.AgeOfScienceFierceness16Mash0000GerberFullHeavingBaby.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism.Presets:AmandioC.FlashyThing.FlashyThing.bonsai">
+              <Weight>0</Weight>
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="1" Label="Source1" />
+            <Edge From="1" To="2" Label="Source1" />
+            <Edge From="2" To="3" Label="Source1" />
+            <Edge From="3" To="4" Label="Source1" />
+            <Edge From="4" To="5" Label="Source1" />
+            <Edge From="5" To="6" Label="Source1" />
+            <Edge From="6" To="7" Label="Source1" />
+            <Edge From="7" To="8" Label="Source1" />
+            <Edge From="8" To="9" Label="Source1" />
+            <Edge From="9" To="10" Label="Source1" />
+            <Edge From="10" To="11" Label="Source1" />
+            <Edge From="11" To="12" Label="Source1" />
+            <Edge From="12" To="13" Label="Source1" />
+            <Edge From="13" To="14" Label="Source1" />
+            <Edge From="14" To="15" Label="Source1" />
+            <Edge From="15" To="16" Label="Source1" />
+            <Edge From="16" To="17" Label="Source1" />
+            <Edge From="17" To="18" Label="Source1" />
+            <Edge From="18" To="19" Label="Source1" />
+            <Edge From="19" To="20" Label="Source1" />
+            <Edge From="20" To="21" Label="Source1" />
+            <Edge From="21" To="22" Label="Source1" />
+            <Edge From="22" To="23" Label="Source1" />
+            <Edge From="23" To="24" Label="Source1" />
+            <Edge From="24" To="25" Label="Source1" />
+            <Edge From="25" To="26" Label="Source1" />
+            <Edge From="26" To="27" Label="Source1" />
+            <Edge From="27" To="28" Label="Source1" />
+            <Edge From="28" To="29" Label="Source1" />
+            <Edge From="29" To="30" Label="Source1" />
+            <Edge From="30" To="31" Label="Source1" />
+            <Edge From="31" To="32" Label="Source1" />
+            <Edge From="32" To="33" Label="Source1" />
+            <Edge From="33" To="34" Label="Source1" />
+            <Edge From="34" To="35" Label="Source1" />
+            <Edge From="35" To="36" Label="Source1" />
+            <Edge From="36" To="37" Label="Source1" />
+            <Edge From="37" To="38" Label="Source1" />
+            <Edge From="38" To="39" Label="Source1" />
+            <Edge From="39" To="40" Label="Source1" />
+            <Edge From="40" To="41" Label="Source1" />
+            <Edge From="41" To="42" Label="Source1" />
+            <Edge From="42" To="43" Label="Source1" />
+            <Edge From="43" To="44" Label="Source1" />
+            <Edge From="44" To="45" Label="Source1" />
+            <Edge From="45" To="46" Label="Source1" />
+            <Edge From="46" To="47" Label="Source1" />
+            <Edge From="47" To="48" Label="Source1" />
+            <Edge From="48" To="49" Label="Source1" />
+            <Edge From="49" To="50" Label="Source1" />
+            <Edge From="50" To="51" Label="Source1" />
+            <Edge From="51" To="52" Label="Source1" />
+            <Edge From="52" To="53" Label="Source1" />
+            <Edge From="53" To="54" Label="Source1" />
+            <Edge From="54" To="55" Label="Source1" />
+            <Edge From="55" To="56" Label="Source1" />
+            <Edge From="56" To="57" Label="Source1" />
+            <Edge From="57" To="58" Label="Source1" />
+            <Edge From="58" To="59" Label="Source1" />
+            <Edge From="59" To="60" Label="Source1" />
+            <Edge From="60" To="61" Label="Source1" />
+            <Edge From="61" To="62" Label="Source1" />
+            <Edge From="62" To="63" Label="Source1" />
+            <Edge From="63" To="64" Label="Source1" />
+            <Edge From="64" To="65" Label="Source1" />
+            <Edge From="65" To="66" Label="Source1" />
+            <Edge From="66" To="67" Label="Source1" />
+            <Edge From="67" To="68" Label="Source1" />
+            <Edge From="68" To="69" Label="Source1" />
+            <Edge From="69" To="70" Label="Source1" />
+            <Edge From="70" To="71" Label="Source1" />
+            <Edge From="71" To="72" Label="Source1" />
+            <Edge From="72" To="73" Label="Source1" />
+            <Edge From="73" To="74" Label="Source1" />
+            <Edge From="74" To="75" Label="Source1" />
+            <Edge From="75" To="76" Label="Source1" />
+            <Edge From="76" To="77" Label="Source1" />
+            <Edge From="77" To="78" Label="Source1" />
+            <Edge From="78" To="79" Label="Source1" />
+            <Edge From="79" To="80" Label="Source1" />
+            <Edge From="80" To="81" Label="Source1" />
+            <Edge From="81" To="82" Label="Source1" />
+            <Edge From="82" To="83" Label="Source1" />
+            <Edge From="83" To="84" Label="Source1" />
+            <Edge From="84" To="85" Label="Source1" />
+            <Edge From="85" To="86" Label="Source1" />
+            <Edge From="86" To="87" Label="Source1" />
+            <Edge From="87" To="88" Label="Source1" />
+            <Edge From="88" To="89" Label="Source1" />
+            <Edge From="89" To="90" Label="Source1" />
+            <Edge From="90" To="91" Label="Source1" />
+            <Edge From="91" To="92" Label="Source1" />
+            <Edge From="92" To="93" Label="Source1" />
+            <Edge From="93" To="94" Label="Source1" />
+            <Edge From="94" To="95" Label="Source1" />
+            <Edge From="95" To="96" Label="Source1" />
+            <Edge From="96" To="97" Label="Source1" />
+            <Edge From="97" To="98" Label="Source1" />
+            <Edge From="98" To="99" Label="Source1" />
+            <Edge From="99" To="100" Label="Source1" />
+            <Edge From="100" To="101" Label="Source1" />
+            <Edge From="101" To="102" Label="Source1" />
+            <Edge From="102" To="103" Label="Source1" />
+            <Edge From="103" To="104" Label="Source1" />
+            <Edge From="104" To="105" Label="Source1" />
+            <Edge From="105" To="106" Label="Source1" />
+            <Edge From="106" To="107" Label="Source1" />
+            <Edge From="107" To="108" Label="Source1" />
+            <Edge From="108" To="109" Label="Source1" />
+            <Edge From="109" To="110" Label="Source1" />
+            <Edge From="110" To="111" Label="Source1" />
+            <Edge From="111" To="112" Label="Source1" />
+            <Edge From="112" To="113" Label="Source1" />
+            <Edge From="113" To="114" Label="Source1" />
+            <Edge From="114" To="115" Label="Source1" />
+            <Edge From="115" To="116" Label="Source1" />
+            <Edge From="116" To="117" Label="Source1" />
+            <Edge From="117" To="118" Label="Source1" />
+            <Edge From="118" To="119" Label="Source1" />
+            <Edge From="119" To="120" Label="Source1" />
+            <Edge From="120" To="121" Label="Source1" />
+            <Edge From="121" To="122" Label="Source1" />
+            <Edge From="122" To="123" Label="Source1" />
+            <Edge From="123" To="124" Label="Source1" />
+            <Edge From="124" To="125" Label="Source1" />
+            <Edge From="125" To="126" Label="Source1" />
+            <Edge From="126" To="127" Label="Source1" />
+            <Edge From="127" To="128" Label="Source1" />
+            <Edge From="128" To="129" Label="Source1" />
+            <Edge From="129" To="130" Label="Source1" />
+            <Edge From="130" To="131" Label="Source1" />
+            <Edge From="131" To="132" Label="Source1" />
+            <Edge From="132" To="133" Label="Source1" />
+            <Edge From="133" To="134" Label="Source1" />
+            <Edge From="134" To="135" Label="Source1" />
+            <Edge From="135" To="136" Label="Source1" />
+            <Edge From="136" To="137" Label="Source1" />
+            <Edge From="137" To="138" Label="Source1" />
+            <Edge From="138" To="139" Label="Source1" />
+            <Edge From="139" To="140" Label="Source1" />
+            <Edge From="140" To="141" Label="Source1" />
+            <Edge From="141" To="142" Label="Source1" />
+            <Edge From="142" To="143" Label="Source1" />
+            <Edge From="143" To="144" Label="Source1" />
+            <Edge From="144" To="145" Label="Source1" />
+            <Edge From="145" To="146" Label="Source1" />
+            <Edge From="146" To="147" Label="Source1" />
+            <Edge From="147" To="148" Label="Source1" />
+            <Edge From="148" To="149" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="MulticastSubject">
+        <Name>PresetConfiguration</Name>
+      </Expression>
+      <Expression xsi:type="rx:BehaviorSubject" TypeArguments="sys:String">
+        <rx:Name>CurrentActivePreset</rx:Name>
+      </Expression>
+      <Expression xsi:type="GroupWorkflow">
+        <Name>Devices</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="p1:AudioCapture">
+                <p1:HostApi>Windows WASAPI</p1:HostApi>
+                <p1:DeviceName>Speakers (PulseAudio Output) [Loopback]</p1:DeviceName>
+                <p1:SampleRate xsi:nil="true" />
+                <p1:ChannelCount xsi:nil="true" />
+                <p1:BufferLength>10</p1:BufferLength>
+                <p1:SuggestedLatency xsi:nil="true" />
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="rx:PublishSubject">
+              <Name>Audio</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="midi:InputDevice">
+                <midi:DeviceName>nanoKONTROL2 _ CTRL</midi:DeviceName>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="midi:ControlChange" />
+            </Expression>
+            <Expression xsi:type="rx:PublishSubject">
+              <Name>ControllerInput</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>Audio</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="dsp:Rescale">
+                <dsp:Min>-32768</dsp:Min>
+                <dsp:Max>32768</dsp:Max>
+                <dsp:RangeMin>-128</dsp:RangeMin>
+                <dsp:RangeMax>128</dsp:RangeMax>
+                <dsp:RescaleType>Linear</dsp:RescaleType>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="dsp:Buffer">
+                <dsp:Count>1024</dsp:Count>
+                <dsp:Skip>441</dsp:Skip>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="MulticastSubject">
+              <Name>BufferedAudio</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>BufferedAudio</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="dsp:Transpose" />
+            </Expression>
+            <Expression xsi:type="MulticastSubject">
+              <Name>Waveforms</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>ControllerInput</Name>
+            </Expression>
+            <Expression xsi:type="rx:Condition">
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>ControlNumber</Selector>
+                  </Expression>
+                  <Expression xsi:type="ExternalizedMapping">
+                    <Property Name="Value" />
+                  </Expression>
+                  <Expression xsi:type="Equal">
+                    <Operand xsi:type="IntProperty">
+                      <Value>0</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="1" Label="Source1" />
+                  <Edge From="1" To="3" Label="Source1" />
+                  <Edge From="2" To="3" Label="Source2" />
+                  <Edge From="3" To="4" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>ControlValue</Selector>
+            </Expression>
+            <Expression xsi:type="scr:ExpressionTransform">
+              <scr:Expression>single(it) / 127.0</scr:Expression>
+            </Expression>
+            <Expression xsi:type="rx:PublishSubject">
+              <Name>SliderVal1</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>ControllerInput</Name>
+            </Expression>
+            <Expression xsi:type="rx:Condition">
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>ControlNumber</Selector>
+                  </Expression>
+                  <Expression xsi:type="ExternalizedMapping">
+                    <Property Name="Value" />
+                  </Expression>
+                  <Expression xsi:type="Equal">
+                    <Operand xsi:type="IntProperty">
+                      <Value>1</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="1" Label="Source1" />
+                  <Edge From="1" To="3" Label="Source1" />
+                  <Edge From="2" To="3" Label="Source2" />
+                  <Edge From="3" To="4" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>ControlValue</Selector>
+            </Expression>
+            <Expression xsi:type="scr:ExpressionTransform">
+              <scr:Expression>single(it) / 127.0</scr:Expression>
+            </Expression>
+            <Expression xsi:type="rx:PublishSubject">
+              <Name>SliderVal2</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>ControllerInput</Name>
+            </Expression>
+            <Expression xsi:type="rx:Condition">
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>ControlNumber</Selector>
+                  </Expression>
+                  <Expression xsi:type="ExternalizedMapping">
+                    <Property Name="Value" />
+                  </Expression>
+                  <Expression xsi:type="Equal">
+                    <Operand xsi:type="IntProperty">
+                      <Value>2</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="1" Label="Source1" />
+                  <Edge From="1" To="3" Label="Source1" />
+                  <Edge From="2" To="3" Label="Source2" />
+                  <Edge From="3" To="4" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>ControlValue</Selector>
+            </Expression>
+            <Expression xsi:type="scr:ExpressionTransform">
+              <scr:Expression>single(it) / 127.0</scr:Expression>
+            </Expression>
+            <Expression xsi:type="rx:PublishSubject">
+              <Name>SliderVal3</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>ControllerInput</Name>
+            </Expression>
+            <Expression xsi:type="rx:Condition">
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>ControlNumber</Selector>
+                  </Expression>
+                  <Expression xsi:type="ExternalizedMapping">
+                    <Property Name="Value" />
+                  </Expression>
+                  <Expression xsi:type="Equal">
+                    <Operand xsi:type="IntProperty">
+                      <Value>3</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="1" Label="Source1" />
+                  <Edge From="1" To="3" Label="Source1" />
+                  <Edge From="2" To="3" Label="Source2" />
+                  <Edge From="3" To="4" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>ControlValue</Selector>
+            </Expression>
+            <Expression xsi:type="scr:ExpressionTransform">
+              <scr:Expression>single(it) / 127.0</scr:Expression>
+            </Expression>
+            <Expression xsi:type="rx:PublishSubject">
+              <Name>SliderVal4</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>ControllerInput</Name>
+            </Expression>
+            <Expression xsi:type="rx:Condition">
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>ControlNumber</Selector>
+                  </Expression>
+                  <Expression xsi:type="ExternalizedMapping">
+                    <Property Name="Value" />
+                  </Expression>
+                  <Expression xsi:type="Equal">
+                    <Operand xsi:type="IntProperty">
+                      <Value>4</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="1" Label="Source1" />
+                  <Edge From="1" To="3" Label="Source1" />
+                  <Edge From="2" To="3" Label="Source2" />
+                  <Edge From="3" To="4" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>ControlValue</Selector>
+            </Expression>
+            <Expression xsi:type="scr:ExpressionTransform">
+              <scr:Expression>single(it) / 127.0</scr:Expression>
+            </Expression>
+            <Expression xsi:type="rx:PublishSubject">
+              <Name>SliderVal5</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>ControllerInput</Name>
+            </Expression>
+            <Expression xsi:type="rx:Condition">
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>ControlNumber</Selector>
+                  </Expression>
+                  <Expression xsi:type="ExternalizedMapping">
+                    <Property Name="Value" />
+                  </Expression>
+                  <Expression xsi:type="Equal">
+                    <Operand xsi:type="IntProperty">
+                      <Value>5</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="1" Label="Source1" />
+                  <Edge From="1" To="3" Label="Source1" />
+                  <Edge From="2" To="3" Label="Source2" />
+                  <Edge From="3" To="4" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>ControlValue</Selector>
+            </Expression>
+            <Expression xsi:type="scr:ExpressionTransform">
+              <scr:Expression>single(it) / 127.0</scr:Expression>
+            </Expression>
+            <Expression xsi:type="rx:PublishSubject">
+              <Name>SliderVal6</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>ControllerInput</Name>
+            </Expression>
+            <Expression xsi:type="rx:Condition">
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>ControlNumber</Selector>
+                  </Expression>
+                  <Expression xsi:type="ExternalizedMapping">
+                    <Property Name="Value" />
+                  </Expression>
+                  <Expression xsi:type="Equal">
+                    <Operand xsi:type="IntProperty">
+                      <Value>6</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="1" Label="Source1" />
+                  <Edge From="1" To="3" Label="Source1" />
+                  <Edge From="2" To="3" Label="Source2" />
+                  <Edge From="3" To="4" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>ControlValue</Selector>
+            </Expression>
+            <Expression xsi:type="scr:ExpressionTransform">
+              <scr:Expression>single(it) / 127.0</scr:Expression>
+            </Expression>
+            <Expression xsi:type="rx:PublishSubject">
+              <Name>SliderVal7</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>ControllerInput</Name>
+            </Expression>
+            <Expression xsi:type="rx:Condition">
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>ControlNumber</Selector>
+                  </Expression>
+                  <Expression xsi:type="ExternalizedMapping">
+                    <Property Name="Value" />
+                  </Expression>
+                  <Expression xsi:type="Equal">
+                    <Operand xsi:type="IntProperty">
+                      <Value>7</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="1" Label="Source1" />
+                  <Edge From="1" To="3" Label="Source1" />
+                  <Edge From="2" To="3" Label="Source2" />
+                  <Edge From="3" To="4" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>ControlValue</Selector>
+            </Expression>
+            <Expression xsi:type="scr:ExpressionTransform">
+              <scr:Expression>single(it) / 127.0</scr:Expression>
+            </Expression>
+            <Expression xsi:type="rx:PublishSubject">
+              <Name>SliderVal8</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>ControllerInput</Name>
+            </Expression>
+            <Expression xsi:type="rx:Condition">
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>ControlNumber</Selector>
+                  </Expression>
+                  <Expression xsi:type="ExternalizedMapping">
+                    <Property Name="Value" />
+                  </Expression>
+                  <Expression xsi:type="Equal">
+                    <Operand xsi:type="IntProperty">
+                      <Value>59</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="1" Label="Source1" />
+                  <Edge From="1" To="3" Label="Source1" />
+                  <Edge From="2" To="3" Label="Source2" />
+                  <Edge From="3" To="4" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="rx:Condition">
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>ControlValue</Selector>
+                  </Expression>
+                  <Expression xsi:type="ExternalizedMapping">
+                    <Property Name="Value" />
+                  </Expression>
+                  <Expression xsi:type="Equal">
+                    <Operand xsi:type="IntProperty">
+                      <Value>127</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="1" Label="Source1" />
+                  <Edge From="1" To="3" Label="Source1" />
+                  <Edge From="2" To="3" Label="Source2" />
+                  <Edge From="3" To="4" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="IntProperty">
+                <Value>1</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>ControllerInput</Name>
+            </Expression>
+            <Expression xsi:type="rx:Condition">
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>ControlNumber</Selector>
+                  </Expression>
+                  <Expression xsi:type="ExternalizedMapping">
+                    <Property Name="Value" />
+                  </Expression>
+                  <Expression xsi:type="Equal">
+                    <Operand xsi:type="IntProperty">
+                      <Value>58</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="1" Label="Source1" />
+                  <Edge From="1" To="3" Label="Source1" />
+                  <Edge From="2" To="3" Label="Source2" />
+                  <Edge From="3" To="4" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="rx:Condition">
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>ControlValue</Selector>
+                  </Expression>
+                  <Expression xsi:type="ExternalizedMapping">
+                    <Property Name="Value" />
+                  </Expression>
+                  <Expression xsi:type="Equal">
+                    <Operand xsi:type="IntProperty">
+                      <Value>127</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="1" Label="Source1" />
+                  <Edge From="1" To="3" Label="Source1" />
+                  <Edge From="2" To="3" Label="Source2" />
+                  <Edge From="3" To="4" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="IntProperty">
+                <Value>-1</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Merge" />
+            </Expression>
+            <Expression xsi:type="rx:PublishSubject">
+              <Name>ChangePreset</Name>
+            </Expression>
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="1" Label="Source1" />
+            <Edge From="2" To="3" Label="Source1" />
+            <Edge From="3" To="4" Label="Source1" />
+            <Edge From="5" To="6" Label="Source1" />
+            <Edge From="6" To="7" Label="Source1" />
+            <Edge From="7" To="8" Label="Source1" />
+            <Edge From="9" To="10" Label="Source1" />
+            <Edge From="10" To="11" Label="Source1" />
+            <Edge From="12" To="13" Label="Source1" />
+            <Edge From="13" To="14" Label="Source1" />
+            <Edge From="14" To="15" Label="Source1" />
+            <Edge From="15" To="16" Label="Source1" />
+            <Edge From="17" To="18" Label="Source1" />
+            <Edge From="18" To="19" Label="Source1" />
+            <Edge From="19" To="20" Label="Source1" />
+            <Edge From="20" To="21" Label="Source1" />
+            <Edge From="22" To="23" Label="Source1" />
+            <Edge From="23" To="24" Label="Source1" />
+            <Edge From="24" To="25" Label="Source1" />
+            <Edge From="25" To="26" Label="Source1" />
+            <Edge From="27" To="28" Label="Source1" />
+            <Edge From="28" To="29" Label="Source1" />
+            <Edge From="29" To="30" Label="Source1" />
+            <Edge From="30" To="31" Label="Source1" />
+            <Edge From="32" To="33" Label="Source1" />
+            <Edge From="33" To="34" Label="Source1" />
+            <Edge From="34" To="35" Label="Source1" />
+            <Edge From="35" To="36" Label="Source1" />
+            <Edge From="37" To="38" Label="Source1" />
+            <Edge From="38" To="39" Label="Source1" />
+            <Edge From="39" To="40" Label="Source1" />
+            <Edge From="40" To="41" Label="Source1" />
+            <Edge From="42" To="43" Label="Source1" />
+            <Edge From="43" To="44" Label="Source1" />
+            <Edge From="44" To="45" Label="Source1" />
+            <Edge From="45" To="46" Label="Source1" />
+            <Edge From="47" To="48" Label="Source1" />
+            <Edge From="48" To="49" Label="Source1" />
+            <Edge From="49" To="50" Label="Source1" />
+            <Edge From="50" To="51" Label="Source1" />
+            <Edge From="52" To="53" Label="Source1" />
+            <Edge From="53" To="54" Label="Source1" />
+            <Edge From="54" To="55" Label="Source1" />
+            <Edge From="55" To="60" Label="Source1" />
+            <Edge From="56" To="57" Label="Source1" />
+            <Edge From="57" To="58" Label="Source1" />
+            <Edge From="58" To="59" Label="Source1" />
+            <Edge From="59" To="60" Label="Source2" />
+            <Edge From="60" To="61" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism:AudioProcessing.bonsai" />
+      <Expression xsi:type="GroupWorkflow">
+        <Name>Controller</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>ActivePresets</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Distinct" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="IntProperty">
+                <Value>1</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="rx:Accumulate" />
+            <Expression xsi:type="rx:CreateObservable">
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="gl:Timer">
+                      <gl:DueTime>PT1S</gl:DueTime>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="rx:Zip" />
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>Item2</Selector>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="2" Label="Source1" />
+                  <Edge From="1" To="2" Label="Source2" />
+                  <Edge From="2" To="3" Label="Source1" />
+                  <Edge From="3" To="4" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Switch" />
+            </Expression>
+            <Expression xsi:type="rx:BehaviorSubject">
+              <Name>PresetsLoaded</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>PresetsLoaded</Name>
+            </Expression>
+            <Expression xsi:type="rx:SelectMany">
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="PropertyMapping">
+                    <PropertyMappings>
+                      <Property Name="Count" />
+                    </PropertyMappings>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="rx:Range">
+                      <rx:Start>0</rx:Start>
+                      <rx:Count>148</rx:Count>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="num:CreateRandom">
+                      <num:Seed>1077</num:Seed>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="num:Permutation" />
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="rx:ToArray" />
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="1" Label="Source1" />
+                  <Edge From="1" To="2" Label="Source1" />
+                  <Edge From="2" To="4" Label="Source1" />
+                  <Edge From="3" To="4" Label="Source2" />
+                  <Edge From="4" To="5" Label="Source1" />
+                  <Edge From="5" To="6" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="rx:BehaviorSubject">
+              <Name>RandomPresetsArray</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="IntProperty">
+                <Value>0</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="rx:BehaviorSubject">
+              <Name>CurrentPreset</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>ChangePreset</Name>
+            </Expression>
+            <Expression xsi:type="Multiply">
+              <Operand xsi:type="IntProperty">
+                <Value>8</Value>
+              </Operand>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>CurrentPreset</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:WithLatestFrom" />
+            </Expression>
+            <Expression xsi:type="scr:ExpressionTransform">
+              <scr:Expression>Item2 + Item1</scr:Expression>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>PresetsLoaded</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:WithLatestFrom" />
+            </Expression>
+            <Expression xsi:type="scr:ExpressionTransform">
+              <scr:Expression>Item1 &gt;= Item2 ? 0 : Item1 &lt; 0 ? Item2 : Item1</scr:Expression>
+            </Expression>
+            <Expression xsi:type="MulticastSubject">
+              <Name>CurrentPreset</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>ActivePresets</Name>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>Key</Selector>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:ElementIndex" />
+            </Expression>
+            <Expression xsi:type="rx:ReplaySubject">
+              <Name>IndexedPresets</Name>
+              <rx:BufferSize xsi:nil="true" />
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>CurrentPreset</Name>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism:RandSelectPreset.bonsai">
+              <Name>SliderVal1</Name>
+              <Value>0</Value>
+            </Expression>
+            <Expression xsi:type="rx:GroupBy">
+              <rx:KeySelector>Item2</rx:KeySelector>
+              <rx:ElementSelector>Item1</rx:ElementSelector>
+            </Expression>
+            <Expression xsi:type="MulticastSubject">
+              <Name>WeightedPresets</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>CurrentPreset</Name>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism:RandSelectPreset.bonsai">
+              <Name>SliderVal2</Name>
+              <Value>1</Value>
+            </Expression>
+            <Expression xsi:type="rx:GroupBy">
+              <rx:KeySelector>Item2</rx:KeySelector>
+              <rx:ElementSelector>Item1</rx:ElementSelector>
+            </Expression>
+            <Expression xsi:type="MulticastSubject">
+              <Name>WeightedPresets</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>CurrentPreset</Name>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism:RandSelectPreset.bonsai">
+              <Name>SliderVal3</Name>
+              <Value>2</Value>
+            </Expression>
+            <Expression xsi:type="rx:GroupBy">
+              <rx:KeySelector>Item2</rx:KeySelector>
+              <rx:ElementSelector>Item1</rx:ElementSelector>
+            </Expression>
+            <Expression xsi:type="MulticastSubject">
+              <Name>WeightedPresets</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>CurrentPreset</Name>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism:RandSelectPreset.bonsai">
+              <Name>SliderVal4</Name>
+              <Value>3</Value>
+            </Expression>
+            <Expression xsi:type="rx:GroupBy">
+              <rx:KeySelector>Item2</rx:KeySelector>
+              <rx:ElementSelector>Item1</rx:ElementSelector>
+            </Expression>
+            <Expression xsi:type="MulticastSubject">
+              <Name>WeightedPresets</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>CurrentPreset</Name>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism:RandSelectPreset.bonsai">
+              <Name>SliderVal5</Name>
+              <Value>4</Value>
+            </Expression>
+            <Expression xsi:type="rx:GroupBy">
+              <rx:KeySelector>Item2</rx:KeySelector>
+              <rx:ElementSelector>Item1</rx:ElementSelector>
+            </Expression>
+            <Expression xsi:type="MulticastSubject">
+              <Name>WeightedPresets</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>CurrentPreset</Name>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism:RandSelectPreset.bonsai">
+              <Name>SliderVal6</Name>
+              <Value>5</Value>
+            </Expression>
+            <Expression xsi:type="rx:GroupBy">
+              <rx:KeySelector>Item2</rx:KeySelector>
+              <rx:ElementSelector>Item1</rx:ElementSelector>
+            </Expression>
+            <Expression xsi:type="MulticastSubject">
+              <Name>WeightedPresets</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>CurrentPreset</Name>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism:RandSelectPreset.bonsai">
+              <Name>SliderVal7</Name>
+              <Value>6</Value>
+            </Expression>
+            <Expression xsi:type="rx:GroupBy">
+              <rx:KeySelector>Item2</rx:KeySelector>
+              <rx:ElementSelector>Item1</rx:ElementSelector>
+            </Expression>
+            <Expression xsi:type="MulticastSubject">
+              <Name>WeightedPresets</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>CurrentPreset</Name>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Bonsai.Prism:RandSelectPreset.bonsai">
+              <Name>SliderVal8</Name>
+              <Value>7</Value>
+            </Expression>
+            <Expression xsi:type="rx:GroupBy">
+              <rx:KeySelector>Item2</rx:KeySelector>
+              <rx:ElementSelector>Item1</rx:ElementSelector>
+            </Expression>
+            <Expression xsi:type="MulticastSubject">
+              <Name>WeightedPresets</Name>
+            </Expression>
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="1" Label="Source1" />
+            <Edge From="1" To="2" Label="Source1" />
+            <Edge From="2" To="3" Label="Source1" />
+            <Edge From="3" To="4" Label="Source1" />
+            <Edge From="4" To="5" Label="Source1" />
+            <Edge From="5" To="6" Label="Source1" />
+            <Edge From="7" To="8" Label="Source1" />
+            <Edge From="8" To="9" Label="Source1" />
+            <Edge From="10" To="11" Label="Source1" />
+            <Edge From="12" To="13" Label="Source1" />
+            <Edge From="13" To="15" Label="Source1" />
+            <Edge From="14" To="15" Label="Source2" />
+            <Edge From="15" To="16" Label="Source1" />
+            <Edge From="16" To="18" Label="Source1" />
+            <Edge From="17" To="18" Label="Source2" />
+            <Edge From="18" To="19" Label="Source1" />
+            <Edge From="19" To="20" Label="Source1" />
+            <Edge From="21" To="22" Label="Source1" />
+            <Edge From="22" To="23" Label="Source1" />
+            <Edge From="23" To="24" Label="Source1" />
+            <Edge From="25" To="26" Label="Source1" />
+            <Edge From="26" To="27" Label="Source1" />
+            <Edge From="27" To="28" Label="Source1" />
+            <Edge From="29" To="30" Label="Source1" />
+            <Edge From="30" To="31" Label="Source1" />
+            <Edge From="31" To="32" Label="Source1" />
+            <Edge From="33" To="34" Label="Source1" />
+            <Edge From="34" To="35" Label="Source1" />
+            <Edge From="35" To="36" Label="Source1" />
+            <Edge From="37" To="38" Label="Source1" />
+            <Edge From="38" To="39" Label="Source1" />
+            <Edge From="39" To="40" Label="Source1" />
+            <Edge From="41" To="42" Label="Source1" />
+            <Edge From="42" To="43" Label="Source1" />
+            <Edge From="43" To="44" Label="Source1" />
+            <Edge From="45" To="46" Label="Source1" />
+            <Edge From="46" To="47" Label="Source1" />
+            <Edge From="47" To="48" Label="Source1" />
+            <Edge From="49" To="50" Label="Source1" />
+            <Edge From="50" To="51" Label="Source1" />
+            <Edge From="51" To="52" Label="Source1" />
+            <Edge From="53" To="54" Label="Source1" />
+            <Edge From="54" To="55" Label="Source1" />
+            <Edge From="55" To="56" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>WeightedPresets</Name>
+      </Expression>
+      <Expression xsi:type="rx:SelectMany">
+        <Name>PresetWeight</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="WorkflowInput">
+              <Name>Source1</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Merge" />
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>Key</Selector>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:WithLatestFrom" />
+            </Expression>
+            <Expression xsi:type="scr:ExpressionTransform">
+              <scr:Expression>new(it.Item2 as Key, it.Item1 as Value)</scr:Expression>
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="1" Label="Source1" />
+            <Edge From="0" To="2" Label="Source1" />
+            <Edge From="1" To="3" Label="Source1" />
+            <Edge From="2" To="3" Label="Source2" />
+            <Edge From="3" To="4" Label="Source1" />
+            <Edge From="4" To="5" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+    </Nodes>
+    <Edges>
+      <Edge From="0" To="1" Label="Source1" />
+      <Edge From="1" To="2" Label="Source1" />
+      <Edge From="7" To="8" Label="Source1" />
+    </Edges>
+  </Workflow>
+</WorkflowBuilder>
