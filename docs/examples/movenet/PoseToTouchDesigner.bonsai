@@ -80,592 +80,612 @@
         </Combinator>
       </Expression>
       <Expression xsi:type="GroupWorkflow">
-        <Name>Face</Name>
-        <Description>Ear, eye, nose, eye, ear: one path through the five face points, and a dot on each.</Description>
+        <Name>Skeleton</Name>
         <Workflow>
           <Nodes>
             <Expression xsi:type="WorkflowInput">
               <Name>Source1</Name>
             </Expression>
-            <Expression xsi:type="SubscribeSubject">
-              <Name>Pose</Name>
+            <Expression xsi:type="GroupWorkflow">
+              <Name>Face</Name>
+              <Description>Ear, eye, nose, eye, ear: one path through the five face points, and a dot on each.</Description>
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>Pose</Name>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="movenet:GetBodyPart">
+                      <movenet:Name>left_ear</movenet:Name>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="movenet:GetBodyPart">
+                      <movenet:Name>left_eye</movenet:Name>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="movenet:GetBodyPart">
+                      <movenet:Name>nose</movenet:Name>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="movenet:GetBodyPart">
+                      <movenet:Name>right_eye</movenet:Name>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="movenet:GetBodyPart">
+                      <movenet:Name>right_ear</movenet:Name>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>Gap</Name>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="rx:Zip" />
+                  </Expression>
+                  <Expression xsi:type="scr:ExpressionTransform">
+                    <scr:Name>Lines</scr:Name>
+                    <scr:Expression>new[] { Item1.Position, Item2.Position, Item3.Position, Item4.Position, Item5.Position }</scr:Expression>
+                  </Expression>
+                  <Expression xsi:type="PropertyMapping">
+                    <PropertyMappings>
+                      <Property Name="Points" />
+                    </PropertyMappings>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="drw:Path">
+                      <drw:Color>
+                        <drw:Val0>0</drw:Val0>
+                        <drw:Val1>255</drw:Val1>
+                        <drw:Val2>255</drw:Val2>
+                        <drw:Val3>0</drw:Val3>
+                      </drw:Color>
+                      <drw:Thickness>3</drw:Thickness>
+                      <drw:LineType>AntiAliased</drw:LineType>
+                      <drw:Shift>0</drw:Shift>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="scr:ExpressionTransform">
+                    <scr:Name>Dots</scr:Name>
+                    <scr:Expression>new[] { Item1.Position, Item1.Position, Item6, Item2.Position, Item2.Position, Item6, Item3.Position, Item3.Position, Item6, Item4.Position, Item4.Position, Item6, Item5.Position, Item5.Position }</scr:Expression>
+                  </Expression>
+                  <Expression xsi:type="PropertyMapping">
+                    <PropertyMappings>
+                      <Property Name="Points" />
+                    </PropertyMappings>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="drw:Path">
+                      <drw:Color>
+                        <drw:Val0>0</drw:Val0>
+                        <drw:Val1>255</drw:Val1>
+                        <drw:Val2>255</drw:Val2>
+                        <drw:Val3>0</drw:Val3>
+                      </drw:Color>
+                      <drw:Thickness>14</drw:Thickness>
+                      <drw:LineType>AntiAliased</drw:LineType>
+                      <drw:Shift>0</drw:Shift>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="11" Label="Source1" />
+                  <Edge From="1" To="2" Label="Source1" />
+                  <Edge From="1" To="3" Label="Source1" />
+                  <Edge From="1" To="4" Label="Source1" />
+                  <Edge From="1" To="5" Label="Source1" />
+                  <Edge From="1" To="6" Label="Source1" />
+                  <Edge From="2" To="8" Label="Source1" />
+                  <Edge From="3" To="8" Label="Source2" />
+                  <Edge From="4" To="8" Label="Source3" />
+                  <Edge From="5" To="8" Label="Source4" />
+                  <Edge From="6" To="8" Label="Source5" />
+                  <Edge From="7" To="8" Label="Source6" />
+                  <Edge From="8" To="9" Label="Source1" />
+                  <Edge From="8" To="12" Label="Source1" />
+                  <Edge From="9" To="10" Label="Source1" />
+                  <Edge From="10" To="11" Label="Source2" />
+                  <Edge From="11" To="14" Label="Source1" />
+                  <Edge From="12" To="13" Label="Source1" />
+                  <Edge From="13" To="14" Label="Source2" />
+                  <Edge From="14" To="15" Label="Source1" />
+                </Edges>
+              </Workflow>
             </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="movenet:GetBodyPart">
-                <movenet:Name>left_ear</movenet:Name>
-              </Combinator>
+            <Expression xsi:type="GroupWorkflow">
+              <Name>LeftArm</Name>
+              <Description>Wrist, elbow, shoulder.</Description>
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>Pose</Name>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="movenet:GetBodyPart">
+                      <movenet:Name>left_wrist</movenet:Name>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="movenet:GetBodyPart">
+                      <movenet:Name>left_elbow</movenet:Name>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="movenet:GetBodyPart">
+                      <movenet:Name>left_shoulder</movenet:Name>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>Gap</Name>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="rx:Zip" />
+                  </Expression>
+                  <Expression xsi:type="scr:ExpressionTransform">
+                    <scr:Name>Lines</scr:Name>
+                    <scr:Expression>new[] { Item1.Position, Item2.Position, Item3.Position }</scr:Expression>
+                  </Expression>
+                  <Expression xsi:type="PropertyMapping">
+                    <PropertyMappings>
+                      <Property Name="Points" />
+                    </PropertyMappings>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="drw:Path">
+                      <drw:Color>
+                        <drw:Val0>0</drw:Val0>
+                        <drw:Val1>140</drw:Val1>
+                        <drw:Val2>255</drw:Val2>
+                        <drw:Val3>0</drw:Val3>
+                      </drw:Color>
+                      <drw:Thickness>3</drw:Thickness>
+                      <drw:LineType>AntiAliased</drw:LineType>
+                      <drw:Shift>0</drw:Shift>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="scr:ExpressionTransform">
+                    <scr:Name>Dots</scr:Name>
+                    <scr:Expression>new[] { Item1.Position, Item1.Position, Item4, Item2.Position, Item2.Position, Item4, Item3.Position, Item3.Position }</scr:Expression>
+                  </Expression>
+                  <Expression xsi:type="PropertyMapping">
+                    <PropertyMappings>
+                      <Property Name="Points" />
+                    </PropertyMappings>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="drw:Path">
+                      <drw:Color>
+                        <drw:Val0>0</drw:Val0>
+                        <drw:Val1>140</drw:Val1>
+                        <drw:Val2>255</drw:Val2>
+                        <drw:Val3>0</drw:Val3>
+                      </drw:Color>
+                      <drw:Thickness>14</drw:Thickness>
+                      <drw:LineType>AntiAliased</drw:LineType>
+                      <drw:Shift>0</drw:Shift>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="9" Label="Source1" />
+                  <Edge From="1" To="2" Label="Source1" />
+                  <Edge From="1" To="3" Label="Source1" />
+                  <Edge From="1" To="4" Label="Source1" />
+                  <Edge From="2" To="6" Label="Source1" />
+                  <Edge From="3" To="6" Label="Source2" />
+                  <Edge From="4" To="6" Label="Source3" />
+                  <Edge From="5" To="6" Label="Source4" />
+                  <Edge From="6" To="7" Label="Source1" />
+                  <Edge From="6" To="10" Label="Source1" />
+                  <Edge From="7" To="8" Label="Source1" />
+                  <Edge From="8" To="9" Label="Source2" />
+                  <Edge From="9" To="12" Label="Source1" />
+                  <Edge From="10" To="11" Label="Source1" />
+                  <Edge From="11" To="12" Label="Source2" />
+                  <Edge From="12" To="13" Label="Source1" />
+                </Edges>
+              </Workflow>
             </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="movenet:GetBodyPart">
-                <movenet:Name>left_eye</movenet:Name>
-              </Combinator>
+            <Expression xsi:type="GroupWorkflow">
+              <Name>RightArm</Name>
+              <Description>Wrist, elbow, shoulder.</Description>
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>Pose</Name>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="movenet:GetBodyPart">
+                      <movenet:Name>right_wrist</movenet:Name>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="movenet:GetBodyPart">
+                      <movenet:Name>right_elbow</movenet:Name>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="movenet:GetBodyPart">
+                      <movenet:Name>right_shoulder</movenet:Name>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>Gap</Name>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="rx:Zip" />
+                  </Expression>
+                  <Expression xsi:type="scr:ExpressionTransform">
+                    <scr:Name>Lines</scr:Name>
+                    <scr:Expression>new[] { Item1.Position, Item2.Position, Item3.Position }</scr:Expression>
+                  </Expression>
+                  <Expression xsi:type="PropertyMapping">
+                    <PropertyMappings>
+                      <Property Name="Points" />
+                    </PropertyMappings>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="drw:Path">
+                      <drw:Color>
+                        <drw:Val0>255</drw:Val0>
+                        <drw:Val1>200</drw:Val1>
+                        <drw:Val2>0</drw:Val2>
+                        <drw:Val3>0</drw:Val3>
+                      </drw:Color>
+                      <drw:Thickness>3</drw:Thickness>
+                      <drw:LineType>AntiAliased</drw:LineType>
+                      <drw:Shift>0</drw:Shift>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="scr:ExpressionTransform">
+                    <scr:Name>Dots</scr:Name>
+                    <scr:Expression>new[] { Item1.Position, Item1.Position, Item4, Item2.Position, Item2.Position, Item4, Item3.Position, Item3.Position }</scr:Expression>
+                  </Expression>
+                  <Expression xsi:type="PropertyMapping">
+                    <PropertyMappings>
+                      <Property Name="Points" />
+                    </PropertyMappings>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="drw:Path">
+                      <drw:Color>
+                        <drw:Val0>255</drw:Val0>
+                        <drw:Val1>200</drw:Val1>
+                        <drw:Val2>0</drw:Val2>
+                        <drw:Val3>0</drw:Val3>
+                      </drw:Color>
+                      <drw:Thickness>14</drw:Thickness>
+                      <drw:LineType>AntiAliased</drw:LineType>
+                      <drw:Shift>0</drw:Shift>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="9" Label="Source1" />
+                  <Edge From="1" To="2" Label="Source1" />
+                  <Edge From="1" To="3" Label="Source1" />
+                  <Edge From="1" To="4" Label="Source1" />
+                  <Edge From="2" To="6" Label="Source1" />
+                  <Edge From="3" To="6" Label="Source2" />
+                  <Edge From="4" To="6" Label="Source3" />
+                  <Edge From="5" To="6" Label="Source4" />
+                  <Edge From="6" To="7" Label="Source1" />
+                  <Edge From="6" To="10" Label="Source1" />
+                  <Edge From="7" To="8" Label="Source1" />
+                  <Edge From="8" To="9" Label="Source2" />
+                  <Edge From="9" To="12" Label="Source1" />
+                  <Edge From="10" To="11" Label="Source1" />
+                  <Edge From="11" To="12" Label="Source2" />
+                  <Edge From="12" To="13" Label="Source1" />
+                </Edges>
+              </Workflow>
             </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="movenet:GetBodyPart">
-                <movenet:Name>nose</movenet:Name>
-              </Combinator>
+            <Expression xsi:type="GroupWorkflow">
+              <Name>LeftLeg</Name>
+              <Description>Ankle, knee, hip.</Description>
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>Pose</Name>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="movenet:GetBodyPart">
+                      <movenet:Name>left_ankle</movenet:Name>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="movenet:GetBodyPart">
+                      <movenet:Name>left_knee</movenet:Name>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="movenet:GetBodyPart">
+                      <movenet:Name>left_hip</movenet:Name>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>Gap</Name>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="rx:Zip" />
+                  </Expression>
+                  <Expression xsi:type="scr:ExpressionTransform">
+                    <scr:Name>Lines</scr:Name>
+                    <scr:Expression>new[] { Item1.Position, Item2.Position, Item3.Position }</scr:Expression>
+                  </Expression>
+                  <Expression xsi:type="PropertyMapping">
+                    <PropertyMappings>
+                      <Property Name="Points" />
+                    </PropertyMappings>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="drw:Path">
+                      <drw:Color>
+                        <drw:Val0>0</drw:Val0>
+                        <drw:Val1>140</drw:Val1>
+                        <drw:Val2>255</drw:Val2>
+                        <drw:Val3>0</drw:Val3>
+                      </drw:Color>
+                      <drw:Thickness>3</drw:Thickness>
+                      <drw:LineType>AntiAliased</drw:LineType>
+                      <drw:Shift>0</drw:Shift>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="scr:ExpressionTransform">
+                    <scr:Name>Dots</scr:Name>
+                    <scr:Expression>new[] { Item1.Position, Item1.Position, Item4, Item2.Position, Item2.Position, Item4, Item3.Position, Item3.Position }</scr:Expression>
+                  </Expression>
+                  <Expression xsi:type="PropertyMapping">
+                    <PropertyMappings>
+                      <Property Name="Points" />
+                    </PropertyMappings>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="drw:Path">
+                      <drw:Color>
+                        <drw:Val0>0</drw:Val0>
+                        <drw:Val1>140</drw:Val1>
+                        <drw:Val2>255</drw:Val2>
+                        <drw:Val3>0</drw:Val3>
+                      </drw:Color>
+                      <drw:Thickness>14</drw:Thickness>
+                      <drw:LineType>AntiAliased</drw:LineType>
+                      <drw:Shift>0</drw:Shift>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="9" Label="Source1" />
+                  <Edge From="1" To="2" Label="Source1" />
+                  <Edge From="1" To="3" Label="Source1" />
+                  <Edge From="1" To="4" Label="Source1" />
+                  <Edge From="2" To="6" Label="Source1" />
+                  <Edge From="3" To="6" Label="Source2" />
+                  <Edge From="4" To="6" Label="Source3" />
+                  <Edge From="5" To="6" Label="Source4" />
+                  <Edge From="6" To="7" Label="Source1" />
+                  <Edge From="6" To="10" Label="Source1" />
+                  <Edge From="7" To="8" Label="Source1" />
+                  <Edge From="8" To="9" Label="Source2" />
+                  <Edge From="9" To="12" Label="Source1" />
+                  <Edge From="10" To="11" Label="Source1" />
+                  <Edge From="11" To="12" Label="Source2" />
+                  <Edge From="12" To="13" Label="Source1" />
+                </Edges>
+              </Workflow>
             </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="movenet:GetBodyPart">
-                <movenet:Name>right_eye</movenet:Name>
-              </Combinator>
+            <Expression xsi:type="GroupWorkflow">
+              <Name>RightLeg</Name>
+              <Description>Ankle, knee, hip.</Description>
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>Pose</Name>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="movenet:GetBodyPart">
+                      <movenet:Name>right_ankle</movenet:Name>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="movenet:GetBodyPart">
+                      <movenet:Name>right_knee</movenet:Name>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="movenet:GetBodyPart">
+                      <movenet:Name>right_hip</movenet:Name>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>Gap</Name>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="rx:Zip" />
+                  </Expression>
+                  <Expression xsi:type="scr:ExpressionTransform">
+                    <scr:Name>Lines</scr:Name>
+                    <scr:Expression>new[] { Item1.Position, Item2.Position, Item3.Position }</scr:Expression>
+                  </Expression>
+                  <Expression xsi:type="PropertyMapping">
+                    <PropertyMappings>
+                      <Property Name="Points" />
+                    </PropertyMappings>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="drw:Path">
+                      <drw:Color>
+                        <drw:Val0>255</drw:Val0>
+                        <drw:Val1>200</drw:Val1>
+                        <drw:Val2>0</drw:Val2>
+                        <drw:Val3>0</drw:Val3>
+                      </drw:Color>
+                      <drw:Thickness>3</drw:Thickness>
+                      <drw:LineType>AntiAliased</drw:LineType>
+                      <drw:Shift>0</drw:Shift>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="scr:ExpressionTransform">
+                    <scr:Name>Dots</scr:Name>
+                    <scr:Expression>new[] { Item1.Position, Item1.Position, Item4, Item2.Position, Item2.Position, Item4, Item3.Position, Item3.Position }</scr:Expression>
+                  </Expression>
+                  <Expression xsi:type="PropertyMapping">
+                    <PropertyMappings>
+                      <Property Name="Points" />
+                    </PropertyMappings>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="drw:Path">
+                      <drw:Color>
+                        <drw:Val0>255</drw:Val0>
+                        <drw:Val1>200</drw:Val1>
+                        <drw:Val2>0</drw:Val2>
+                        <drw:Val3>0</drw:Val3>
+                      </drw:Color>
+                      <drw:Thickness>14</drw:Thickness>
+                      <drw:LineType>AntiAliased</drw:LineType>
+                      <drw:Shift>0</drw:Shift>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="9" Label="Source1" />
+                  <Edge From="1" To="2" Label="Source1" />
+                  <Edge From="1" To="3" Label="Source1" />
+                  <Edge From="1" To="4" Label="Source1" />
+                  <Edge From="2" To="6" Label="Source1" />
+                  <Edge From="3" To="6" Label="Source2" />
+                  <Edge From="4" To="6" Label="Source3" />
+                  <Edge From="5" To="6" Label="Source4" />
+                  <Edge From="6" To="7" Label="Source1" />
+                  <Edge From="6" To="10" Label="Source1" />
+                  <Edge From="7" To="8" Label="Source1" />
+                  <Edge From="8" To="9" Label="Source2" />
+                  <Edge From="9" To="12" Label="Source1" />
+                  <Edge From="10" To="11" Label="Source1" />
+                  <Edge From="11" To="12" Label="Source2" />
+                  <Edge From="12" To="13" Label="Source1" />
+                </Edges>
+              </Workflow>
             </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="movenet:GetBodyPart">
-                <movenet:Name>right_ear</movenet:Name>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="SubscribeSubject">
-              <Name>Gap</Name>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="rx:Zip" />
-            </Expression>
-            <Expression xsi:type="scr:ExpressionTransform">
-              <scr:Name>Lines</scr:Name>
-              <scr:Expression>new[] { Item1.Position, Item2.Position, Item3.Position, Item4.Position, Item5.Position }</scr:Expression>
-            </Expression>
-            <Expression xsi:type="PropertyMapping">
-              <PropertyMappings>
-                <Property Name="Points" />
-              </PropertyMappings>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="drw:Path">
-                <drw:Color>
-                  <drw:Val0>0</drw:Val0>
-                  <drw:Val1>255</drw:Val1>
-                  <drw:Val2>255</drw:Val2>
-                  <drw:Val3>0</drw:Val3>
-                </drw:Color>
-                <drw:Thickness>3</drw:Thickness>
-                <drw:LineType>AntiAliased</drw:LineType>
-                <drw:Shift>0</drw:Shift>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="scr:ExpressionTransform">
-              <scr:Name>Dots</scr:Name>
-              <scr:Expression>new[] { Item1.Position, Item1.Position, Item6, Item2.Position, Item2.Position, Item6, Item3.Position, Item3.Position, Item6, Item4.Position, Item4.Position, Item6, Item5.Position, Item5.Position }</scr:Expression>
-            </Expression>
-            <Expression xsi:type="PropertyMapping">
-              <PropertyMappings>
-                <Property Name="Points" />
-              </PropertyMappings>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="drw:Path">
-                <drw:Color>
-                  <drw:Val0>0</drw:Val0>
-                  <drw:Val1>255</drw:Val1>
-                  <drw:Val2>255</drw:Val2>
-                  <drw:Val3>0</drw:Val3>
-                </drw:Color>
-                <drw:Thickness>14</drw:Thickness>
-                <drw:LineType>AntiAliased</drw:LineType>
-                <drw:Shift>0</drw:Shift>
-              </Combinator>
+            <Expression xsi:type="GroupWorkflow">
+              <Name>Trunk</Name>
+              <Description>Shoulders and hips as a loop, then nose to both shoulders. No dots: the limbs already drew them.</Description>
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>Pose</Name>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="movenet:GetBodyPart">
+                      <movenet:Name>left_shoulder</movenet:Name>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="movenet:GetBodyPart">
+                      <movenet:Name>right_shoulder</movenet:Name>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="movenet:GetBodyPart">
+                      <movenet:Name>right_hip</movenet:Name>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="movenet:GetBodyPart">
+                      <movenet:Name>left_hip</movenet:Name>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="movenet:GetBodyPart">
+                      <movenet:Name>nose</movenet:Name>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>Gap</Name>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="rx:Zip" />
+                  </Expression>
+                  <Expression xsi:type="scr:ExpressionTransform">
+                    <scr:Name>Lines</scr:Name>
+                    <scr:Expression>new[] { Item4.Position, Item1.Position, Item2.Position, Item3.Position, Item4.Position, Item6, Item1.Position, Item5.Position, Item2.Position }</scr:Expression>
+                  </Expression>
+                  <Expression xsi:type="PropertyMapping">
+                    <PropertyMappings>
+                      <Property Name="Points" />
+                    </PropertyMappings>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="drw:Path">
+                      <drw:Color>
+                        <drw:Val0>0</drw:Val0>
+                        <drw:Val1>255</drw:Val1>
+                        <drw:Val2>255</drw:Val2>
+                        <drw:Val3>0</drw:Val3>
+                      </drw:Color>
+                      <drw:Thickness>3</drw:Thickness>
+                      <drw:LineType>AntiAliased</drw:LineType>
+                      <drw:Shift>0</drw:Shift>
+                    </Combinator>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="11" Label="Source1" />
+                  <Edge From="1" To="2" Label="Source1" />
+                  <Edge From="1" To="3" Label="Source1" />
+                  <Edge From="1" To="4" Label="Source1" />
+                  <Edge From="1" To="5" Label="Source1" />
+                  <Edge From="1" To="6" Label="Source1" />
+                  <Edge From="2" To="8" Label="Source1" />
+                  <Edge From="3" To="8" Label="Source2" />
+                  <Edge From="4" To="8" Label="Source3" />
+                  <Edge From="5" To="8" Label="Source4" />
+                  <Edge From="6" To="8" Label="Source5" />
+                  <Edge From="7" To="8" Label="Source6" />
+                  <Edge From="8" To="9" Label="Source1" />
+                  <Edge From="9" To="10" Label="Source1" />
+                  <Edge From="10" To="11" Label="Source2" />
+                  <Edge From="11" To="12" Label="Source1" />
+                </Edges>
+              </Workflow>
             </Expression>
             <Expression xsi:type="WorkflowOutput" />
           </Nodes>
           <Edges>
-            <Edge From="0" To="11" Label="Source1" />
+            <Edge From="0" To="1" Label="Source1" />
             <Edge From="1" To="2" Label="Source1" />
-            <Edge From="1" To="3" Label="Source1" />
-            <Edge From="1" To="4" Label="Source1" />
-            <Edge From="1" To="5" Label="Source1" />
-            <Edge From="1" To="6" Label="Source1" />
-            <Edge From="2" To="8" Label="Source1" />
-            <Edge From="3" To="8" Label="Source2" />
-            <Edge From="4" To="8" Label="Source3" />
-            <Edge From="5" To="8" Label="Source4" />
-            <Edge From="6" To="8" Label="Source5" />
-            <Edge From="7" To="8" Label="Source6" />
-            <Edge From="8" To="9" Label="Source1" />
-            <Edge From="8" To="12" Label="Source1" />
-            <Edge From="9" To="10" Label="Source1" />
-            <Edge From="10" To="11" Label="Source2" />
-            <Edge From="11" To="14" Label="Source1" />
-            <Edge From="12" To="13" Label="Source1" />
-            <Edge From="13" To="14" Label="Source2" />
-            <Edge From="14" To="15" Label="Source1" />
-          </Edges>
-        </Workflow>
-      </Expression>
-      <Expression xsi:type="GroupWorkflow">
-        <Name>LeftArm</Name>
-        <Description>Wrist, elbow, shoulder.</Description>
-        <Workflow>
-          <Nodes>
-            <Expression xsi:type="WorkflowInput">
-              <Name>Source1</Name>
-            </Expression>
-            <Expression xsi:type="SubscribeSubject">
-              <Name>Pose</Name>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="movenet:GetBodyPart">
-                <movenet:Name>left_wrist</movenet:Name>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="movenet:GetBodyPart">
-                <movenet:Name>left_elbow</movenet:Name>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="movenet:GetBodyPart">
-                <movenet:Name>left_shoulder</movenet:Name>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="SubscribeSubject">
-              <Name>Gap</Name>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="rx:Zip" />
-            </Expression>
-            <Expression xsi:type="scr:ExpressionTransform">
-              <scr:Name>Lines</scr:Name>
-              <scr:Expression>new[] { Item1.Position, Item2.Position, Item3.Position }</scr:Expression>
-            </Expression>
-            <Expression xsi:type="PropertyMapping">
-              <PropertyMappings>
-                <Property Name="Points" />
-              </PropertyMappings>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="drw:Path">
-                <drw:Color>
-                  <drw:Val0>0</drw:Val0>
-                  <drw:Val1>140</drw:Val1>
-                  <drw:Val2>255</drw:Val2>
-                  <drw:Val3>0</drw:Val3>
-                </drw:Color>
-                <drw:Thickness>3</drw:Thickness>
-                <drw:LineType>AntiAliased</drw:LineType>
-                <drw:Shift>0</drw:Shift>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="scr:ExpressionTransform">
-              <scr:Name>Dots</scr:Name>
-              <scr:Expression>new[] { Item1.Position, Item1.Position, Item4, Item2.Position, Item2.Position, Item4, Item3.Position, Item3.Position }</scr:Expression>
-            </Expression>
-            <Expression xsi:type="PropertyMapping">
-              <PropertyMappings>
-                <Property Name="Points" />
-              </PropertyMappings>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="drw:Path">
-                <drw:Color>
-                  <drw:Val0>0</drw:Val0>
-                  <drw:Val1>140</drw:Val1>
-                  <drw:Val2>255</drw:Val2>
-                  <drw:Val3>0</drw:Val3>
-                </drw:Color>
-                <drw:Thickness>14</drw:Thickness>
-                <drw:LineType>AntiAliased</drw:LineType>
-                <drw:Shift>0</drw:Shift>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="WorkflowOutput" />
-          </Nodes>
-          <Edges>
-            <Edge From="0" To="9" Label="Source1" />
-            <Edge From="1" To="2" Label="Source1" />
-            <Edge From="1" To="3" Label="Source1" />
-            <Edge From="1" To="4" Label="Source1" />
-            <Edge From="2" To="6" Label="Source1" />
-            <Edge From="3" To="6" Label="Source2" />
-            <Edge From="4" To="6" Label="Source3" />
-            <Edge From="5" To="6" Label="Source4" />
+            <Edge From="2" To="3" Label="Source1" />
+            <Edge From="3" To="4" Label="Source1" />
+            <Edge From="4" To="5" Label="Source1" />
+            <Edge From="5" To="6" Label="Source1" />
             <Edge From="6" To="7" Label="Source1" />
-            <Edge From="6" To="10" Label="Source1" />
-            <Edge From="7" To="8" Label="Source1" />
-            <Edge From="8" To="9" Label="Source2" />
-            <Edge From="9" To="12" Label="Source1" />
-            <Edge From="10" To="11" Label="Source1" />
-            <Edge From="11" To="12" Label="Source2" />
-            <Edge From="12" To="13" Label="Source1" />
-          </Edges>
-        </Workflow>
-      </Expression>
-      <Expression xsi:type="GroupWorkflow">
-        <Name>RightArm</Name>
-        <Description>Wrist, elbow, shoulder.</Description>
-        <Workflow>
-          <Nodes>
-            <Expression xsi:type="WorkflowInput">
-              <Name>Source1</Name>
-            </Expression>
-            <Expression xsi:type="SubscribeSubject">
-              <Name>Pose</Name>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="movenet:GetBodyPart">
-                <movenet:Name>right_wrist</movenet:Name>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="movenet:GetBodyPart">
-                <movenet:Name>right_elbow</movenet:Name>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="movenet:GetBodyPart">
-                <movenet:Name>right_shoulder</movenet:Name>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="SubscribeSubject">
-              <Name>Gap</Name>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="rx:Zip" />
-            </Expression>
-            <Expression xsi:type="scr:ExpressionTransform">
-              <scr:Name>Lines</scr:Name>
-              <scr:Expression>new[] { Item1.Position, Item2.Position, Item3.Position }</scr:Expression>
-            </Expression>
-            <Expression xsi:type="PropertyMapping">
-              <PropertyMappings>
-                <Property Name="Points" />
-              </PropertyMappings>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="drw:Path">
-                <drw:Color>
-                  <drw:Val0>255</drw:Val0>
-                  <drw:Val1>200</drw:Val1>
-                  <drw:Val2>0</drw:Val2>
-                  <drw:Val3>0</drw:Val3>
-                </drw:Color>
-                <drw:Thickness>3</drw:Thickness>
-                <drw:LineType>AntiAliased</drw:LineType>
-                <drw:Shift>0</drw:Shift>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="scr:ExpressionTransform">
-              <scr:Name>Dots</scr:Name>
-              <scr:Expression>new[] { Item1.Position, Item1.Position, Item4, Item2.Position, Item2.Position, Item4, Item3.Position, Item3.Position }</scr:Expression>
-            </Expression>
-            <Expression xsi:type="PropertyMapping">
-              <PropertyMappings>
-                <Property Name="Points" />
-              </PropertyMappings>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="drw:Path">
-                <drw:Color>
-                  <drw:Val0>255</drw:Val0>
-                  <drw:Val1>200</drw:Val1>
-                  <drw:Val2>0</drw:Val2>
-                  <drw:Val3>0</drw:Val3>
-                </drw:Color>
-                <drw:Thickness>14</drw:Thickness>
-                <drw:LineType>AntiAliased</drw:LineType>
-                <drw:Shift>0</drw:Shift>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="WorkflowOutput" />
-          </Nodes>
-          <Edges>
-            <Edge From="0" To="9" Label="Source1" />
-            <Edge From="1" To="2" Label="Source1" />
-            <Edge From="1" To="3" Label="Source1" />
-            <Edge From="1" To="4" Label="Source1" />
-            <Edge From="2" To="6" Label="Source1" />
-            <Edge From="3" To="6" Label="Source2" />
-            <Edge From="4" To="6" Label="Source3" />
-            <Edge From="5" To="6" Label="Source4" />
-            <Edge From="6" To="7" Label="Source1" />
-            <Edge From="6" To="10" Label="Source1" />
-            <Edge From="7" To="8" Label="Source1" />
-            <Edge From="8" To="9" Label="Source2" />
-            <Edge From="9" To="12" Label="Source1" />
-            <Edge From="10" To="11" Label="Source1" />
-            <Edge From="11" To="12" Label="Source2" />
-            <Edge From="12" To="13" Label="Source1" />
-          </Edges>
-        </Workflow>
-      </Expression>
-      <Expression xsi:type="GroupWorkflow">
-        <Name>LeftLeg</Name>
-        <Description>Ankle, knee, hip.</Description>
-        <Workflow>
-          <Nodes>
-            <Expression xsi:type="WorkflowInput">
-              <Name>Source1</Name>
-            </Expression>
-            <Expression xsi:type="SubscribeSubject">
-              <Name>Pose</Name>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="movenet:GetBodyPart">
-                <movenet:Name>left_ankle</movenet:Name>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="movenet:GetBodyPart">
-                <movenet:Name>left_knee</movenet:Name>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="movenet:GetBodyPart">
-                <movenet:Name>left_hip</movenet:Name>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="SubscribeSubject">
-              <Name>Gap</Name>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="rx:Zip" />
-            </Expression>
-            <Expression xsi:type="scr:ExpressionTransform">
-              <scr:Name>Lines</scr:Name>
-              <scr:Expression>new[] { Item1.Position, Item2.Position, Item3.Position }</scr:Expression>
-            </Expression>
-            <Expression xsi:type="PropertyMapping">
-              <PropertyMappings>
-                <Property Name="Points" />
-              </PropertyMappings>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="drw:Path">
-                <drw:Color>
-                  <drw:Val0>0</drw:Val0>
-                  <drw:Val1>140</drw:Val1>
-                  <drw:Val2>255</drw:Val2>
-                  <drw:Val3>0</drw:Val3>
-                </drw:Color>
-                <drw:Thickness>3</drw:Thickness>
-                <drw:LineType>AntiAliased</drw:LineType>
-                <drw:Shift>0</drw:Shift>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="scr:ExpressionTransform">
-              <scr:Name>Dots</scr:Name>
-              <scr:Expression>new[] { Item1.Position, Item1.Position, Item4, Item2.Position, Item2.Position, Item4, Item3.Position, Item3.Position }</scr:Expression>
-            </Expression>
-            <Expression xsi:type="PropertyMapping">
-              <PropertyMappings>
-                <Property Name="Points" />
-              </PropertyMappings>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="drw:Path">
-                <drw:Color>
-                  <drw:Val0>0</drw:Val0>
-                  <drw:Val1>140</drw:Val1>
-                  <drw:Val2>255</drw:Val2>
-                  <drw:Val3>0</drw:Val3>
-                </drw:Color>
-                <drw:Thickness>14</drw:Thickness>
-                <drw:LineType>AntiAliased</drw:LineType>
-                <drw:Shift>0</drw:Shift>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="WorkflowOutput" />
-          </Nodes>
-          <Edges>
-            <Edge From="0" To="9" Label="Source1" />
-            <Edge From="1" To="2" Label="Source1" />
-            <Edge From="1" To="3" Label="Source1" />
-            <Edge From="1" To="4" Label="Source1" />
-            <Edge From="2" To="6" Label="Source1" />
-            <Edge From="3" To="6" Label="Source2" />
-            <Edge From="4" To="6" Label="Source3" />
-            <Edge From="5" To="6" Label="Source4" />
-            <Edge From="6" To="7" Label="Source1" />
-            <Edge From="6" To="10" Label="Source1" />
-            <Edge From="7" To="8" Label="Source1" />
-            <Edge From="8" To="9" Label="Source2" />
-            <Edge From="9" To="12" Label="Source1" />
-            <Edge From="10" To="11" Label="Source1" />
-            <Edge From="11" To="12" Label="Source2" />
-            <Edge From="12" To="13" Label="Source1" />
-          </Edges>
-        </Workflow>
-      </Expression>
-      <Expression xsi:type="GroupWorkflow">
-        <Name>RightLeg</Name>
-        <Description>Ankle, knee, hip.</Description>
-        <Workflow>
-          <Nodes>
-            <Expression xsi:type="WorkflowInput">
-              <Name>Source1</Name>
-            </Expression>
-            <Expression xsi:type="SubscribeSubject">
-              <Name>Pose</Name>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="movenet:GetBodyPart">
-                <movenet:Name>right_ankle</movenet:Name>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="movenet:GetBodyPart">
-                <movenet:Name>right_knee</movenet:Name>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="movenet:GetBodyPart">
-                <movenet:Name>right_hip</movenet:Name>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="SubscribeSubject">
-              <Name>Gap</Name>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="rx:Zip" />
-            </Expression>
-            <Expression xsi:type="scr:ExpressionTransform">
-              <scr:Name>Lines</scr:Name>
-              <scr:Expression>new[] { Item1.Position, Item2.Position, Item3.Position }</scr:Expression>
-            </Expression>
-            <Expression xsi:type="PropertyMapping">
-              <PropertyMappings>
-                <Property Name="Points" />
-              </PropertyMappings>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="drw:Path">
-                <drw:Color>
-                  <drw:Val0>255</drw:Val0>
-                  <drw:Val1>200</drw:Val1>
-                  <drw:Val2>0</drw:Val2>
-                  <drw:Val3>0</drw:Val3>
-                </drw:Color>
-                <drw:Thickness>3</drw:Thickness>
-                <drw:LineType>AntiAliased</drw:LineType>
-                <drw:Shift>0</drw:Shift>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="scr:ExpressionTransform">
-              <scr:Name>Dots</scr:Name>
-              <scr:Expression>new[] { Item1.Position, Item1.Position, Item4, Item2.Position, Item2.Position, Item4, Item3.Position, Item3.Position }</scr:Expression>
-            </Expression>
-            <Expression xsi:type="PropertyMapping">
-              <PropertyMappings>
-                <Property Name="Points" />
-              </PropertyMappings>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="drw:Path">
-                <drw:Color>
-                  <drw:Val0>255</drw:Val0>
-                  <drw:Val1>200</drw:Val1>
-                  <drw:Val2>0</drw:Val2>
-                  <drw:Val3>0</drw:Val3>
-                </drw:Color>
-                <drw:Thickness>14</drw:Thickness>
-                <drw:LineType>AntiAliased</drw:LineType>
-                <drw:Shift>0</drw:Shift>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="WorkflowOutput" />
-          </Nodes>
-          <Edges>
-            <Edge From="0" To="9" Label="Source1" />
-            <Edge From="1" To="2" Label="Source1" />
-            <Edge From="1" To="3" Label="Source1" />
-            <Edge From="1" To="4" Label="Source1" />
-            <Edge From="2" To="6" Label="Source1" />
-            <Edge From="3" To="6" Label="Source2" />
-            <Edge From="4" To="6" Label="Source3" />
-            <Edge From="5" To="6" Label="Source4" />
-            <Edge From="6" To="7" Label="Source1" />
-            <Edge From="6" To="10" Label="Source1" />
-            <Edge From="7" To="8" Label="Source1" />
-            <Edge From="8" To="9" Label="Source2" />
-            <Edge From="9" To="12" Label="Source1" />
-            <Edge From="10" To="11" Label="Source1" />
-            <Edge From="11" To="12" Label="Source2" />
-            <Edge From="12" To="13" Label="Source1" />
-          </Edges>
-        </Workflow>
-      </Expression>
-      <Expression xsi:type="GroupWorkflow">
-        <Name>Trunk</Name>
-        <Description>Shoulders and hips as a loop, then nose to both shoulders. No dots: the limbs already drew them.</Description>
-        <Workflow>
-          <Nodes>
-            <Expression xsi:type="WorkflowInput">
-              <Name>Source1</Name>
-            </Expression>
-            <Expression xsi:type="SubscribeSubject">
-              <Name>Pose</Name>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="movenet:GetBodyPart">
-                <movenet:Name>left_shoulder</movenet:Name>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="movenet:GetBodyPart">
-                <movenet:Name>right_shoulder</movenet:Name>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="movenet:GetBodyPart">
-                <movenet:Name>right_hip</movenet:Name>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="movenet:GetBodyPart">
-                <movenet:Name>left_hip</movenet:Name>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="movenet:GetBodyPart">
-                <movenet:Name>nose</movenet:Name>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="SubscribeSubject">
-              <Name>Gap</Name>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="rx:Zip" />
-            </Expression>
-            <Expression xsi:type="scr:ExpressionTransform">
-              <scr:Name>Lines</scr:Name>
-              <scr:Expression>new[] { Item4.Position, Item1.Position, Item2.Position, Item3.Position, Item4.Position, Item6, Item1.Position, Item5.Position, Item2.Position }</scr:Expression>
-            </Expression>
-            <Expression xsi:type="PropertyMapping">
-              <PropertyMappings>
-                <Property Name="Points" />
-              </PropertyMappings>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="drw:Path">
-                <drw:Color>
-                  <drw:Val0>0</drw:Val0>
-                  <drw:Val1>255</drw:Val1>
-                  <drw:Val2>255</drw:Val2>
-                  <drw:Val3>0</drw:Val3>
-                </drw:Color>
-                <drw:Thickness>3</drw:Thickness>
-                <drw:LineType>AntiAliased</drw:LineType>
-                <drw:Shift>0</drw:Shift>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="WorkflowOutput" />
-          </Nodes>
-          <Edges>
-            <Edge From="0" To="11" Label="Source1" />
-            <Edge From="1" To="2" Label="Source1" />
-            <Edge From="1" To="3" Label="Source1" />
-            <Edge From="1" To="4" Label="Source1" />
-            <Edge From="1" To="5" Label="Source1" />
-            <Edge From="1" To="6" Label="Source1" />
-            <Edge From="2" To="8" Label="Source1" />
-            <Edge From="3" To="8" Label="Source2" />
-            <Edge From="4" To="8" Label="Source3" />
-            <Edge From="5" To="8" Label="Source4" />
-            <Edge From="6" To="8" Label="Source5" />
-            <Edge From="7" To="8" Label="Source6" />
-            <Edge From="8" To="9" Label="Source1" />
-            <Edge From="9" To="10" Label="Source1" />
-            <Edge From="10" To="11" Label="Source2" />
-            <Edge From="11" To="12" Label="Source1" />
           </Edges>
         </Workflow>
       </Expression>
@@ -676,17 +696,10 @@
         <Name>Pose</Name>
       </Expression>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="movenet:GetBodyPart">
-          <movenet:Name>nose</movenet:Name>
+        <Combinator xsi:type="cv:CreatePoint2f">
+          <cv:X>NaN</cv:X>
+          <cv:Y>NaN</cv:Y>
         </Combinator>
-      </Expression>
-      <Expression xsi:type="MemberSelector">
-        <Selector>Position</Selector>
-      </Expression>
-      <Expression xsi:type="scr:ExpressionTransform">
-        <scr:Name>NaN point</scr:Name>
-        <scr:Description>A point that is not a point. Path breaks the line wherever it meets one, so this is the gap between dots.</scr:Description>
-        <scr:Expression>new Point2f(Single.NaN, Single.NaN)</scr:Expression>
       </Expression>
       <Expression xsi:type="rx:PublishSubject">
         <Name>Gap</Name>
@@ -925,15 +938,8 @@
       <Edge From="10" To="11" Label="Source2" />
       <Edge From="11" To="12" Label="Source1" />
       <Edge From="12" To="13" Label="Source1" />
-      <Edge From="13" To="14" Label="Source1" />
       <Edge From="14" To="15" Label="Source1" />
       <Edge From="15" To="16" Label="Source1" />
-      <Edge From="16" To="17" Label="Source1" />
-      <Edge From="17" To="18" Label="Source1" />
-      <Edge From="19" To="20" Label="Source1" />
-      <Edge From="20" To="21" Label="Source1" />
-      <Edge From="21" To="22" Label="Source1" />
-      <Edge From="22" To="23" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>
