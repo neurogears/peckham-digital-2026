@@ -36,7 +36,7 @@ The same picture, drawn by one operator we wrote ourselves. `DrawSkeleton` is no
 ![PoseToTouchDesigner](PoseToTouchDesigner.bonsai)
 :::
 
-The body as a controller. This is `PoseSkeleton` with one more group, `TouchDesigner`, which turns five body measurements into numbers between 0 and 1 and sends each to one knob of the Ember Pulse patch from Exercise 16 of [The Live Demo](../../worksheets/02-live-demo.md), the one in `touchdesigner/ember-pulse.toe`. You still see the stick figure, so you can watch what the network sees while the picture responds.
+The body as a controller. This is `PoseSkeleton` with one more group, `TouchDesigner`, which turns five body measurements into numbers between 0 and 1 and sends each to one knob of the Ember Pulse patch from Exercise 10 of [The Live Demo](../../worksheets/02-live-demo.md), the one in `touchdesigner/ember-pulse.toe`. You still see the stick figure, so you can watch what the network sees while the picture responds.
 
 | Knob | Measurement |
 | --- | --- |

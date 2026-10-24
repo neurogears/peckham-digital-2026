@@ -12,6 +12,6 @@
 
 It listens on UDP port 8000. A knob nobody sends sits at 0, so with no sender at all it idles as a slow heartbeat. Send one knob or all five; the addresses are just names, so the same patch works for camera motion, microphone loudness, a body part, a sensor or a second laptop.
 
-Exercise 16 of the live demo sends `/pulse` from camera motion and `/hue` from microphone loudness. The MoveNet showcase sends `/spin` from where your nose is and `/hue` from how wide your arms are. Tune the look on the `ember_pulse` container's **Ember** parameter page.
+Exercise 10 of the live demo sends `/pulse` from camera motion and `/hue` from microphone loudness. The MoveNet showcase sends `/spin` from where your nose is and `/hue` from how wide your arms are. Tune the look on the `ember_pulse` container's **Ember** parameter page.
 
 To use these channels in your own project, add an **OSC In** CHOP on port 8000: each address appears as a channel as soon as Bonsai sends it.
