@@ -15,8 +15,8 @@ This is a tentative schedule for the workshop. Details will be confirmed closer 
 | Part | Duration | Materials |
 | --- | --- | --- |
 | Introduction to Bonsai | 15 min | [Slides](slides/index.md) |
-| Live demos: machine vision, audio, shaders and interfacing with devices | 55 min | [Worksheets](worksheets/index.md) |
-| Final show and tell, questions | 20 min | |
+| Live demos: machine vision, audio, shaders and interfacing with devices | 45 min | [Worksheets](worksheets/index.md) |
+| Hands-on: fork the demo, showcases | 30 min | [Fork It](worksheets/03-fork-it.md) |
 
 ## Before you arrive
 
@@ -26,12 +26,12 @@ This is a tentative schedule for the workshop. Details will be confirmed closer 
 ## During the session
 
 - Cameras, microphones and controllers are provided to share during the hands-on session. Your laptop's built-in webcam and microphone also work for most of the exercises.
-- The workflows built in the demo are available to download from the worksheets, so you can pick up from any stage rather than rebuilding from scratch.
+- You can copy the workflows built in the demo straight from the worksheets and paste them into your own Bonsai editor.
 
 ## Sections
 
 - **[Slides](slides/index.md)** — the introductory talk.
-- **[Worksheets](worksheets/index.md)** — step-by-step exercises for the hands-on session, with downloadable workflows.
+- **[Worksheets](worksheets/index.md)** — step-by-step exercises for the hands-on session, with workflows you can copy and paste into Bonsai.
 
 ## Further reading
 
