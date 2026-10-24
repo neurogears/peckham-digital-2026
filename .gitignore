@@ -4,6 +4,7 @@
 **/.bonsai/lib/
 **/.bonsai/Settings/
 /artifacts/
+*obj/
 
 # Data recorded while testing workflows
 *.avi
