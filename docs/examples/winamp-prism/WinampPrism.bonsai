@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <WorkflowBuilder Version="2.9.1"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
-                 xmlns:sys="clr-namespace:System;assembly=mscorlib"
                  xmlns:p1="clr-namespace:Bonsai.Mixer;assembly=Bonsai.Mixer"
+                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
                  xmlns:midi="clr-namespace:Bonsai.Midi;assembly=Bonsai.Midi"
                  xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
                  xmlns:scr="clr-namespace:Bonsai.Scripting.Expressions;assembly=Bonsai.Scripting.Expressions"
@@ -629,9 +628,6 @@
       </Expression>
       <Expression xsi:type="MulticastSubject">
         <Name>PresetConfiguration</Name>
-      </Expression>
-      <Expression xsi:type="rx:BehaviorSubject" TypeArguments="sys:String">
-        <rx:Name>CurrentActivePreset</rx:Name>
       </Expression>
       <Expression xsi:type="GroupWorkflow">
         <Name>Devices</Name>
@@ -1532,7 +1528,7 @@
     <Edges>
       <Edge From="0" To="1" Label="Source1" />
       <Edge From="1" To="2" Label="Source1" />
-      <Edge From="7" To="8" Label="Source1" />
+      <Edge From="6" To="7" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>
