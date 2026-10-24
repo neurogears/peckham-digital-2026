@@ -6,11 +6,8 @@
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="cv:CameraCapture">
-          <cv:Index>0</cv:Index>
-          <cv:CaptureProperties />
-        </Combinator>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Image</Name>
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="cv:ConvertColor">
@@ -20,13 +17,13 @@
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="cv:HsvThreshold">
           <cv:Lower>
-            <cv:Val0>20</cv:Val0>
+            <cv:Val0>100</cv:Val0>
             <cv:Val1>100</cv:Val1>
             <cv:Val2>100</cv:Val2>
             <cv:Val3>0</cv:Val3>
           </cv:Lower>
           <cv:Upper>
-            <cv:Val0>40</cv:Val0>
+            <cv:Val0>130</cv:Val0>
             <cv:Val1>255</cv:Val1>
             <cv:Val2>255</cv:Val2>
             <cv:Val3>255</cv:Val3>

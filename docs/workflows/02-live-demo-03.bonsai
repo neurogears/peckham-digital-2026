@@ -7,11 +7,8 @@
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="cv:CameraCapture">
-          <cv:Index>0</cv:Index>
-          <cv:CaptureProperties />
-        </Combinator>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Image</Name>
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="cv:Grayscale" />
