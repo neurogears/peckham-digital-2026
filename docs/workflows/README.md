@@ -27,23 +27,23 @@ puts the workflow XML on the clipboard. So nothing but the `.bonsai` files needs
 
 | File | Worksheet | Exercise | Status |
 | --- | --- | --- | --- |
-| `02-live-demo-01.bonsai` | [The Live Demo](../worksheets/02-live-demo.md) | 1 Acquire | renders |
+| `01-getting-started-01.bonsai` | [Getting Started](../worksheets/01-getting-started.md) | 2 Acquire the camera (camera) | renders |
+| `01-getting-started-02.bonsai` | | 2 Acquire the camera (camera and grayscale) | renders |
+| `02-live-demo-01.bonsai` | [The Live Demo](../worksheets/02-live-demo.md) | 1 Acquire and publish the camera image | renders |
 | `02-live-demo-02.bonsai` | | 2 Transform | renders |
 | `02-live-demo-03.bonsai` | | 3 Motion energy | renders |
 | `02-live-demo-04.bonsai` | | 4 Track a coloured object | renders |
-| `02-live-demo-05.bonsai` | | 5 Acquire audio | renders |
+| `02-live-demo-05.bonsai` | | 5 Acquire audio (publishes `Audio`) | renders |
 | `02-live-demo-06.bonsai` | | 6 Loudness | renders |
 | `02-live-demo-07.bonsai` | | 7 Spectrum | renders |
-| `02-live-demo-08.bonsai` | | 8 Sound sets the threshold | renders |
-| `02-live-demo-09.bonsai` | | 9 Sound draws the lines | renders |
-| `02-live-demo-10.bonsai` | | 10 Camera on the GPU | renders |
+| `02-live-demo-08.bonsai` | | 8 Volume decides the thresholds | renders |
+| `02-live-demo-09.bonsai` | | 9 A sensor and an LED (Arduino, standalone) | renders |
+| `02-live-demo-10.bonsai` | | 10 Send to other programs (OSC to TouchDesigner) | renders |
 | `02-live-demo-11.bonsai` | | 11 Warp | renders |
-| `02-live-demo-12.bonsai` | | 12 Winamp Visualizer (Nick, a standalone workflow) | renders |
-| `02-live-demo-13.bonsai` | | 13 Keyboard (branch to paste beside 11) | renders |
-| `02-live-demo-14.bonsai` | | 14 Mouse (branch to paste beside 11) | renders |
-| `02-live-demo-15.bonsai` | | 15 A sensor and an LED (Arduino, standalone) | renders |
-| `02-live-demo-16.bonsai` | | 16 Out to the world (OSC to TouchDesigner) | renders |
-| `../../shaders/quad.vert` | | 10, 11 | |
-| `../../shaders/camera.frag` | | 10, 11 | |
-| `../../shaders/warp.frag`, `copy.frag`, `screen.frag` | | 12 | |
-| `../../shaders/waveform.vert`, `waveform.frag` | | 12 | |
+| `02-live-demo-12.bonsai` | | 12 Keyboard (branch to paste beside 11) | renders |
+| `02-live-demo-13.bonsai` | | 13 Mouse (branch to paste beside 11) | renders |
+| `02-live-demo-14.bonsai` | | 14 Winamp Visualizer (Nick; subscribes to `Audio`, clashes with 11) | renders |
+| `../../shaders/quad.vert` | | 11 | |
+| `../../shaders/camera.frag` | | 11 | |
+| `../../shaders/warp.frag`, `copy.frag`, `screen.frag` | | 14 | |
+| `../../shaders/waveform.vert`, `waveform.frag` | | 14 | |

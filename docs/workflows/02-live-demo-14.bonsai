@@ -1,41 +1,573 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <WorkflowBuilder Version="2.9.1"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:gl="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders"
-                 xmlns:gli="clr-namespace:Bonsai.Shaders.Input;assembly=Bonsai.Shaders"
-                 xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
+                 xmlns:res="clr-namespace:Bonsai.Resources;assembly=Bonsai.System"
+                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
                  xmlns:scr="clr-namespace:Bonsai.Scripting.Expressions;assembly=Bonsai.Scripting.Expressions"
+                 xmlns:al="clr-namespace:Bonsai.Audio;assembly=Bonsai.Audio"
+                 xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="gli:MouseMove" />
-      </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="gli:NormalizedDeviceCoordinates" />
-      </Expression>
-      <Expression xsi:type="MemberSelector">
-        <Selector>X</Selector>
-      </Expression>
-      <Expression xsi:type="scr:ExpressionTransform">
-        <scr:Expression>Convert.ToDouble(it)</scr:Expression>
-      </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="dsp:Rescale">
-          <dsp:Min>-1</dsp:Min>
-          <dsp:Max>1</dsp:Max>
-          <dsp:RangeMin>0</dsp:RangeMin>
-          <dsp:RangeMax>0.3</dsp:RangeMax>
-          <dsp:RescaleType>Clamp</dsp:RescaleType>
+        <Combinator xsi:type="gl:CreateWindow">
+          <gl:Width>600</gl:Width>
+          <gl:Height>500</gl:Height>
+          <gl:Title />
+          <gl:VSync>On</gl:VSync>
+          <gl:SwapSync>false</gl:SwapSync>
+          <gl:ClearColor>Black</gl:ClearColor>
+          <gl:ClearMask>DepthBufferBit ColorBufferBit</gl:ClearMask>
+          <gl:CursorVisible>false</gl:CursorVisible>
+          <gl:Location xsi:nil="true" />
+          <gl:WindowBorder>Resizable</gl:WindowBorder>
+          <gl:WindowState>Normal</gl:WindowState>
+          <gl:DisplayDevice>Primary</gl:DisplayDevice>
+          <gl:TargetRenderFrequency>60</gl:TargetRenderFrequency>
+          <gl:TargetUpdateFrequency xsi:nil="true" />
+          <gl:RenderState />
+          <gl:GraphicsMode>
+            <gl:ColorFormat>
+              <gl:Red>8</gl:Red>
+              <gl:Green>8</gl:Green>
+              <gl:Blue>8</gl:Blue>
+              <gl:Alpha>8</gl:Alpha>
+            </gl:ColorFormat>
+            <gl:Depth>16</gl:Depth>
+            <gl:Stencil>0</gl:Stencil>
+            <gl:Samples>0</gl:Samples>
+            <gl:AccumulatorFormat>
+              <gl:Red>0</gl:Red>
+              <gl:Green>0</gl:Green>
+              <gl:Blue>0</gl:Blue>
+              <gl:Alpha>0</gl:Alpha>
+            </gl:AccumulatorFormat>
+            <gl:Buffers>2</gl:Buffers>
+            <gl:Stereo>false</gl:Stereo>
+          </gl:GraphicsMode>
         </Combinator>
       </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:MeshResources">
+          <gl:Meshes>
+            <gl:MeshConfiguration xsi:type="gl:TexturedQuad">
+              <gl:Name>Quad</gl:Name>
+              <gl:QuadEffects>None</gl:QuadEffects>
+            </gl:MeshConfiguration>
+            <gl:MeshConfiguration>
+              <gl:Name>WaveMesh</gl:Name>
+            </gl:MeshConfiguration>
+          </gl:Meshes>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:TextureResources">
+          <gl:Textures>
+            <gl:TextureConfiguration xsi:type="gl:Texture2D">
+              <gl:Name>Spectrum</gl:Name>
+              <gl:Width xsi:nil="true" />
+              <gl:Height xsi:nil="true" />
+              <gl:InternalFormat>R32f</gl:InternalFormat>
+              <gl:WrapS>ClampToEdge</gl:WrapS>
+              <gl:WrapT>ClampToEdge</gl:WrapT>
+              <gl:MinFilter>Linear</gl:MinFilter>
+              <gl:MagFilter>Linear</gl:MagFilter>
+            </gl:TextureConfiguration>
+            <gl:TextureConfiguration xsi:type="gl:Texture2D">
+              <gl:Name>Waveform</gl:Name>
+              <gl:Width xsi:nil="true" />
+              <gl:Height xsi:nil="true" />
+              <gl:InternalFormat>R32f</gl:InternalFormat>
+              <gl:WrapS>Repeat</gl:WrapS>
+              <gl:WrapT>Repeat</gl:WrapT>
+              <gl:MinFilter>Linear</gl:MinFilter>
+              <gl:MagFilter>Linear</gl:MagFilter>
+            </gl:TextureConfiguration>
+            <gl:TextureConfiguration xsi:type="gl:Texture2D">
+              <gl:Name>DefaultFeedback</gl:Name>
+              <gl:Width xsi:nil="true" />
+              <gl:Height xsi:nil="true" />
+              <gl:InternalFormat>Rgba</gl:InternalFormat>
+              <gl:WrapS>Repeat</gl:WrapS>
+              <gl:WrapT>Repeat</gl:WrapT>
+              <gl:MinFilter>Linear</gl:MinFilter>
+              <gl:MagFilter>Linear</gl:MagFilter>
+            </gl:TextureConfiguration>
+            <gl:TextureConfiguration xsi:type="gl:Texture2D">
+              <gl:Name>DefaultWork</gl:Name>
+              <gl:Width xsi:nil="true" />
+              <gl:Height xsi:nil="true" />
+              <gl:InternalFormat>Rgba</gl:InternalFormat>
+              <gl:WrapS>Repeat</gl:WrapS>
+              <gl:WrapT>Repeat</gl:WrapT>
+              <gl:MinFilter>Linear</gl:MinFilter>
+              <gl:MagFilter>Linear</gl:MagFilter>
+            </gl:TextureConfiguration>
+          </gl:Textures>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:ShaderResources">
+          <gl:Shaders>
+            <gl:ShaderConfiguration xsi:type="gl:Material">
+              <gl:Name>DefaultWarp</gl:Name>
+              <gl:RenderState>
+                <gl:StateConfiguration xsi:type="gl:DisableState">
+                  <gl:Capability>Blend</gl:Capability>
+                </gl:StateConfiguration>
+              </gl:RenderState>
+              <gl:ShaderUniforms />
+              <gl:BufferBindings>
+                <gl:BufferBinding xsi:type="gl:TextureBinding">
+                  <gl:Name>tex</gl:Name>
+                  <gl:TextureSlot>Texture0</gl:TextureSlot>
+                  <gl:TextureName>DefaultFeedback</gl:TextureName>
+                  <gl:TextureTarget>Texture2D</gl:TextureTarget>
+                </gl:BufferBinding>
+                <gl:BufferBinding xsi:type="gl:TextureBinding">
+                  <gl:Name>spectrum</gl:Name>
+                  <gl:TextureSlot>Texture1</gl:TextureSlot>
+                  <gl:TextureName>Spectrum</gl:TextureName>
+                  <gl:TextureTarget>Texture2D</gl:TextureTarget>
+                </gl:BufferBinding>
+              </gl:BufferBindings>
+              <gl:FramebufferAttachments>
+                <gl:FramebufferAttachmentConfiguration>
+                  <gl:TextureName>DefaultWork</gl:TextureName>
+                  <gl:Width xsi:nil="true" />
+                  <gl:Height xsi:nil="true" />
+                  <gl:Attachment>ColorAttachment0</gl:Attachment>
+                  <gl:InternalFormat>Rgba</gl:InternalFormat>
+                  <gl:Format>Rgba</gl:Format>
+                  <gl:Type>UnsignedByte</gl:Type>
+                  <gl:ClearColor>Black</gl:ClearColor>
+                  <gl:ClearMask>DepthBufferBit ColorBufferBit</gl:ClearMask>
+                </gl:FramebufferAttachmentConfiguration>
+              </gl:FramebufferAttachments>
+              <gl:VertexShader>shaders/quad.vert</gl:VertexShader>
+              <gl:FragmentShader>shaders/warp.frag</gl:FragmentShader>
+            </gl:ShaderConfiguration>
+            <gl:ShaderConfiguration xsi:type="gl:Material">
+              <gl:Name>DefaultWaveform</gl:Name>
+              <gl:RenderState>
+                <gl:StateConfiguration xsi:type="gl:DisableState">
+                  <gl:Capability>Blend</gl:Capability>
+                </gl:StateConfiguration>
+                <gl:StateConfiguration xsi:type="gl:LineWidthState">
+                  <gl:Width>2</gl:Width>
+                </gl:StateConfiguration>
+              </gl:RenderState>
+              <gl:ShaderUniforms />
+              <gl:BufferBindings />
+              <gl:FramebufferAttachments>
+                <gl:FramebufferAttachmentConfiguration>
+                  <gl:TextureName>DefaultWork</gl:TextureName>
+                  <gl:Width xsi:nil="true" />
+                  <gl:Height xsi:nil="true" />
+                  <gl:Attachment>ColorAttachment0</gl:Attachment>
+                  <gl:InternalFormat>Rgba</gl:InternalFormat>
+                  <gl:Format>Rgba</gl:Format>
+                  <gl:Type>UnsignedByte</gl:Type>
+                  <gl:ClearColor>Black</gl:ClearColor>
+                  <gl:ClearMask>None</gl:ClearMask>
+                </gl:FramebufferAttachmentConfiguration>
+              </gl:FramebufferAttachments>
+              <gl:VertexShader>shaders/waveform.vert</gl:VertexShader>
+              <gl:FragmentShader>shaders/waveform.frag</gl:FragmentShader>
+            </gl:ShaderConfiguration>
+            <gl:ShaderConfiguration xsi:type="gl:Material">
+              <gl:Name>DefaultCopy</gl:Name>
+              <gl:RenderState>
+                <gl:StateConfiguration xsi:type="gl:DisableState">
+                  <gl:Capability>Blend</gl:Capability>
+                </gl:StateConfiguration>
+              </gl:RenderState>
+              <gl:ShaderUniforms />
+              <gl:BufferBindings>
+                <gl:BufferBinding xsi:type="gl:TextureBinding">
+                  <gl:Name>tex</gl:Name>
+                  <gl:TextureSlot>Texture0</gl:TextureSlot>
+                  <gl:TextureName>DefaultWork</gl:TextureName>
+                  <gl:TextureTarget>Texture2D</gl:TextureTarget>
+                </gl:BufferBinding>
+              </gl:BufferBindings>
+              <gl:FramebufferAttachments>
+                <gl:FramebufferAttachmentConfiguration>
+                  <gl:TextureName>DefaultFeedback</gl:TextureName>
+                  <gl:Width xsi:nil="true" />
+                  <gl:Height xsi:nil="true" />
+                  <gl:Attachment>ColorAttachment0</gl:Attachment>
+                  <gl:InternalFormat>Rgba</gl:InternalFormat>
+                  <gl:Format>Rgba</gl:Format>
+                  <gl:Type>UnsignedByte</gl:Type>
+                  <gl:ClearColor>Black</gl:ClearColor>
+                  <gl:ClearMask>DepthBufferBit ColorBufferBit</gl:ClearMask>
+                </gl:FramebufferAttachmentConfiguration>
+              </gl:FramebufferAttachments>
+              <gl:VertexShader>shaders/quad.vert</gl:VertexShader>
+              <gl:FragmentShader>shaders/copy.frag</gl:FragmentShader>
+            </gl:ShaderConfiguration>
+            <gl:ShaderConfiguration xsi:type="gl:Material">
+              <gl:Name>DefaultScreen</gl:Name>
+              <gl:RenderState>
+                <gl:StateConfiguration xsi:type="gl:EnableState">
+                  <gl:Capability>Blend</gl:Capability>
+                </gl:StateConfiguration>
+                <gl:StateConfiguration xsi:type="gl:BlendFunctionState">
+                  <gl:SourceFactor>One</gl:SourceFactor>
+                  <gl:DestinationFactor>One</gl:DestinationFactor>
+                </gl:StateConfiguration>
+              </gl:RenderState>
+              <gl:ShaderUniforms />
+              <gl:BufferBindings>
+                <gl:BufferBinding xsi:type="gl:TextureBinding">
+                  <gl:Name>tex</gl:Name>
+                  <gl:TextureSlot>Texture0</gl:TextureSlot>
+                  <gl:TextureName>DefaultWork</gl:TextureName>
+                  <gl:TextureTarget>Texture2D</gl:TextureTarget>
+                </gl:BufferBinding>
+              </gl:BufferBindings>
+              <gl:FramebufferAttachments />
+              <gl:VertexShader>shaders/quad.vert</gl:VertexShader>
+              <gl:FragmentShader>shaders/screen.frag</gl:FragmentShader>
+            </gl:ShaderConfiguration>
+          </gl:Shaders>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="res:LoadResources" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:RenderFrame" />
+      </Expression>
+      <Expression xsi:type="rx:PublishSubject">
+        <Name>Render</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Render</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:DrawMesh">
+          <gl:ShaderName>DefaultWarp</gl:ShaderName>
+          <gl:MeshName>Quad</gl:MeshName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:DrawMesh">
+          <gl:ShaderName>DefaultWaveform</gl:ShaderName>
+          <gl:MeshName>WaveMesh</gl:MeshName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:DrawMesh">
+          <gl:ShaderName>DefaultCopy</gl:ShaderName>
+          <gl:MeshName>Quad</gl:MeshName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:DrawMesh">
+          <gl:ShaderName>DefaultScreen</gl:ShaderName>
+          <gl:MeshName>Quad</gl:MeshName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Render</Name>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>EventArgs.Time</Selector>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Accumulate" />
+      </Expression>
       <Expression xsi:type="scr:ExpressionTransform">
-        <scr:Expression>Convert.ToSingle(it)</scr:Expression>
+        <scr:Expression>single(it)</scr:Expression>
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="gl:UpdateUniform">
-          <gl:UniformName>amount</gl:UniformName>
-          <gl:ShaderName>Camera</gl:ShaderName>
+          <gl:UniformName>time</gl:UniformName>
+          <gl:ShaderName>DefaultWarp</gl:ShaderName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Audio</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:Rescale">
+          <dsp:Min>-32768</dsp:Min>
+          <dsp:Max>32768</dsp:Max>
+          <dsp:RangeMin>-2</dsp:RangeMin>
+          <dsp:RangeMax>2</dsp:RangeMax>
+          <dsp:RescaleType>Linear</dsp:RescaleType>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:Buffer">
+          <dsp:Count>1024</dsp:Count>
+          <dsp:Skip>100</dsp:Skip>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="rx:PublishSubject">
+        <Name>BufferedAudio</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>BufferedAudio</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:Transpose" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:UpdateVertexBuffer">
+          <gl:MeshName>WaveMesh</gl:MeshName>
+          <gl:DrawMode>LineStrip</gl:DrawMode>
+          <gl:Usage>DynamicDraw</gl:Usage>
+          <gl:VertexAttributes>
+            <gl:VertexAttributeMapping>
+              <gl:Size>1</gl:Size>
+              <gl:Normalized>false</gl:Normalized>
+              <gl:Type>Float</gl:Type>
+            </gl:VertexAttributeMapping>
+          </gl:VertexAttributes>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>BufferedAudio</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:DiscreteFourierTransform">
+          <dsp:OperationFlags>Forward</dsp:OperationFlags>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:Magnitude" />
+      </Expression>
+      <Expression xsi:type="rx:PublishSubject">
+        <Name>Magnitude</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:Submatrix">
+          <dsp:StartRow>0</dsp:StartRow>
+          <dsp:EndRow xsi:nil="true" />
+          <dsp:StartCol>0</dsp:StartCol>
+          <dsp:EndCol>512</dsp:EndCol>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="rx:PublishSubject">
+        <Name>Power</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Magnitude</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:Transpose" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:IirFilter">
+          <dsp:FeedforwardCoefficients>0,0.01</dsp:FeedforwardCoefficients>
+          <dsp:FeedbackCoefficients>1,-0.99</dsp:FeedbackCoefficients>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:Submatrix">
+          <dsp:StartRow>0</dsp:StartRow>
+          <dsp:EndRow>512</dsp:EndRow>
+          <dsp:StartCol>0</dsp:StartCol>
+          <dsp:EndCol xsi:nil="true" />
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="rx:PublishSubject">
+        <Name>Attenuated</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Power</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:Submatrix">
+          <dsp:StartRow>0</dsp:StartRow>
+          <dsp:EndRow xsi:nil="true" />
+          <dsp:StartCol>0</dsp:StartCol>
+          <dsp:EndCol>6</dsp:EndCol>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:Sum" />
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Val0</Selector>
+      </Expression>
+      <Expression xsi:type="scr:ExpressionTransform">
+        <scr:Expression>single(it)</scr:Expression>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:UpdateUniform">
+          <gl:UniformName>bass</gl:UniformName>
+          <gl:ShaderName>DefaultScreen</gl:ShaderName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:UpdateUniform">
+          <gl:UniformName>bass</gl:UniformName>
+          <gl:ShaderName>DefaultWarp</gl:ShaderName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Attenuated</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:Submatrix">
+          <dsp:StartRow>0</dsp:StartRow>
+          <dsp:EndRow>6</dsp:EndRow>
+          <dsp:StartCol>0</dsp:StartCol>
+          <dsp:EndCol xsi:nil="true" />
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:Sum" />
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Val0</Selector>
+      </Expression>
+      <Expression xsi:type="scr:ExpressionTransform">
+        <scr:Expression>single(it)</scr:Expression>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:UpdateUniform">
+          <gl:UniformName>bass_att</gl:UniformName>
+          <gl:ShaderName>DefaultScreen</gl:ShaderName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:UpdateUniform">
+          <gl:UniformName>bass_att</gl:UniformName>
+          <gl:ShaderName>DefaultWarp</gl:ShaderName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Power</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:Submatrix">
+          <dsp:StartRow>0</dsp:StartRow>
+          <dsp:EndRow xsi:nil="true" />
+          <dsp:StartCol>6</dsp:StartCol>
+          <dsp:EndCol>93</dsp:EndCol>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:Sum" />
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Val0</Selector>
+      </Expression>
+      <Expression xsi:type="scr:ExpressionTransform">
+        <scr:Expression>single(it)</scr:Expression>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:UpdateUniform">
+          <gl:UniformName>bass</gl:UniformName>
+          <gl:ShaderName>DefaultScreen</gl:ShaderName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:UpdateUniform">
+          <gl:UniformName>bass</gl:UniformName>
+          <gl:ShaderName>DefaultWarp</gl:ShaderName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Attenuated</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:Submatrix">
+          <dsp:StartRow>6</dsp:StartRow>
+          <dsp:EndRow>93</dsp:EndRow>
+          <dsp:StartCol>0</dsp:StartCol>
+          <dsp:EndCol xsi:nil="true" />
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:Sum" />
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Val0</Selector>
+      </Expression>
+      <Expression xsi:type="scr:ExpressionTransform">
+        <scr:Expression>single(it)</scr:Expression>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:UpdateUniform">
+          <gl:UniformName>bass_att</gl:UniformName>
+          <gl:ShaderName>DefaultScreen</gl:ShaderName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:UpdateUniform">
+          <gl:UniformName>bass_att</gl:UniformName>
+          <gl:ShaderName>DefaultWarp</gl:ShaderName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Power</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:Submatrix">
+          <dsp:StartRow>0</dsp:StartRow>
+          <dsp:EndRow xsi:nil="true" />
+          <dsp:StartCol>93</dsp:StartCol>
+          <dsp:EndCol>465</dsp:EndCol>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:Sum" />
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Val0</Selector>
+      </Expression>
+      <Expression xsi:type="scr:ExpressionTransform">
+        <scr:Expression>single(it)</scr:Expression>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:UpdateUniform">
+          <gl:UniformName>bass</gl:UniformName>
+          <gl:ShaderName>DefaultScreen</gl:ShaderName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:UpdateUniform">
+          <gl:UniformName>bass</gl:UniformName>
+          <gl:ShaderName>DefaultWarp</gl:ShaderName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Attenuated</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:Submatrix">
+          <dsp:StartRow>93</dsp:StartRow>
+          <dsp:EndRow>465</dsp:EndRow>
+          <dsp:StartCol>0</dsp:StartCol>
+          <dsp:EndCol xsi:nil="true" />
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:Sum" />
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Val0</Selector>
+      </Expression>
+      <Expression xsi:type="scr:ExpressionTransform">
+        <scr:Expression>single(it)</scr:Expression>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:UpdateUniform">
+          <gl:UniformName>bass_att</gl:UniformName>
+          <gl:ShaderName>DefaultScreen</gl:ShaderName>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:UpdateUniform">
+          <gl:UniformName>bass_att</gl:UniformName>
+          <gl:ShaderName>DefaultWarp</gl:ShaderName>
         </Combinator>
       </Expression>
     </Nodes>
@@ -44,8 +576,65 @@
       <Edge From="1" To="2" Label="Source1" />
       <Edge From="2" To="3" Label="Source1" />
       <Edge From="3" To="4" Label="Source1" />
-      <Edge From="4" To="5" Label="Source1" />
       <Edge From="5" To="6" Label="Source1" />
+      <Edge From="7" To="8" Label="Source1" />
+      <Edge From="8" To="9" Label="Source1" />
+      <Edge From="9" To="10" Label="Source1" />
+      <Edge From="10" To="11" Label="Source1" />
+      <Edge From="12" To="13" Label="Source1" />
+      <Edge From="13" To="14" Label="Source1" />
+      <Edge From="14" To="15" Label="Source1" />
+      <Edge From="15" To="16" Label="Source1" />
+      <Edge From="17" To="18" Label="Source1" />
+      <Edge From="18" To="19" Label="Source1" />
+      <Edge From="19" To="20" Label="Source1" />
+      <Edge From="21" To="22" Label="Source1" />
+      <Edge From="22" To="23" Label="Source1" />
+      <Edge From="24" To="25" Label="Source1" />
+      <Edge From="25" To="26" Label="Source1" />
+      <Edge From="26" To="27" Label="Source1" />
+      <Edge From="27" To="28" Label="Source1" />
+      <Edge From="28" To="29" Label="Source1" />
+      <Edge From="30" To="31" Label="Source1" />
+      <Edge From="31" To="32" Label="Source1" />
+      <Edge From="32" To="33" Label="Source1" />
+      <Edge From="33" To="34" Label="Source1" />
+      <Edge From="35" To="36" Label="Source1" />
+      <Edge From="36" To="37" Label="Source1" />
+      <Edge From="37" To="38" Label="Source1" />
+      <Edge From="38" To="39" Label="Source1" />
+      <Edge From="39" To="40" Label="Source1" />
+      <Edge From="40" To="41" Label="Source1" />
+      <Edge From="42" To="43" Label="Source1" />
+      <Edge From="43" To="44" Label="Source1" />
+      <Edge From="44" To="45" Label="Source1" />
+      <Edge From="45" To="46" Label="Source1" />
+      <Edge From="46" To="47" Label="Source1" />
+      <Edge From="47" To="48" Label="Source1" />
+      <Edge From="49" To="50" Label="Source1" />
+      <Edge From="50" To="51" Label="Source1" />
+      <Edge From="51" To="52" Label="Source1" />
+      <Edge From="52" To="53" Label="Source1" />
+      <Edge From="53" To="54" Label="Source1" />
+      <Edge From="54" To="55" Label="Source1" />
+      <Edge From="56" To="57" Label="Source1" />
+      <Edge From="57" To="58" Label="Source1" />
+      <Edge From="58" To="59" Label="Source1" />
+      <Edge From="59" To="60" Label="Source1" />
+      <Edge From="60" To="61" Label="Source1" />
+      <Edge From="61" To="62" Label="Source1" />
+      <Edge From="63" To="64" Label="Source1" />
+      <Edge From="64" To="65" Label="Source1" />
+      <Edge From="65" To="66" Label="Source1" />
+      <Edge From="66" To="67" Label="Source1" />
+      <Edge From="67" To="68" Label="Source1" />
+      <Edge From="68" To="69" Label="Source1" />
+      <Edge From="70" To="71" Label="Source1" />
+      <Edge From="71" To="72" Label="Source1" />
+      <Edge From="72" To="73" Label="Source1" />
+      <Edge From="73" To="74" Label="Source1" />
+      <Edge From="74" To="75" Label="Source1" />
+      <Edge From="75" To="76" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>
