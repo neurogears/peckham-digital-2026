@@ -13,12 +13,10 @@ There are two workflows. `PanTilt` follows an object found by thresholding the i
 
 ## Setup
 
-These workflows need `Bonsai.Arduino` and, for `PanTiltML`, the ONNX Runtime, so they have their own environment in this folder.
+These workflows need `Bonsai.Arduino` and, for `PanTiltML`, the ONNX Runtime. Both are already in the workshop environment from [Getting Started](../../worksheets/01-getting-started.md).
 
-1. In the unzipped workshop folder, open `docs/examples/pan-tilt/.bonsai`.
-2. Double-click `Setup.cmd`. It downloads Bonsai and the packages, and closes when finished.
-3. Double-click `Bonsai.exe` in that folder, then open either workflow from `docs/examples/pan-tilt`.
-4. Plug in the Arduino and find its port in Device Manager under Ports (COM & LPT). Double-click `ArduinoResources`, select `CreateArduino` and set `PortName` to that port. It is saved as `COM5`.
+1. Open the workshop `Bonsai.exe`, then open either workflow from `docs/examples/pan-tilt`.
+2. Plug in the Arduino and find its port in Device Manager under Ports (COM & LPT). Double-click `ArduinoResources`, select `CreateArduino` and set `PortName` to that port. It is saved as `COM5`.
 
 `PanTiltML` also needs a detection model, which is not stored in the repository. First, you should install [uv](https://docs.astral.sh/uv/), and then run the `export_onnx.py` to download the YOLO model weights and write them to `models/yolo26n.onnx` beside the workflow:
 

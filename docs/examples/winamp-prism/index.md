@@ -2,7 +2,7 @@
 
 MilkDrop is the visualizer that shipped with Winamp: a full-screen pattern that warps, echoes and pulses in time with whatever is playing. What it draws is decided by a *preset*, a text file that describes a shader program. There were many authors of these presets, and each preset generated a unique look and feel for reacting to audio, and credit goes to them for actually doing the hard work to design these visuals.
 
-The idea behind `Bonsai.Prism` is to bring these visual presets into Bonsai. At it's core, it uses the same framework that was introduced in [exercise 12](../../worksheets/02-live-demo.md#exercise-12-winamp-visualizer). A generic engine provides the plumbing that all presets expect (buffered audio waveforms, bass, treble, etc), and preset's shaders become GLSL that the `Bonsai.Shaders` package uses to render. A converter takes the original text-based preset files and spits out a composable Bonsai workflow you can open, read and edit like any other. The `Bonsai.Prism.Presets` package is a collection of over five hundred preset files that have been converted into Bonsai workflows, with presets loosely grouped by author. Credit goes to all the authors for making these amazing visuals.
+The idea behind `Bonsai.Prism` is to bring these visual presets into Bonsai. At its core, it uses the same framework that was introduced in [exercise 14](../../worksheets/02-live-demo.md#exercise-14-winamp-visualizer). A generic engine provides the plumbing that all presets expect (buffered audio waveforms, bass, treble, etc), and preset's shaders become GLSL that the `Bonsai.Shaders` package uses to render. A converter takes the original text-based preset files and spits out a composable Bonsai workflow you can open, read and edit like any other. The `Bonsai.Prism.Presets` package is a collection of over five hundred preset files that have been converted into Bonsai workflows, with presets loosely grouped by author. Credit goes to all the authors for making these amazing visuals.
 
 This demo is a curated list of presets, put under the control of eight faders of a MIDI controller so they can be mixed into each other live.
 
@@ -18,17 +18,15 @@ Everything per-frame sits inside a gate driven by the preset's `Weight`. At weig
 
 ## Hardware
 
-* A Korg nanoKONTROL2. The demo reads its eight faders on MIDI control numbers 0 to 7, and the two track buttons on control numbers 58 and 59. Any controller that sends those control numbers works; any other controller works too once the numbers in `Devices` are changed to match. You can easily extend this to connect different buttons, knobs, sliders, or whatever to different behaviors, like triggering switches between presents, ramping up or down different uniforms, etc.
+* A Korg nanoKONTROL2. The demo reads its eight faders on MIDI control numbers 0 to 7, and the two track buttons on control numbers 58 and 59. Any controller that sends those control numbers works; any other controller works too once the numbers in `Devices` are changed to match. You can easily extend this to connect different buttons, dials, sliders, or whatever to different behaviours, like triggering switches between presets, ramping up or down different uniforms, etc.
 * Speakers or headphones playing something, or a microphone to capture audio. The demo only needs to be able to stream audio output from somewhere, and the data streams are agnostic to whether that comes from a microphone, headphones, or anything else. Put on a track with a strong beat and see!
 
 ## Setup
 
-This demo needs `Bonsai.Prism`, the preset package, and a handful of release candidates that are not yet published, so it has its own environment in this folder and pulls those packages from `packages/` at the top of the repository.
+This demo needs `Bonsai.Prism`, the preset package, and a handful of release candidates that are not yet published. The workshop environment from [Getting Started](../../worksheets/01-getting-started.md) already has them; it installs the release candidates from `packages/` at the top of the repository.
 
-1. In the unzipped workshop folder, open `docs/examples/winamp-prism/.bonsai`.
-2. Double-click `Setup.cmd`. It downloads Bonsai and the packages and closes when finished. The preset package is large, so expect this one to take a while.
-3. Double-click `Bonsai.exe` in that folder, then open `WinampPrism.bonsai` from `docs/examples/winamp-prism`.
-4. Select the `Devices` group and look at the properties panel. `DeviceName` is the audio device to capture and is saved as a loopback device belonging to one particular laptop. Speakers or headphones ending in `[Loopback]` will capture streams that are being played through a device, whereas choosing a microphone will capture streams coming from outside. `MidiDevice` is the controller, saved as `nanoKONTROL2 _ CTRL`.
+1. Open the workshop `Bonsai.exe`, then open `WinampPrism.bonsai` from `docs/examples/winamp-prism`.
+2. Select the `Devices` group and look at the properties panel. `DeviceName` is the audio device to capture and is saved as a loopback device belonging to one particular laptop. Speakers or headphones ending in `[Loopback]` will capture streams that are being played through a device, whereas choosing a microphone will capture streams coming from outside. `MidiDevice` is the controller, saved as `nanoKONTROL2 _ CTRL`.
 
 ## WinampPrism
 
@@ -59,7 +57,7 @@ Audio in and MIDI in.
 
 ### AudioProcessing
 
-Also included from `Bonsai.Prism`. This is the audio streams get processed into numbers that the equations actually read come from. `BufferedAudio` goes through a `DiscreteFourierTransform` and `Magnitude` to a spectrum, which `EqualizeSpectrum` normalises into the `Spectrum` texture. The spectrum is then split into three bands, bins 1 to 6 for `Bass`, 6 to 46 for `Mid`, 46 up for `Treble`, each published twice: once as the band's current power, and once through an `IirFilter` as a slow-moving average, which is the `*Attack` variant. `Beat` is the ratio between the two on the bass band, clamped: it rises when the bass jumps above its own running average and sits at zero the rest of the time. 
+Also included from `Bonsai.Prism`. This is where the audio stream is turned into the numbers the equations actually read. `BufferedAudio` goes through a `DiscreteFourierTransform` and `Magnitude` to a spectrum, which `EqualizeSpectrum` normalises into the `Spectrum` texture. The spectrum is then split into three bands, bins 1 to 6 for `Bass`, 6 to 46 for `Mid`, 46 up for `Treble`, each published twice: once as the band's current power, and once through an `IirFilter` as a slow-moving average, which is the `*Attack` variant. `Beat` is the ratio between the two on the bass band, clamped: it rises when the bass jumps above its own running average and sits at zero the rest of the time. 
 
 ### Controller
 
@@ -82,7 +80,7 @@ Which eight presets the faders are holding.
 * Press the track buttons to move the bank eight places along the shuffled deck and go hunting. The deck is 165 presets long and wraps, so there is a lot to get through.
 * Watch what the music is doing to the picture. Some presets will barely move without a beat; others are mostly time-driven and will look the same with the audio muted. The difference is whether the preset's equations read `bass`, `treb` and `beat` at all, and you can check by opening the preset workflow and looking for those subjects.
 * Right-click a preset in the `Presets` chain and choose "Go to Definition" to open it. The resource configuration and the weight path are at the top, and the gated region below holds one small branch per equation variable. Find the branch that ends in a `TryUpdateUniform` named `zoom` and change the expression feeding it.
-* **Question:** the eight faders are the only way in, and they are wired to the presets through names rather than positions. What else in the workshop could write to `WeightedPresets`? A `Beat` threshold, the camera from Exercise 4 of [The Live Demo](../../worksheets/02-live-demo.md), the pose measurements from [MoveNet](../movenet/index.md) — any of them is a few operators from driving the mix.
+* **Question:** the eight faders are the only way in, and they are wired to the presets through names rather than positions. What else in the workshop could write to `WeightedPresets`? A `Beat` threshold, the camera from Exercise 4 of [The Live Demo](../../worksheets/02-live-demo.md), the pose measurements from [MoveNet](../movenet/index.md): any of them is a few operators from driving the mix.
 
 > [!TIP]
 > Every loaded preset allocates its own feedback and work textures at the window's size whether or not it is drawing, so 165 presets in a large window is a lot of video memory. If the window is slow or the editor struggles, raise `Width` and `Height` only once you have trimmed the `Presets` chain down to the handful you want to show.
