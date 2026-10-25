@@ -706,7 +706,7 @@
       </Expression>
       <Expression xsi:type="GroupWorkflow">
         <Name>TouchDesigner</Name>
-        <Description>Five body measurements, each squeezed to 0 to 1 and sent to one knob of the Ember Pulse patch on UDP port 8000.</Description>
+        <Description>Five body measurements, each squeezed to 0 to 1 and sent to one dial of the Ember Pulse patch on UDP port 8000.</Description>
         <Workflow>
           <Nodes>
             <Expression xsi:type="Combinator">
