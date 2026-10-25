@@ -6,7 +6,7 @@ Do this **before** the workshop if you can.
 
 - A laptop running Windows 10 or later. Bonsai runs on Linux too, but the editor and visualizers are most reliable on Windows. We are working on this!
 - A webcam and a microphone. The built-in ones are fine.
-- About 1 GB of free disk space.
+- About 3 GB of free disk space. The workshop environment is a large download, so please set it up at home if you can; the venue wifi will be slow with everyone downloading at once.
 
 > [!TIP]
 > No Windows machine? You are still very welcome. Follow along on the big screen and pair up with a neighbour for the hands-on part.
@@ -15,11 +15,10 @@ Do this **before** the workshop if you can.
 
 The workshop has its own Bonsai environment with every package we use already pinned. It lives in a folder, not in your system. It is completely self-contained and you can delete it afterwards.
 
-1. Download the repository as a zip from [github.com/neurogears/peckham-digital-2026](https://github.com/neurogears/peckham-digital-2026) (green **Code** button, then **Download ZIP**) and unzip it somewhere easy to find.
+1. Download the repository as a zip from [github.com/neurogears/peckham-digital-2026](https://github.com/neurogears/peckham-digital-2026) (green **Code** button, then **Download ZIP**) and unzip it somewhere easy to find. This is your workshop folder.
 2. Open the `.bonsai` folder inside it. If you cannot see it, turn on **View > Hidden items** in File Explorer.
-3. Double-click `Setup.cmd`. A console window appears, downloads Bonsai, its packages and everything else you need to run and edit all the workflows in this repository. This takes a few minutes.
-4. Double-click `Bonsai.exe` in the same folder to open the editor.
-5. Choose **File > Open** and open `playground.bonsai` from the top of the workshop folder. It is a blank canvas, running in the environment built by the script you just ran. Here you can build, edit and code as you like. The worksheet's workflows are all copy-pasteable directly onto the canvas. 
+3. Double-click `Setup.cmd`. A console window appears, downloads Bonsai, its packages and everything else you need to run and edit all the workflows in this repository. This can take a while on a slow connection.
+4. Double-click `Bonsai.exe` in the same folder to open the editor. It opens on a blank canvas, running in the environment the script just built. Here you can build, edit and code as you like.
 
 > [!WARNING]
 > Windows may show a "protected your PC" dialog when you run `Setup.cmd`. Click **More info**, then **Run anyway**. We promise there's nothing malicious here, and downloads will only go into this folder, so you can completely delete them later if you wish. 
@@ -64,7 +63,7 @@ Read the [editor guide](https://bonsai-rx.org/docs/articles/editor.html). The sh
 
 ### **Exercise 3:** Save and reopen
 
-* **File > Save** the workflow as `hello.bonsai` in the unzipped repository folder.
+* **File > Save** the workflow as `hello.bonsai` in the workshop folder (the top of the unzipped download, next to the `.bonsai` folder).
 * Close Bonsai, open it again, and reopen the file from **File > Recent**.
 * Notice it remembers which visualizers you had open and their settings.
 
