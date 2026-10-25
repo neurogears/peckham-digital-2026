@@ -10,8 +10,7 @@ Bonsai plays Bach's Contrapunctus IX from *The Art of Fugue* as MIDI notes into 
 
 ## Setup
 
-The `Bonsai.MidiSequencing` package is in the workshop environment from [Getting Started](../../worksheets/01-getting-started.md). If you set up before this demo was added, run `Setup.cmd` again to install it.
-
+The `Bonsai.MidiSequencing` package is in the workshop environment from [Getting Started](../../worksheets/01-getting-started.md).
 1. Open loopMIDI and add a port with the **+** button.
 2. In your synth, set the MIDI input to the loopMIDI port. Give channels 1 to 4 an instrument each, and map control changes 20 and 21 to any two dials you like.
 3. Open the workshop `Bonsai.exe`, then open `midi-conductor.bonsai` from `docs/examples/midi`.
