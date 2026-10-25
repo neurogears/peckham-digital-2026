@@ -19,9 +19,9 @@ puts the workflow XML on the clipboard. So nothing but the `.bonsai` files needs
 - Name files after the worksheet and exercise they belong to: `02-live-demo-03.bonsai` is
   worksheet 2, exercise 3.
 - The GLSL files the shader exercises load live in `shaders/` at the repository root, not
-  here. Material paths are relative to Bonsai's working folder, which is the folder of
-  the open workflow. Participants open the empty `playground.bonsai` at the root, so the
-  root is always the working folder.
+  here. Material paths are relative to Bonsai's working folder, which is the folder the
+  open workflow is saved in. Participants save their workflow (`hello.bonsai`) at the
+  root, so the root is the working folder.
 
 ## Status
 
@@ -36,15 +36,14 @@ puts the workflow XML on the clipboard. So nothing but the `.bonsai` files needs
 | `02-live-demo-05.bonsai` | | 5 Acquire audio (publishes `Audio`) | renders |
 | `02-live-demo-06.bonsai` | | 6 Loudness | renders |
 | `02-live-demo-07.bonsai` | | 7 Spectrum | renders |
-| `02-live-demo-08.bonsai` | | 8 Sound draws the lines | renders |
+| `02-live-demo-08.bonsai` | | 8 Volume decides the thresholds | renders |
 | `02-live-demo-09.bonsai` | | 9 A sensor and an LED (Arduino, standalone) | renders |
-| `02-live-demo-10.bonsai` | | 10 Out to the world (OSC to TouchDesigner) | renders |
-| `02-live-demo-11.bonsai` | | 11 Camera on the GPU | renders |
-| `02-live-demo-12.bonsai` | | 12 Warp | renders |
-| `02-live-demo-13.bonsai` | | 13 Keyboard (branch to paste beside 12) | renders |
-| `02-live-demo-14.bonsai` | | 14 Mouse (branch to paste beside 12) | renders |
-| `02-live-demo-15.bonsai` | | 15 Winamp Visualizer (Nick, a standalone workflow) | renders |
-| `../../shaders/quad.vert` | | 11, 12 | |
-| `../../shaders/camera.frag` | | 11, 12 | |
-| `../../shaders/warp.frag`, `copy.frag`, `screen.frag` | | 15 | |
-| `../../shaders/waveform.vert`, `waveform.frag` | | 15 | |
+| `02-live-demo-10.bonsai` | | 10 Send to other programs (OSC to TouchDesigner) | renders |
+| `02-live-demo-11.bonsai` | | 11 Warp | renders |
+| `02-live-demo-12.bonsai` | | 12 Keyboard (branch to paste beside 11) | renders |
+| `02-live-demo-13.bonsai` | | 13 Mouse (branch to paste beside 11) | renders |
+| `02-live-demo-14.bonsai` | | 14 Winamp Visualizer (Nick; subscribes to `Audio`, clashes with 11) | renders |
+| `../../shaders/quad.vert` | | 11 | |
+| `../../shaders/camera.frag` | | 11 | |
+| `../../shaders/warp.frag`, `copy.frag`, `screen.frag` | | 14 | |
+| `../../shaders/waveform.vert`, `waveform.frag` | | 14 | |
