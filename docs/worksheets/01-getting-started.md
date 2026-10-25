@@ -18,7 +18,8 @@ The workshop has its own Bonsai environment with every package we use already pi
 1. Download the repository as a zip from [github.com/neurogears/peckham-digital-2026](https://github.com/neurogears/peckham-digital-2026) (green **Code** button, then **Download ZIP**) and unzip it somewhere easy to find. This is your workshop folder.
 2. Open the `.bonsai` folder inside it. If you cannot see it, turn on **View > Hidden items** in File Explorer.
 3. Double-click `Setup.cmd`. A console window appears, downloads Bonsai, its packages and everything else you need to run and edit all the workflows in this repository. This can take a while on a slow connection.
-4. Double-click `Bonsai.exe` in the same folder to open the editor. It opens on a blank canvas, running in the environment the script just built. Here you can build, edit and code as you like.
+4. Double-click `Bonsai.exe` in the same folder to open the editor.
+5. Choose **File > Open** and open `playground.bonsai` from the top of the workshop folder. It is a blank canvas, running in the environment built by the script you just ran. Here you can build, edit and code as you like.
 
 > [!WARNING]
 > Windows may show a "protected your PC" dialog when you run `Setup.cmd`. Click **More info**, then **Run anyway**. We promise there's nothing malicious here, and downloads will only go into this folder, so you can completely delete them later if you wish. 

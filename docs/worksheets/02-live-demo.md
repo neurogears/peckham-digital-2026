@@ -185,7 +185,7 @@ So far the CPU has done all the work. A **shader** is a small program that runs 
 
 A shader is two text files, both in the `shaders` folder at the top of the workshop folder. `quad.vert` stretches a rectangle over the whole window and `camera.frag` decides the colour of every pixel in that rectangle. Before it can draw, Bonsai needs to know three things: which shader to use, which image to hand it, and what shape to draw it on.
 
-Save your workflow in the workshop folder (as you did with `hello.bonsai`) before you run it, because the shader files are found relative to it.
+Keep working in `playground.bonsai`, or another workflow saved in the workshop folder, because the shader files are found relative to it.
 
 ### **Exercise 11:** Warp
 

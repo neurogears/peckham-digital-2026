@@ -19,9 +19,9 @@ puts the workflow XML on the clipboard. So nothing but the `.bonsai` files needs
 - Name files after the worksheet and exercise they belong to: `02-live-demo-03.bonsai` is
   worksheet 2, exercise 3.
 - The GLSL files the shader exercises load live in `shaders/` at the repository root, not
-  here. Material paths are relative to Bonsai's working folder, which is the folder the
-  open workflow is saved in. Participants save their workflow (`hello.bonsai`) at the
-  root, so the root is the working folder.
+  here. Material paths are relative to Bonsai's working folder, which is the folder of
+  the open workflow. Participants open the empty `playground.bonsai` at the root, so the
+  root is always the working folder.
 
 ## Status
 
