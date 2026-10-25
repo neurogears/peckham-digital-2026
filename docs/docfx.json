@@ -43,6 +43,7 @@
     "globalMetadata": {
       "_appName": "NeuroGEARS",
       "_appTitle": "NeuroGEARS",
+      "_appLogoUrl": "https://neurogears.org",
       "_appFooter": "&copy; Developed by <a href=\"https://neurogears.org\">NeuroGEARS Ltd</a> for the Peckham Digital, Festival of Creative Computing 2026",
       "_enableNewTab": true,
       "_enableSearch": true,
