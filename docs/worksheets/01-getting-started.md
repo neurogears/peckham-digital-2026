@@ -6,7 +6,7 @@ Do this **before** the workshop if you can.
 
 - A laptop running Windows 10 or later. Bonsai runs on Linux too, but the editor and visualizers are most reliable on Windows. We are working on this!
 - A webcam and a microphone. The built-in ones are fine.
-- About 3 GB of free disk space. The workshop environment is a large download, so please set it up at home if you can; the venue wifi will be slow with everyone downloading at once.
+- About 2 GB of free disk space. Setup downloads several hundred megabytes, so please set it up at home if you can; the venue wifi will be slow with everyone downloading at once.
 
 > [!TIP]
 > No Windows machine? You are still very welcome. Follow along on the big screen and pair up with a neighbour for the hands-on part.
